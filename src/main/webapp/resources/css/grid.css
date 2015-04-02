@@ -1,0 +1,147 @@
+.grid
+{
+    font-size: 0;
+    list-style:none;
+    margin-bottom:0;
+    margin-left:-20px;
+}
+
+.grid *, .grid *:before, .grid *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.grid>.grid
+{
+    margin-left:0;
+}
+
+.grid__item
+{
+    display: inline-block;
+    font-size: 14px;
+    padding-left:20px;
+    vertical-align:top;
+    width:100%;
+}
+
+.one-whole
+{
+    width:100%;
+}
+
+.one-half,.two-quarters,.three-sixths,.four-eighths,.five-tenths,.six-twelfths
+{
+    width:50%;
+}
+
+.one-third,.two-sixths,.four-twelfths
+{
+    width:33.333%;
+}
+
+.two-thirds,.four-sixths,.eight-twelfths
+{
+    width:66.666%;
+}
+
+.one-quarter,.two-eighths,.three-twelfths
+{
+    width:25%;
+}
+
+.three-quarters,.six-eighths,.nine-twelfths
+{
+    width:75%;
+}
+
+.one-fifth,.two-tenths
+{
+    width:20%;
+}
+
+.two-fifths,.four-tenths
+{
+    width:40%;
+}
+
+.three-fifths,.six-tenths
+{
+    width:60%;
+}
+
+.four-fifths,.eight-tenths
+{
+    width:80%;
+}
+
+.one-sixth,.two-twelfths
+{
+    width:16.666%;
+}
+
+.five-sixths,.ten-twelfths
+{
+    width:83.333%;
+}
+
+.one-eighth
+{
+    width:12.5%;
+}
+
+.three-eighths
+{
+    width:37.5%;
+}
+
+.five-eighths
+{
+    width:62.5%;
+}
+
+.seven-eighths
+{
+    width:87.5%;
+}
+
+.one-tenth
+{
+    width:10%;
+}
+
+.three-tenths
+{
+    width:30%;
+}
+
+.seven-tenths
+{
+    width:70%;
+}
+
+.nine-tenths
+{
+    width:90%;
+}
+
+.one-twelfth
+{
+    width:8.333%;
+}
+
+.five-twelfths
+{
+    width:41.666%;
+}
+
+.seven-twelfths
+{
+    width:58.333%;
+}
+
+.eleven-twelfths
+{
+    width:91.666%;
+}

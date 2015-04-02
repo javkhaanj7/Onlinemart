@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <body>
+        <ui:composition>
+            <div class="header">
+                <div class="inner">
+                    <div class="TopMenu">
+                        <div class="inner">
+                            <ul style="display:">
+                                <li style="display:" class="First">
+                                    <a href="#">My Account</a>
+                                </li>
+                                <li class="last" style="display:" id="LoginOrLogoutText">
+                                    <div><a href="login.xhtml" onclick="">Sign in</a> or <a href="#" onclick="">Create an account</a></div>
+                                </li>
+                            </ul>
+                            <div id="SearchForm">
+                                <form action="#" method="get" onsubmit="">
+                                    <label for="search_query">Search</label>
+                                    <button type="submit" class="Button" value="" name="Search" title="Search">
+                                        <i class="fa fa-search"></i> 
+                                    </button>
+                                    <input type="text" name="search_query" id="search_query" class="Textbox autobox default" value="Search" autocomplete="off" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Header">
+                        <div class="inner">
+                            <div id="ToggleMenu" class="normal fa fa-bars"></div>
+                            <div class="Left fleft">
+                                <div class="header-logo"> 	
+                                    <div id="LogoContainer">
+                                        <h1><a href="#"><span class="Logo1stWord">OnlineMart</span></a></h1>
+                                    </div> </div>
+                            </div>
+                            <div class="Content Widest" id="LayoutColumn1">
+                                <div class="PageMenu">
+                                    <ul class="pages-menu sf-menu sf-horizontal sf-js-enabled">
+                                        <li class="">
+                                            <a href="#">About Us</a>
+                                        </li>	
+                                        <li class="">
+                                            <a href="#">Contact Us</a>
+                                        </li>
+                                    </ul></div>
+                                <div class="header-secondary">
+                                    <a href="#" title="View Cart"><div class="CartLink" style="display:"> <i class="icon fa fa-shopping-cart" title="View Cart">&nbsp;</i><span>0</span></div></a>
+                                </div>
+                                <div id="cart-amount"> <a href="#" class="Cart"><span class="bag-handle"></span><span class="total"></span></a> </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </ui:composition>
+    </body>
+</html>
+
+

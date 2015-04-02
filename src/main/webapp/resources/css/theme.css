@@ -1,0 +1,521 @@
+/**
+ *   Bigcommerce Blueprint
+ *   Style Variables
+ */
+/**
+ *   Bigcommerce Blueprint
+ *   Style Initialisation
+ */
+.SortBox,
+.AddToWishlistLink .wishlist-button {
+  color: #000000;
+}
+.TopMenu {
+  color: #f3f3f3;
+  background: #62c15b;
+}
+.TopMenu li {
+  /*border-right: 1px solid lighten(@top-header-background-color,25%);*/
+}
+.TopMenu a {
+  color: #f3f3f3;
+}
+.TopMenu a:hover {
+  color: #000000;
+}
+#SearchForm input.Textbox {
+  color: #f3f3f3;
+}
+.CartLink {
+  color: #f3f3f3;
+  background: none;
+}
+.CartLink:hover {
+  background: #000000;
+}
+.CartLink .icon {
+  color: #f3f3f3;
+}
+.PageMenu .inner {
+  background: #cccccc;
+}
+.PageMenu li ul {
+  background: #62c15b;
+}
+.PageMenu a {
+  color: #f3f3f3;
+}
+.PageMenu li ul li a {
+  color: #f0f9ef;
+}
+.header {
+  background: #f3f3f3;
+}
+.page {
+  background: #f3f3f3;
+}
+.footer {
+  background: #000000;
+}
+.footer-links {
+  background: #000000;
+  color: #666666;
+}
+.footer-links a {
+  color: #666666;
+}
+.footer-links a:hover {
+  color: #62c15b;
+}
+.footer-main,
+.footer-main a {
+  color: #666666;
+  font-size: 12px;
+}
+.footer-main .treeview li a {
+  color: #666666;
+}
+.newsletter-subscription {
+  background-color: #000000;
+  border-bottom: solid 1px #e4e4e4;
+}
+body,
+input,
+select,
+textarea,
+input.Textbox,
+input[type="text"],
+#SearchForm input,
+.HorizontalFormContainer dd .selector span,
+.fastCartTop div,
+.list-icon li {
+  color: #000000;
+}
+#ModalContent,
+.ModalContent,
+.CurrencyChooser a span {
+  color: #000000 !important;
+}
+a,
+.Left li li a,
+.Left #SideCategoryList li a,
+.Left .slist li a,
+.Left .afterSideShopByBrand a,
+.Left #GiftCertificatesMenu li a,
+.Left #SideAccountMenu li a,
+.Left #SideCategoryList li li a,
+.Left .slist li li a,
+.TabNav li.Active a,
+.ModalContent h4 a:hover,
+p a:hover {
+  color: #000000;
+}
+.header-logo a {
+  color: #f3f3f3;
+}
+.page-content #LayoutColumn2 a.pname,
+#ModalContent a,
+.ModalContent a,
+.recaptchatable a {
+  color: #000000;
+}
+.ModalContent a.btn {
+  color: #f3f3f3 !important;
+}
+.ModalContent a.btn:hover {
+  color: #666666 !important;
+}
+.ModalContent a.btn.cta:hover:hover {
+  color: #62c15b !important;
+}
+.Left li a.active:hover {
+  border-color: #000000;
+}
+.icon-add:hover {
+  /* background-color: @link-color !important;*/
+}
+.multiStep li a {
+  color: #404040;
+}
+.Left li a.active,
+a:hover,
+a.alt,
+p a,
+a.NextLink,
+.BulkDiscountLink a,
+.currency-converter p span,
+.BlockContent.PageContent a,
+.Left #SideCategoryList li a:hover,
+.Left .slist li a:hover,
+.Left .afterSideShopByBrand a:hover,
+.Left #GiftCertificatesMenu li a:hover,
+.Left #SideAccountMenu li a:hover,
+.PageMenu li ul li a:hover,
+.footer a:hover,
+.TabNav li.Active a:hover {
+  color: #62c15b;
+}
+.recaptchatable a:hover,
+.page-content #LayoutColumn2 a.pname:hover,
+#ModalContent a:hover,
+.ModalContent a:hover {
+  color: #62c15b;
+}
+a.alt:hover {
+  color: #000000;
+}
+.multiStep li.ActivePage h4 {
+  border-bottom: 4px solid #62c15b;
+}
+.icon-add {
+  /*background: @link-color-alt url("../images/add.png") no-repeat scroll 50% 50%;*/
+}
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  font-family: 'Raleway', sans-serif;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+.CartContents .SubTotal.OrderGrandTotalColor div {
+  color: #62c15b;
+}
+h1,
+.h1 {
+  color: #62c15b;
+}
+.productOptionViewProductPickListWithImage td {
+  border-bottom: 1px dotted #e4e4e4;
+}
+.TopMenu li.Flag img.Selected {
+  border: 2px solid #e4e4e4;
+}
+.productOptionViewRectangle .option.selectedValue label {
+  border: 1px solid #b1b1b1 !important;
+}
+.productOptionPickListSwatch .selectedValue .textureContainer,
+.productOptionPickListSwatch .selectedValue .swatchColours {
+  border: 1px solid #e4e4e4 !important;
+  border-color: #3e3e3e !important;
+}
+.productOptionPickListSwatch .textureContainer,
+.productOptionPickListSwatch .swatchColours,
+.productOptionViewRectangle .option label,
+.recaptchatable #recaptcha_response_field,
+.zoomWrapper {
+  border: 1px solid #e4e4e4 !important;
+}
+.CurrencyList dd,
+#SearchForm .Button,
+#SearchForm input.Textbox,
+select,
+hr,
+input.Textbox,
+textarea,
+input[type="text"],
+input[type="password"],
+.QuickSearch,
+.SharePublicWishList,
+.ExpressCheckoutBlock .ExpressCheckoutTitle,
+.TabNav li a,
+.HowToPay,
+.NotifyMessage,
+.QuickSearchResult .QuickSearchResultImage,
+.CurrencyChooser,
+.selected-currency,
+div.uploader,
+div.selector,
+.recaptchatable {
+  border: 1px solid #e4e4e4;
+}
+.ExpressCheckoutBlockCompleted .ExpressCheckoutCompletedContent,
+div.uploader span.action {
+  border-left: 1px solid #e4e4e4;
+}
+.TitleHeading,
+.TabNav {
+  border-bottom: 1px solid #e4e4e4;
+}
+.ProductList.List .ProductDetails {
+  border-top: 1px solid #e4e4e4;
+}
+.btn {
+  background-color: #000000;
+  color: #f3f3f3;
+  border: 2px solid #000000;
+  font-family: 'Raleway', sans-serif;
+}
+.btn:hover {
+  background-color: #f3f3f3;
+  color: #000000;
+}
+.btn.alt {
+  background-color: #999999;
+  color: #f3f3f3;
+  border: 2px solid #999999;
+}
+a.btn.alt {
+  color: #f3f3f3;
+}
+.btn.alt:hover {
+  background-color: #f3f3f3;
+  color: #999999;
+}
+.btn.cta {
+  background-color: #62c15b;
+  color: #f3f3f3;
+  border: 2px solid #62c15b;
+}
+a.btn.cta {
+  color: #f3f3f3;
+}
+.btn.cta:hover {
+  background-color: #f3f3f3;
+  color: #62c15b;
+}
+.btn.text {
+  color: #000000;
+}
+.TopMenu > .inner,
+#Header > .inner,
+.PageMenu > .inner,
+.main > .inner,
+.footer-main > .inner,
+.footer-links > .inner,
+.newsletter-subscription > .inner {
+  max-width: auto;
+  width: 90%;
+}
+#home .ProductList li,
+.productPage .ProductList li,
+.ProductList li {
+  /*width: @product-column-width;*/
+  width: 240px;
+  /*background:@page-background-color;*/
+}
+table {
+  border: 1px solid #f3f3f3;
+}
+.CartCode .CouponCode,
+.CartCode .GiftCertificate {
+  border: 1px solid #e4e4e4;
+}
+.CartCode .CouponCode h4,
+.CartCode .GiftCertificate h4 {
+  background: #e4e4e4;
+}
+.CheckoutRedeemCouponWrapper {
+  background: #f3f3f3;
+  border: 1px solid #000000;
+}
+.ExpressCheckoutBlock .ExpressCheckoutTitle {
+  background: #e4e4e4;
+}
+.StepNumber {
+  background: #62c15b;
+  border: 3px solid #62c15b;
+  color: #f3f3f3;
+}
+.ExpressCheckoutBlock.ExpressCheckoutBlockCollapsed .StepNumber {
+  background: #e4e4e4;
+  color: #62c15b;
+}
+.ExpressCheckoutBlockCompleted .ExpressCheckoutCompletedContent {
+  color: #000000;
+}
+.fastCartSummaryBox {
+  background: #e4e4e4;
+}
+.ToggleSearchFormLink a:hover,
+.ToggleSearchFormLink:hover a {
+  color: #000000;
+}
+.AdvancedSearch h3 {
+  border-bottom: solid 1px #e4e4e4;
+}
+.ProductReviewForm h5 {
+  border-bottom: solid 1px #e4e4e4;
+}
+.Left h4,
+.Right h4 {
+  background: none;
+  border-bottom: 1px solid #62c15b;
+}
+.Right li {
+  border-bottom: 1px solid #ededed;
+}
+.ReturnsList li {
+  border-bottom: solid 1px #e4e4e4;
+}
+#share-product ul li.active {
+  background: #e4e4e4;
+}
+#share-product ul li:hover {
+  color: #62c15b;
+}
+#QuickViewProductDetails h4 a:hover {
+  color: #62c15b;
+}
+/* --- Responsive --- */
+/* 768px */
+@media screen and (max-width: 768px) {
+  .TabNav li.Active a {
+    border-bottom: 1px solid #e4e4e4;
+  }
+  .slide-button .btn {
+    background: #e4e4e4;
+  }
+  ul#ProductTabsList.TabNav li a,
+  .TabNav li a {
+    background: #f3f3f3;
+  }
+  ul#ProductTabsList.TabNav li.Active a,
+  .TabNav li.Active a {
+    background: #e4e4e4;
+  }
+  #ToggleMenu.active {
+    background: #000000;
+    color: #f3f3f3;
+  }
+  .slide-show .slide-overlay {
+    background: #e4e4e4;
+    color: #f3f3f3;
+  }
+  .header-secondary {
+    background: #000000;
+  }
+  #ModalContainer,
+  div#fancy_outer {
+    background: #f3f3f3;
+  }
+  #Header {
+    background: #e4e4e4;
+  }
+  #cart-amount .Cart .total {
+    color: #f3f3f3;
+  }
+  .Breadcrumb li a {
+    color: #000000;
+  }
+  .Breadcrumb li a:hover {
+    color: #62c15b;
+  }
+  #SideAccountMenuMobile:after,
+  #GiftCertificatesMenuMobile:after {
+    border-bottom: 1px solid #e4e4e4;
+  }
+  .header-logo-mobile {
+    border-bottom: 1px solid #e4e4e4;
+    border-top: 1px solid #e4e4e4;
+  }
+  .TitleHeading,
+  .TabNav {
+    border-bottom: 1px solid #e4e4e4;
+  }
+  .CartLink .icon {
+    color: #f3f3f3;
+  }
+}
+/* 600px */
+@media screen and (max-width: 600px) {
+  .BillingDetails,
+  .ShippingDetails {
+    border-top: 1px solid #e4e4e4;
+  }
+}
+/* 480px */
+@media screen and (max-width: 480px) {
+  #cart-amount .Cart .total {
+    background: #000000;
+    color: #f3f3f3;
+  }
+  #cart-amount .Cart .bag-handle {
+    border: 2px solid #000000;
+  }
+  #Header {
+    background: #e4e4e4;
+  }
+  .PageMenu .inner {
+    background: #f3f3f3;
+  }
+  .header-secondary #SearchForm input.Textbox {
+    color: #999999;
+  }
+}
+@media screen and (max-width: 767px) {
+  #ProductDetails .ProductTinyImageList ul li {
+    background: #000000;
+  }
+  .header-secondary {
+    background: #000000;
+  }
+  #cart-amount .Cart .total {
+    color: #f3f3f3;
+  }
+  .footer-links > .inner {
+    border-top: 1px solid #000000;
+  }
+}
+@media screen and (min-width: 0px) and (max-width: 320px) {
+  .OrderContents .CartContents.General tbody tr:after,
+  #OrderConfirmationForm .CartContents tr:after {
+    color: #f3f3f3;
+  }
+}
+@media screen and (min-width: 769px) and (max-width: 839px) {
+  .BillingDetails {
+    border-bottom: 1px solid #e4e4e4;
+  }
+}
+#ModalContent a,
+.ModalContent a {
+  color: #62c15b !important;
+}
+#Header {
+  background: #000000;
+  margin-bottom: 50px;
+}
+/* --- Faceted Search --- */
+.facet-container {
+  border-top: 1px solid #dcdcdc;
+}
+.facet-container [class^="js-facet-clear"] {
+  color: #1a1a1a;
+}
+.facet-container [class^="js-facet-clear"]:hover {
+  color: #0d0d0d;
+}
+.facet-container .btn-facet-more-options.more {
+  color: #000000;
+}
+.facet-container .btn-facet-more-options.more:hover {
+  color: #62c15b;
+}
+.facet-container .facet-option a {
+  color: #000000;
+}
+.facet-container .facet-option .facet-option-product-count {
+  color: #1a1a1a;
+}
+.js-faceted-showing-container .facet-container {
+  border-top: 0;
+}
+.js-faceted-search-container > [class^='js-facet-']:last-of-type .facet-container {
+  border-bottom: 1px solid #dcdcdc;
+}
