@@ -12,55 +12,67 @@
         <ui:composition template="template/common/commonLayout.xhtml">
             <ui:define name="content">
                 <h2>Create an account</h2>
-                        <h:form>
+                <h:form>
+                    <div class="FormContainer HorizontalFormContainer">
+                        <dl>
                             <span class="error_list"></span>
-                            <div class="form-row"> 
+                            <dt><span class="Required">*</span>&nbsp; First name</dt>
+                            <dd>
                                 <h:inputText id="firstname" value="#{userBean.firstname}" label="firstname" p:placeholder="First name" size="75" required="true"
-                                             requiredMessage="Please enter your first name.">
+                                             requiredMessage="Please enter your first name." class="Textbox Field200">
                                     <f:validateRequired/>
                                 </h:inputText>
                                 <h:message for="firstname" class="error"/>
-                            </div>
-                            <div class="form-row"> 
+                            </dd>
+                            <dt><span class="Required">*</span>&nbsp; Last name</dt>
+                            <dd>
                                 <h:inputText id="lastname" value="#{userBean.lastname}" label="lastname" p:placeholder="Last name" size="75" required="true"
-                                             requiredMessage="Please enter your last name.">
+                                             requiredMessage="Please enter your last name." class="Textbox Field200">
                                     <f:validateRequired/>
                                 </h:inputText>
                                 <h:message for="lastname" class="error"/>
-                            </div>
-                            <div class="form-row"> 
+                            </dd>
+                            <dt><span class="Required">*</span>&nbsp; Username</dt>
+                            <dd>
                                 <h:inputText id="username" value="#{userBean.username}" label="username" size="25" p:placeholder="Username" required="true"
-                                             requiredMessage="Please enter your username.">
+                                             requiredMessage="Please enter your username." class="Textbox Field200">
                                     <f:validateRequired/>
                                 </h:inputText>
                                 <h:message for="username" class="error"/>
-                            </div>
-                            <div class="form-row"> 
+                            </dd>
+                            <dt><span class="Required">*</span>&nbsp; E-mail</dt>
+                            <dd>
                                 <h:inputText id="email" value="#{userBean.email}" label="email" p:placeholder="E-mail" size="40" required="true" 
                                              requiredMessage="Please enter your email address." validatorMessage="Invalid email format.">
-                                    <f:validateRegex pattern="(^.+@\w+[.]\w+$)"/>
+                                    <f:validateRegex pattern="(^.+@\w+[.]\w+$)" class="Textbox Field200"/>
                                 </h:inputText>
                                 <h:message for="email" class="error"/>
-                            </div>
-                            <div class="form-row"> 
+                            </dd>
+                            <dt><span class="Required">*</span>&nbsp; Phone</dt>
+                            <dd>
                                 <h:inputText id="phone" value="#{userBean.phone}" label="phone" p:placeholder="Phone" size="50" required="true" 
-                                             requiredMessage="Please enter your phone number.">
+                                             requiredMessage="Please enter your phone number." class="Textbox Field200">
                                     <f:validateRequired/>
                                 </h:inputText>
                                 <h:message for="phone" class="error"/>
-                            </div>
-                            <div class="form-row"> 
+                            </dd>
+                            <dt><span class="Required">*</span>&nbsp; Password</dt>
+                            <dd>
                                 <h:inputSecret id="password" value="#{userBean.password}" p:placeholder="Password" size="40" required="true" 
-                                             requiredMessage="Please enter your password.">
+                                             requiredMessage="Please enter your password." class="Textbox Field200">
                                     <f:validateRequired/>
                                 </h:inputSecret>
                                 <h:message for="password" class="error"/>
-                            </div>
-                            <div class="form-row">
-                                <h:commandButton value="Sign up" action="#{userBean.createUser}" class="btn btn-add"/>
-                                <h:commandButton value="Cancel" action="index" immediate="true" class="btn btn-add" style="margin: 0 10px;"/>
-                            </div> 
-                        </h:form>
+                            </dd>
+                            <dt></dt>
+                            <dd>
+                                <h:commandButton value="Create" action="#{userBean.createUser}" class="btn Small"/>
+                                <h:commandButton value="Cancel" action="index" immediate="true" class="btn Small" style="margin: 0 10px;"/>
+                            </dd>
+                        </dl>
+                    </div>
+                </h:form>
+                <div class="clear"></div>
             </ui:define>
         </ui:composition>
     </h:body>
