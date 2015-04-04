@@ -6,7 +6,6 @@
 package com.teamone.onlinemart.beans;
 
 import com.teamone.onlinemart.dao.UserDAO;
-import com.teamone.onlinemart.models.User;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -31,9 +30,8 @@ public class UserBean implements Serializable {
     }
     
     public String createUser (){
-        User user = new User(Integer.SIZE, firstname, lastname, username, email, phone, password);
-        UserDAO.create(user);
-        return "login?faces-redirect=true";
+        UserDAO.create(firstname, lastname, username, email, phone, password);
+        return "profile?faces-redirect=true";
     }
     
     /**

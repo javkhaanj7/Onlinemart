@@ -5,71 +5,39 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
-        <title>My Page</title>
+        <title>My Account</title>
     </h:head>
     <h:body>
-        <ui:composition template="/templates/masterLayout.xhtml">
-            <ui:define name="windowTitle">
-                #{msgs.loginTitle}
-            </ui:define>
-
+        <ui:composition template="template/common/commonLayout.xhtml">
             <ui:define name="content">
-                <div class="container">
-                    <div class="list-items">
-                        <p>
-                            <h:form>
-                                <h:commandLink value="My auctions" action="myAuction?faces-redirect=true"/>
-                            </h:form>
-                        </p>
-                        <ui:repeat value="#{itemBean.userItems}" var="item">
-                            <div class="list-item">
-                                <ui:repeat value="#{pictureBean.getItemPictures(item)}" var="picture" rendered="#{not empty pictureBean.getItemPictures(item)}" size="1">
-                                    <h:graphicImage value="#{picture.path}" width="160" />
-                                </ui:repeat>
-                                <h:graphicImage value="resources/images/default_product.png" width="160" rendered="#{empty pictureBean.getItemPictures(item)}" />
-                                <div class="item-info">
-                                    <h3>
-                                        <a title="Acer">#{item.name}</a>
-                                    </h3>
-                                    <h:form>
-                                        <h:commandButton class="btn btn-add" action="#{profileBean.seeItemDetails(item.id)}" value="Sell"/>
-                                        <!--<h:commandLink action="" value="Detail"/>-->
-                                    </h:form>
-                                    <h:form>
-                                        <h:commandButton class="btn btn-add" action="#{profileBean.seeItemDetail(item.id)}" value="Product Detial"/>
-                                        <!--<h:commandLink action="" value="Detail"/>-->
-                                    </h:form>
-
-                                </div>
-                            </div>
-                        </ui:repeat>
-                    </div>
-
-                    <center>
-                        <ul class="pagination">
-                            <li class="disabled">
-                                <span>«</span>
-                            </li>
-                            <li class="active">
-                                <span>1</span>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a rel="next" href="#">»</a>
-                            </li>
-                        </ul>
-                    </center>
+                <div style="margin-left: 70px">
+                    <h4>My Account</h4>
+                    <p style="margin-left: 30px"><a href="#{request.contextPath}/category/new.xhtml">New category</a></p>
+                    <table style="margin-left: 30px">
+                        <tbody>
+                            <tr>
+                                <th>Username</th>
+                                <th>E-mail</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Phone</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Sandals</td>
+                                <td>Sandal description</td>
+                                <td>Edit</td>
+                                <td>Delete</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Flats</td>
+                                <td>Flats description</td>
+                                <td>Edit</td>
+                                <td>Delete</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </ui:define>
         </ui:composition>
