@@ -5,6 +5,8 @@
  */
 package com.teamone.onlinemart.beans;
 
+import com.teamone.onlinemart.dao.UserDAO;
+import com.teamone.onlinemart.models.User;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -17,12 +19,22 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class UserBean implements Serializable {
     
+    private static final long serialVersionUID = 1L;
     private String firstname;
     private String lastname;
     private String email;
+    private String phone;
     private String username;
     private String password;
+
+    public UserBean() {
+    }
     
+    public String createUser (){
+        User user = new User(Integer.SIZE, firstname, lastname, username, email, phone, password);
+        UserDAO.create(user);
+        return "login?faces-redirect=true";
+    }
     
     /**
      * @return the firstname
@@ -92,5 +104,19 @@ public class UserBean implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the phone
+     */
+    public String getPhone() {
+        return phone;
+    }
+
+    /**
+     * @param phone the phone to set
+     */
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
