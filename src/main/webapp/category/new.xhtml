@@ -3,7 +3,6 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       >
     <h:body>
@@ -14,39 +13,32 @@
                 <div style="margin-left: 70px">
                     <h4>New category</h4>
                     <p style="margin-left: 30px"><a href="#{request.contextPath}/category/list.xhtml">Show all category</a></p>
-                    <h:form>
-                        <h:messages style="color:red;margin:8px;" />
+                    <form action="" method="post">
                         <div class="FormContainer HorizontalFormContainer">
                             <dl>
                                 <dt><span class="Required">*</span>&nbsp; Name</dt>
-                                <dd>
-                                    <h:inputText id="cat_name" class="Textbox Field200" 
-                                        label="Name" value="" required="true">
-                                        <f:validateLength minimum="1" maximum="250" />
-                                    </h:inputText>
-                                </dd>
+                                <dd><input type="text" name="cat_name" id="cat_name" class="Textbox Field200" value=""/></dd>
 
                                 <dt>&nbsp;&nbsp; Parent category</dt>
                                 <dd>
-                                    <h:selectOneMenu value="#{category.selectedCategory}">
-                                        <f:selectItem itemLabel="---" itemValue="#{null}" />
-                                        <f:selectItems value="#{category.categoryList}" var="cat"
-                                                       itemLabel="#{cat.name}" itemValue="#{cat.id}" />
-                                    </h:selectOneMenu>
+                                    <select>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                      </select>
                                 </dd>
                                 <dt>&nbsp; Description</dt>
-                                <dd>
-                                    <textarea name="description" id="description" rows="5" cols="50"></textarea>
-                                </dd>
+                                <dd><textarea name="description" id="description" rows="5" cols="50"></textarea></dd>
                         
                                 <dt></dt>
                                 <dd>
-                                    
                                     <p class="Submit"><input type="submit" value="Create" class="btn Small"/></p>
                                 </dd>
                             </dl>
                         </div>
-                    </h:form>
+                    </form>
                 </div>
                 <div class="clear"></div>
             </ui:define>
