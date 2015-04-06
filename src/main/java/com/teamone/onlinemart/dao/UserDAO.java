@@ -24,7 +24,7 @@ public class UserDAO {
         try {
             con = Database.getConnection();
             ps = con.prepareStatement("INSERT INTO user (user_type, first_name, last_name, email, username, password) VALUES (?,?,?,?,?,?)");
-            ps.setString(1, "CUSTOMER");
+            ps.setString(1, user.getUserType());
             ps.setString(2, user.getFirstname());
             ps.setString(3, user.getLastname());
             ps.setString(4, user.getEmail());
