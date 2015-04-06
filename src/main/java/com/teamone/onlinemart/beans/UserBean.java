@@ -36,7 +36,11 @@ public class UserBean implements Serializable {
     public String register(){
         setUserType("customer");
         int count = UserDAO.create(this);
-        return "profile?faces-redirect=true";
+        if(count > 0) {
+            return "profile?faces-redirect=true";
+        } else {
+            return "unsuccess?faces-redirect=true";
+        }
     }
     
     public void validatePassword(ComponentSystemEvent event) {
