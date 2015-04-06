@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <div style="margin-left: 70px">
+                    <h4>Create an account</h4>
+                    <h:form>
+                        <div class="FormContainer HorizontalFormContainer">
+                            <dl>
+                                <span class="error_list"></span>
+                                <dt><span class="Required">*</span>&nbsp; Username</dt>
+                                <dd>
+                                    <h:inputText id="username" value="#{userBean.username}" label="username" size="25" p:placeholder="Your username" required="true"
+                                                 requiredMessage="Please enter your username." class="Textbox Field200">
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="username" class="error"/>
+                                </dd>
+                                <dt><span class="Required">*</span>&nbsp; Password</dt>
+                                <dd>
+                                    <h:inputSecret id="password" value="#{userBean.password}" p:placeholder="New password" size="40" required="true" 
+                                                 requiredMessage="Please enter your password." class="Textbox Field200">
+                                        <f:validator validatorId="passwordValidator"/>
+                                        <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
+                                    </h:inputSecret>
+                                    <h:message for="password" class="error"/>
+                                </dd>
+                                <dt><span class="Required">*</span>&nbsp; Confirm password</dt>
+                                <dd>
+                                    <h:inputSecret id="confirmPassword" binding="#{confirmPassword}" p:placeholder="Confirm password" size="40" required="true" 
+                                                 requiredMessage="Please enter confirm password." class="Textbox Field200">
+                                        <f:validateRequired/>
+                                    </h:inputSecret>
+                                    <h:message for="confirmPassword" class="error"/>
+                                </dd>
+                                <dt><span class="Required">*</span>&nbsp; E-mail</dt>
+                                <dd>
+                                    <h:inputText id="email" value="#{userBean.email}" label="email" p:placeholder="Your e-mail address" size="40" required="true" 
+                                                 requiredMessage="Please enter your email address." validatorMessage="Invalid email format.">
+                                        <f:validateRegex pattern="(^.+@\w+[.]\w+$)" class="Textbox Field200"/>
+                                    </h:inputText>
+                                    <h:message for="email" class="error"/>
+                                </dd>
+                                <dt>First name</dt>
+                                <dd>
+                                    <h:inputText id="firstname" value="#{userBean.firstname}" label="firstname" p:placeholder="Your first name" size="75" class="Textbox Field200">
+                                    </h:inputText>
+                                    <h:message for="firstname" class="error"/>
+                                </dd>
+                                <dt>Last name</dt>
+                                <dd>
+                                    <h:inputText id="lastname" value="#{userBean.lastname}" label="lastname" p:placeholder="Your last name" size="75" class="Textbox Field200">
+                                    </h:inputText>
+                                    <h:message for="lastname" class="error"/>
+                                </dd>
+                                <dt>Phone</dt>
+                                <dd>
+                                    <h:inputText id="phone" value="#{userBean.phone}" label="phone" p:placeholder="Your phone number" size="50" class="Textbox Field200">
+                                    </h:inputText>
+                                    <h:message for="phone" class="error"/>
+                                </dd>
+                                <dt></dt>
+                                <dd>
+                                    <h:commandButton value="Register" action="#{userBean.register}" class="btn Small"/>
+                                    <h:commandButton value="Cancel" action="index" immediate="true" class="btn Small" style="margin: 0 10px;"/>
+                                </dd>
+                            </dl>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="clear"></div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
+
+
