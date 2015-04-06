@@ -29,12 +29,14 @@ public class UserBean implements Serializable {
     private String email;
     private String username;
     private String password;
+    private String userType;
 
     public UserBean() {
     }
     
     public String register(){
-        int count = UserDAO.create(firstname, lastname, username, email, password);
+        setUserType("CUSTOMER");
+        int count = UserDAO.create(this);
         return "profile?faces-redirect=true";
     }
     
@@ -132,5 +134,19 @@ public class UserBean implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * @return the userType
+     */
+    public String getUserType() {
+        return userType;
+    }
+
+    /**
+     * @param userType the userType to set
+     */
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

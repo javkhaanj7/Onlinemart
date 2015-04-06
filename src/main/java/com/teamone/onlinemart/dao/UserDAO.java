@@ -5,6 +5,7 @@
  */
 package com.teamone.onlinemart.dao;
 
+import com.teamone.onlinemart.beans.UserBean;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,19 +17,19 @@ import java.util.logging.Logger;
   
 public class UserDAO {
     
-    public static int create(String firstname, String lastname, String username, String email, String password) {
+    public static int create(UserBean user) {
         int count = 0;
         Connection con = null;
         PreparedStatement ps = null;
         try {
             con = Database.getConnection();
-            ps = con.prepareStatement("INSERT INTO user (user_type, first_name, last_name, email, username, password) VALUES (?,?,?,?,?,?)");
-            ps.setString(1, "customer");
-            ps.setString(2, firstname);
-            ps.setString(3, lastname);
-            ps.setString(4, email);
-            ps.setString(5, username);
-            ps.setString(6, password);
+            ps = con.prepareStatement("INSERT INTO user (id, user_type, first_name, last_name, vendor_name, email, username, password, address_id) VALUES (NULL,?,?,?,NULL,?,?,?,1)");
+            ps.setString(1, "CUSTOMER");
+            ps.setString(2, user.getFirstname());
+            ps.setString(3, user.getLastname());
+            ps.setString(4, user.getEmail());
+            ps.setString(5, user.getUsername());
+            ps.setString(6, user.getPassword());
             count = ps.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error in create() -->" + ex.getMessage());
