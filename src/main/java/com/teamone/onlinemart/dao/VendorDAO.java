@@ -7,7 +7,6 @@ package com.teamone.onlinemart.dao;
 
 import com.teamone.onlinemart.beans.VendorBean;
 import java.sql.*;
-import java.time.Clock;
 
 /**
  *
