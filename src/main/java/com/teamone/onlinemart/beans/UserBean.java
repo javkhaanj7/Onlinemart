@@ -27,7 +27,6 @@ public class UserBean implements Serializable {
     private String firstname;
     private String lastname;
     private String email;
-    private String username;
     private String password;
     private String userType;
 
@@ -35,7 +34,7 @@ public class UserBean implements Serializable {
     }
     
     public String register(){
-        setUserType("CUSTOMER");
+        setUserType("customer");
         int count = UserDAO.create(this);
         return "profile?faces-redirect=true";
     }
@@ -106,20 +105,6 @@ public class UserBean implements Serializable {
      */
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    /**
-     * @return the username
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * @param username the username to set
-     */
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     /**

@@ -17,13 +17,13 @@
                         <div class="FormContainer HorizontalFormContainer">
                             <dl>
                                 <span class="error_list"></span>
-                                <dt><span class="Required">*</span>&nbsp; Username</dt>
+                                <dt><span class="Required">*</span>&nbsp; E-mail</dt>
                                 <dd>
-                                    <h:inputText id="username" value="#{userBean.username}" label="username" size="25" p:placeholder="Your username" required="true"
-                                                 requiredMessage="Please enter your username." class="Textbox Field200">
-                                        <f:validateRequired/>
+                                    <h:inputText id="email" value="#{userBean.email}" label="email" p:placeholder="Your e-mail address" size="40" required="true" 
+                                                 requiredMessage="Please enter your email address." validatorMessage="Invalid email format.">
+                                        <f:validateRegex pattern="(^.+@\w+[.]\w+$)" class="Textbox Field200"/>
                                     </h:inputText>
-                                    <h:message for="username" class="error"/>
+                                    <h:message for="email" class="error"/>
                                 </dd>
                                 <dt><span class="Required">*</span>&nbsp; Password</dt>
                                 <dd>
@@ -41,14 +41,6 @@
                                         <f:validateRequired/>
                                     </h:inputSecret>
                                     <h:message for="confirmPassword" class="error"/>
-                                </dd>
-                                <dt><span class="Required">*</span>&nbsp; E-mail</dt>
-                                <dd>
-                                    <h:inputText id="email" value="#{userBean.email}" label="email" p:placeholder="Your e-mail address" size="40" required="true" 
-                                                 requiredMessage="Please enter your email address." validatorMessage="Invalid email format.">
-                                        <f:validateRegex pattern="(^.+@\w+[.]\w+$)" class="Textbox Field200"/>
-                                    </h:inputText>
-                                    <h:message for="email" class="error"/>
                                 </dd>
                                 <dt>First name</dt>
                                 <dd>
