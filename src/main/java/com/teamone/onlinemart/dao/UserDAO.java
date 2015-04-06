@@ -23,7 +23,7 @@ public class UserDAO {
         PreparedStatement ps = null;
         try {
             con = Database.getConnection();
-            ps = con.prepareStatement("INSERT INTO user (id, user_type, first_name, last_name, vendor_name, email, username, password, address_id) VALUES (NULL,?,?,?,NULL,?,?,?,1)");
+            ps = con.prepareStatement("INSERT INTO user (user_type, first_name, last_name, email, username, password) VALUES (?,?,?,?,?,?)");
             ps.setString(1, "CUSTOMER");
             ps.setString(2, user.getFirstname());
             ps.setString(3, user.getLastname());
