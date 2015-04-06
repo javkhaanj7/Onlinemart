@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:body>
+
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            
+            <ui:define name="content">
+                <div style="margin-left: 70px">
+                    <h4>New Product</h4>
+                    <p style="margin-left: 30px">                        
+                        <h:form>
+                             <h:commandLink value="Product List" action="#{productBean.list}"/>
+                        </h:form>
+                    </p>
+                    <h:form>
+                        <div class="FormContainer HorizontalFormContainer">
+                            <dl>
+                                <dt>&nbsp;&nbsp; Product</dt>
+                                <dd>
+                                    <select>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                        <option value=""></option>
+                                    </select>
+                                </dd>
+                                <dt><span class="Required">*</span>&nbsp; Name</dt>                                                                
+                                <dd>
+<!--                                    <h:outputLabel value="Dor hayj 3 urttai" for="name" />-->
+                                    <h:inputText id="name" label="name"  class="Textbox Field200" value="#{productBean.product.name}" title="Name" required="true">
+                                        <f:validateLength minimum="3"/>
+                                    </h:inputText>
+                                    <h:message for="name" style="color:red" />
+                                </dd>
+                                <dt><span class="Required">*</span>&nbsp; Price</dt>
+                                <dd>
+                                    <h:inputText id="price" label="price" required="true" class="Textbox Field200" value="#{productBean.product.price}" title="Price">
+                                        <f:validateDoubleRange minimum="1" maximum="12000"/>
+                                    </h:inputText>
+                                    <h:message for="price" style="color:red" />
+                                </dd>
+                                <dt>&nbsp; Description</dt>
+                                <dd>                                    
+                                    <h:inputTextarea id="description" rows="5" value="#{productBean.product.description}" cols="50"/>
+                                </dd>
+                                    
+                                <dt></dt>
+                                <dd>                                    
+                                    <p class="Submit"><h:commandButton action="#{productBean.create}" type="submit" class="btn Small" value="Create"/></p>
+                                </dd>
+                            </dl>
+                        </div>
+                    </h:form>
+                </div>          
+                <div class="clear"></div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

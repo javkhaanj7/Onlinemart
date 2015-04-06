@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <div style="margin-left: 70px">
+                    <h4>Product control</h4>                    
+                    <h:form>
+                        <p style="margin-left: 30px">
+                            <!--<a href="# {request.contextPath}/product/add.xhtml">New product</a>-->
+                            <h:commandLink value="New Product" action="#{productBean.add()}"/>
+                        </p>
+                        <h:panelGroup id="messagePanel" layout="block">
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{productBean.products.size() > 0}">                            
+                            <h:dataTable style="margin-left: 30px" value="#{productBean.products}" var="product">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#ID"/>
+                                    </f:facet>
+                                    <h:outputText value="#{productBean.itemIndex+1}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Name"/>
+                                    </f:facet>
+                                    <h:outputText value="#{product.name}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Desc"/>
+                                    </f:facet>
+                                    <h:outputText value="#{product.description}"/>
+                                </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Price"/>
+                                    </f:facet>
+                                    <h:outputText value="#{product.price}"/>
+                                </h:column>
+                                <!-- Update and Delete-->
+                                <h:column>                                    
+                                    <h:commandLink value="Edit" action="#{productBean.edit(product)}"/>
+                                </h:column>
+                                <h:column>                                                                        
+                                    <h:commandLink value="Delete" action="#{productBean.delete(product)}" onclick="if (! confirm('Really delete this?') ) { return false;}; return true; ">
+                            
+                                    </h:commandLink>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>                                              
+                    </h:form>
+                    <!--        <h:form>
+                                <h:commandButton action="# {productBean.destroy}" value ="Destroy by ID"/>
+                                <h:inputText label="DestroyID" value="# {productBean.destroyID}" required="true">
+                                    <f:validateLongRange minimum="1"/>
+                                </h:inputText>
+                                <br/>
+                            </h:form>-->
+                    <!--        <h:form>
+                                <h:commandButton action="# {customerMB.update}" value ="Update by ID"/>
+                                <h:inputText label="UpdateID" value="# {customerMB.updateID}" required="true">
+                                    <f:validateLongRange minimum="1"/>
+                                </h:inputText>
+                                <br />
+                            </h:form>-->
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
