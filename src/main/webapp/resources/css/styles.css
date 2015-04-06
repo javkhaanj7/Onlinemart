@@ -201,7 +201,7 @@ input, select, textarea {
 	border-radius: 0px;
 	-moz-border-radius: 0px;
 	-webkit-border-radius: 0px;
-	background: url(../images/blank.png) 50% 50% no-repeat transparent;
+	background: url("#{resource['images/blank.png']}") 50% 50% no-repeat transparent;
 	-moz-transition: background-color 150ms ease;
 	-webkit-transition: background-color 150ms ease;
 	-o-transition: background-color 150ms ease;
@@ -4158,7 +4158,7 @@ div.button span {
 /* Select */
 div.selector {
 	font-size: 14px;
-	background: #f8f8f8 url(../images/icon_arrow_down.png) no-repeat right center !important;
+	background: #f8f8f8 url("#{resource['images/icon_arrow_down.png']}") no-repeat right center !important;
 	height: 30px;
 	line-height: 30px;
 	min-height: 30px !important;

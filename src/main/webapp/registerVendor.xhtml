@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        
+    	<ui:composition template="template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                 <div style="margin:10px 70px">
+                    <h4>Vendor Registration</h4>
+               
+                <h:form>
+                  
+                    <label>First Name</label>
+                     <h:inputText id="firstname" label="firstname" value="#{vendorBean.firstname}" ></h:inputText>
+                     
+                     <label>Last Name</label>
+                     <h:inputText id="lastname" label="lastname" value="#{vendorBean.lastname}"></h:inputText>
+                     <label>Business Name</label>
+                     <h:inputText id="vendorName" label="vendorName" value="#{vendorBean.vendorName}" />
+                     <label>Email</label>
+                     <h:inputText id="email" label="email" value="#{vendorBean.email}" />
+                     <label>Password</label>
+                     <h:inputSecret id="password" label="password" value="#{vendorBean.password}" />
+                     <hr />
+                     <h4>Address</h4>
+                     <label>Address Line</label>
+                     <h:inputText id="address" label="address" value="#{vendorBean.ad.address}"/>
+                     <label>City</label>
+                     <h:inputText id="city" label="city" value="#{vendorBean.ad.city}" />
+                     <label>State</label>
+                     <h:inputText id="state" label="state" value="#{vendorBean.ad.state}" />
+                     <label>Zipcode</label>
+                     <h:inputText id="zipcode" label="zipcode" value="#{vendorBean.ad.zipcode}" />
+                     <label>Country</label>
+                     <h:inputText id="country" label="country" value="#{vendorBean.ad.country}" />
+                                  
+                     <p></p>
+                     <p:commandButton action="#{vendorBean.registerVendor}" value="Register"></p:commandButton>
+                               
+                </h:form>
+                 </div>
+            </ui:define>
+    	</ui:composition>
+    	
+    </h:body>
+</html>
+
