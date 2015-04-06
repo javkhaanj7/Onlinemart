@@ -9,7 +9,7 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
-        <ui:composition template="template/common/commonLayout.xhtml">
+        <ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
                 <div style="margin-left: 70px">
                     <h4>Create an account</h4>
@@ -29,9 +29,18 @@
                                 <dd>
                                     <h:inputSecret id="password" value="#{userBean.password}" p:placeholder="New password" size="40" required="true" 
                                                  requiredMessage="Please enter your password." class="Textbox Field200">
-                                        <f:validateRequired/>
+                                        <f:validator validatorId="passwordValidator"/>
+                                        <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
                                     </h:inputSecret>
                                     <h:message for="password" class="error"/>
+                                </dd>
+                                <dt><span class="Required">*</span>&nbsp; Confirm password</dt>
+                                <dd>
+                                    <h:inputSecret id="confirmPassword" binding="#{confirmPassword}" p:placeholder="Confirm password" size="40" required="true" 
+                                                 requiredMessage="Please enter confirm password." class="Textbox Field200">
+                                        <f:validateRequired/>
+                                    </h:inputSecret>
+                                    <h:message for="confirmPassword" class="error"/>
                                 </dd>
                                 <dt><span class="Required">*</span>&nbsp; E-mail</dt>
                                 <dd>
@@ -61,7 +70,7 @@
                                 </dd>
                                 <dt></dt>
                                 <dd>
-                                    <h:commandButton value="Create" action="#{userBean.createUser}" class="btn Small"/>
+                                    <h:commandButton value="Register" action="#{userBean.register}" class="btn Small"/>
                                     <h:commandButton value="Cancel" action="index" immediate="true" class="btn Small" style="margin: 0 10px;"/>
                                 </dd>
                             </dl>
