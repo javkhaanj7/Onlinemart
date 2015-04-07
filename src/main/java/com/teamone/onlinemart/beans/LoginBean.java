@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -62,13 +64,8 @@ public class LoginBean implements Serializable {
             FacesContext fc = FacesContext.getCurrentInstance();
             FacesMessage msg = new FacesMessage("E-mail or password you entered is incorrect.");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-            fc.addMessage(password, msg);
+            fc.addMessage(null, msg);
             fc.renderResponse();
-            
-            // invalidate session, and redirect to other pages
- 
-            //message = "Invalid Login. Please Try Again!";
-            
             return "";
         }
     }
