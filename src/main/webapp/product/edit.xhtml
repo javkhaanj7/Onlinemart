@@ -13,21 +13,19 @@
                     <h4>New Product</h4>
                     <p style="margin-left: 30px">
                         <h:form>
-                             <h:commandLink value="Show All Products" action="#{productBean.list}"/>
+                             <!--<h:commandLink value="Show All Products" action="# {productBean.list}"/>-->
+                             <h:link value="Product List" outcome="#{productBean.list()}" />
                         </h:form>
                     </p>
                     <h:form>
                         <div class="FormContainer HorizontalFormContainer">
                             <dl>
                                 <dt>&nbsp;&nbsp; Category</dt>
-                                <dd>
-                                    <select>
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                    </select>
+                                <dd>                                    
+                                    <h:selectOneMenu value="#{productBean.product.category_id}">
+                                        <f:selectItems value="#{category.categoryList}" var="c"
+                                                       itemLabel="#{c.name}" itemValue="#{c.categoryId}" />
+                                    </h:selectOneMenu>
                                 </dd>
                                 <dt><span class="Required">*</span>&nbsp; Name</dt>                                                                
                                 <dd>

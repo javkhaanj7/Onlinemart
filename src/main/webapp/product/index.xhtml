@@ -10,8 +10,8 @@
             <ui:define name="content">
                 <div style="margin-left: 70px">
                     <h4>Product control</h4>                    
-                    <h:form>
-                        <h:commandLink value="Product List" action="#{productBean.list()}"/>                                                       
+                    <h:form >                                                                               
+                        <h:link value="Product List" outcome="#{productBean.list()}" />
                     </h:form>
                     <!--        <h:form>
                                 <h:commandButton action="# {productBean.destroy}" value ="Destroy by ID"/>

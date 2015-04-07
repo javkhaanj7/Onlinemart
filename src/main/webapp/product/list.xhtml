@@ -15,17 +15,19 @@
                         <p style="margin-left: 30px">
                             <!--<a href="# {request.contextPath}/product/add.xhtml">New product</a>-->
                             <h:commandLink value="New Product" action="#{productBean.add()}"/>
+                            <!--<h:link value="New Product" outcome="# {productBean.add()}" />-->                            
+
                         </p>
                         <h:panelGroup id="messagePanel" layout="block">
                             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                         </h:panelGroup>
-                        <h:panelGroup rendered="#{productBean.products.size() > 0}">                            
+                        <h:panelGroup> <!--rendered="# {productBean.products.size() > 0}">-->                            
                             <h:dataTable style="margin-left: 30px" value="#{productBean.products}" var="product">
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="#ID"/>
                                     </f:facet>
-                                    <h:outputText value="#{productBean.itemIndex+1}"/>
+                                    <h:outputText value="#{productBean.itemIndex}"/>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
@@ -48,31 +50,23 @@
                                 <!-- Update and Delete-->
                                 <h:column>                                    
                                     <h:commandLink value="Edit" action="#{productBean.edit(product)}"/>
+                                    <!--<h:link value="Edit" outcome="# {productBean.edit(product)}" />-->
                                 </h:column>
                                 <h:column>                                                                        
-                                    <h:commandLink value="Delete" action="#{productBean.delete(product)}" onclick="if (! confirm('Really delete this?') ) { return false;}; return true; ">
-                            
+                                    <h:commandLink value="Delete" action="#{productBean.delete(product)}" onclick="if (!confirm('Really delete this?')) {
+                                                return false;
+                                            }
+                                            ;
+                                            return true;
+                                                   ">
+
                                     </h:commandLink>
                                 </h:column>
                             </h:dataTable>
                         </h:panelGroup>                                              
                     </h:form>
-                    <!--        <h:form>
-                                <h:commandButton action="# {productBean.destroy}" value ="Destroy by ID"/>
-                                <h:inputText label="DestroyID" value="# {productBean.destroyID}" required="true">
-                                    <f:validateLongRange minimum="1"/>
-                                </h:inputText>
-                                <br/>
-                            </h:form>-->
-                    <!--        <h:form>
-                                <h:commandButton action="# {customerMB.update}" value ="Update by ID"/>
-                                <h:inputText label="UpdateID" value="# {customerMB.updateID}" required="true">
-                                    <f:validateLongRange minimum="1"/>
-                                </h:inputText>
-                                <br />
-                            </h:form>-->
                 </div>
             </ui:define>
         </ui:composition>
-    </h:body>
+    </h:body>    
 </html>

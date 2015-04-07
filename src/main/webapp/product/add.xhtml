@@ -7,31 +7,28 @@
     <h:body>
 
         <ui:composition template="/template/common/commonLayout.xhtml">
-            
+
             <ui:define name="content">
                 <div style="margin-left: 70px">
                     <h4>New Product</h4>
                     <p style="margin-left: 30px">                        
                         <h:form>
-                             <h:commandLink value="Product List" action="#{productBean.list}"/>
+                            <!--<h:commandLink value="Product List" action="# {productBean.list}"/>-->
+                            <h:link value="Product List" outcome="#{productBean.list()}" />
                         </h:form>
                     </p>
-                    <h:form>
+                    <h:form enctype="multipart/form-data">
                         <div class="FormContainer HorizontalFormContainer">
                             <dl>
                                 <dt>&nbsp;&nbsp; Product</dt>
-                                <dd>
-                                    <select>
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                        <option value=""></option>
-                                    </select>
+                                <dd>                                    
+                                    <h:selectOneMenu value="#{productBean.product.category_id}">
+                                        <f:selectItems value="#{category.categoryList}" var="c"
+                                                       itemLabel="#{c.name}" itemValue="#{c.categoryId}" />
+                                    </h:selectOneMenu>
                                 </dd>
                                 <dt><span class="Required">*</span>&nbsp; Name</dt>                                                                
-                                <dd>
-<!--                                    <h:outputLabel value="Dor hayj 3 urttai" for="name" />-->
+                                <dd>                                    
                                     <h:inputText id="name" label="name"  class="Textbox Field200" value="#{productBean.product.name}" title="Name" required="true">
                                         <f:validateLength minimum="3"/>
                                     </h:inputText>
@@ -48,17 +45,71 @@
                                 <dd>                                    
                                     <h:inputTextarea id="description" rows="5" value="#{productBean.product.description}" cols="50"/>
                                 </dd>
-                                    
+                                <dt>Image</dt>
+                                <!-- inputFile tag to upload file -->
+
+                                <h:inputFile class="imgInp" id="file" 
+                                             label="file"
+                                             value="#{productBean.part}" 
+                                             required="true" 
+                                             requiredMessage="File not selected !!">
+                                    <!-- FileUploadValidator for file validation -->
+                                    <f:validator validatorId="FileUploadValidator" />
+                                </h:inputFile>
+                                <dt></dt>
+                                <dd>
+                                    <div class="mg"></div>                                    
+                                    <!--<img id="img" src="#"/>-->
+                                </dd>
+                                <h:message style="color: red" for="file" /><br />
+
+                                <!--                                <h:commandButton id="submit" 
+                                                                                 action="# {inputBean.uploadFile}"
+                                                                                 value="upload file" /><br />-->
+
+                                <!-- status message of file upload; rendered if message is set -->
+                                <h:outputText value="#{productBean.statusMessage}"
+                                              rendered="#{not empty productBean.statusMessage}" />
                                 <dt></dt>
                                 <dd>                                    
                                     <p class="Submit"><h:commandButton action="#{productBean.create}" type="submit" class="btn Small" value="Create"/></p>
                                 </dd>
+                                <dt></dt>
+                                <dd><h:outputText id="status" value="#{productBean.statusMsg}"
+                                                  rendered="#{not empty productBean.statusMsg}" /></dd>
                             </dl>
                         </div>
-                    </h:form>
+                    </h:form>                    
                 </div>          
                 <div class="clear"></div>
             </ui:define>
         </ui:composition>
-    </h:body>
+        <script type="text/javascript">
+            //<![CDATA[
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+//                        $('#img').attr('src', e.target.result);
+                        var old = $('#uploaded_img')
+                        if (old !== null) {
+                            delete(old);
+                        }
+                        $('.mg').append('<img id="uploaded_img" src="' + e.target.result + '" />');
+                    };
+//                    $('#uploaded_img').css({'display': 'block', 'position': 'relative', 'left': '-50%'});
+//                    $('#uploaded_img').css('position','relative');
+//                    $('#uploaded_img').css('left','-50%');
+//                    $("p").css("background-color", "yellow");
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $(".imgInp").change(function () {
+                readURL(this);
+            });
+            //]]>
+        </script>
+    </h:body>    
 </html>
