@@ -3,7 +3,8 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:body>
         <ui:composition>
             <div class="main">
@@ -13,23 +14,20 @@
                             <h4>Categories</h4>
                             <h5>Categories</h5>
                             <div class="BlockContent">
-                                <div class="">
-                                    <ul class="sf-horizontal category-list treeview">
-                                        <li class="collapsable">
-                                            <div class="hitarea collapsable-hitarea">
-                                                <i class="fa fa-chevron-up"></i>
-                                            </div>
-                                            <a href="#" class="">Category name 1</a>
-                                            <span class="sf-sub-indicator subcat-expand"></span>
-                                            <ul class="drawer-subcat">
-                                                <li><a href="#">Sub category 1</a></li>
-                                                <li class="last"><a href="#">Sub category 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Category name 2</a></li>
-                                        <li><a href="#">Category name 3</a></li>
-                                        <li class="last"><a href="#">Category name 4</a></li>
-                                    </ul>
+                                <div class="" >
+                                    <div class="">
+                                        <ul class="sf-horizontal category-list treeview">
+                                            <c:forEach var="item" items="#{category.categoryParentList}">
+                                                <li><a href="#">#{item.name}</a>
+                                                    <c:forEach var="itemChild" items="#{category.getChildCategoryList(item.categoryId)}">
+                                                        <ul>
+                                                            <li><a href="#">#{itemChild.name}</a></li>
+                                                        </ul>
+                                                    </c:forEach>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

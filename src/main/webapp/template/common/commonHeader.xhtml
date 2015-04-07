@@ -3,7 +3,8 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
         <ui:composition>
             <div class="header">
@@ -12,10 +13,19 @@
                         <div class="inner">
                             <ul style="display:">
                                 <li style="display:" class="First">
-                                    <a href="#{request.contextPath}/account/profile.xhtml">My Account</a>
+                                    <c:if test="#{loginBean.user != null}">
+                                        <a href="#{request.contextPath}/account/profile.xhtml">My Account</a>
+                                    </c:if>
                                 </li>
                                 <li class="last" style="display:" id="LoginOrLogoutText">
-                                    <div><a href="#{request.contextPath}/account/login.xhtml" onclick="">Sign in</a> or <a href="#{request.contextPath}/account/register.xhtml" onclick="">Create an account</a></div>
+                                    <c:if test="#{loginBean.user == null}">
+                                        <div><a href="#{request.contextPath}/account/login.xhtml" onclick="">Sign in</a> or <a href="#{request.contextPath}/account/register.xhtml" onclick="">Create an account</a></div>
+                                    </c:if>
+                                    <c:if test="#{loginBean.user != null}">
+                                        <h:form>
+                                            <div><h:commandLink action="#{loginBean.logout}">Sign out</h:commandLink></div>
+                                        </h:form>
+                                    </c:if>
                                 </li>
                             </ul>
                             <div id="SearchForm">

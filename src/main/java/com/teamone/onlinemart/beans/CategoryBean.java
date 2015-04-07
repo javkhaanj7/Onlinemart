@@ -44,6 +44,14 @@ public class CategoryBean implements Serializable {
         return categoryModel;
     }
     
+    public Category[] getCategoryParentList(){
+        return CategoryDAO.getAllParentCategory();
+    }
+    
+    public Category[] getChildCategoryList(int parentId){
+        return CategoryDAO.getAllChildCategory(parentId);
+    }
+    
     public DataModel<Category> getEditCategoryList(){
         editCategoryModel = new ArrayDataModel<Category>(CategoryDAO.getAllCustomCategory(category.getCategoryId()));
         return editCategoryModel;

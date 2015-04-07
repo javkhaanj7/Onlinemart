@@ -4,17 +4,19 @@ import com.teamone.onlinemart.dao.UserDAO;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
-@ManagedBean(name = "loginBean")
-@SessionScoped
 
 /**
  *
  * @author javkhaa_j7
  */
+@ManagedBean(name = "loginBean")
+//@SessionScoped
+@RequestScoped
 public class LoginBean implements Serializable {
  
     private static final long serialVersionUID = 1L;
@@ -51,11 +53,6 @@ public class LoginBean implements Serializable {
     public void setUname(String uname) {
         this.uname = uname;
     }
-    
-    public void logout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/account/login.xhtml");
-    }
  
     public String loginProject() {
         boolean result = UserDAO.login(uname, password);
@@ -77,11 +74,12 @@ public class LoginBean implements Serializable {
         }
     }
  
-//    public String logout() {
-//      HttpSession session = Util.getSession();
-//      session.invalidate();
-//      return "login";
-//   }
+    public String logout() {
+      loggedIn = false;
+      HttpSession session = Util.getSession();
+      session.invalidate();
+      return "index.xhtml";
+   }
 
     /**
      * @return the loggedIn

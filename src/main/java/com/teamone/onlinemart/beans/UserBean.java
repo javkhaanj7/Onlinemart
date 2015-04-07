@@ -38,12 +38,21 @@ public class UserBean implements Serializable {
     }
     
     public String register(){
-        setUserType("customer");
-        int count = UserDAO.create(this);
-        if(count > 0) {
-            return "/index?faces-redirect=true";
+        if(UserDAO.exists(email)) {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            FacesMessage msg = new FacesMessage("This email is already in use.");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            fc.addMessage(null, msg);
+            fc.renderResponse();
+            return "";
         } else {
-            return "unsuccess?faces-redirect=true";
+            setUserType("customer");
+            int count = UserDAO.create(this);
+            if(count > 0) {
+                return "/account/login?faces-redirect=true";
+            } else {
+                return "unsuccess?faces-redirect=true";
+            }
         }
     }
     

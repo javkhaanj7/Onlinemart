@@ -3,7 +3,8 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+          
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
         <ui:composition>
             <div class="footer">
@@ -25,17 +26,9 @@
                                         <h4>Categories</h4>
                                         <div class="BlockContent">
                                             <ul class="sf-menu sf-horizontal sf-js-enabled">
-                                                <li class="">
-                                                    <a href="#" class="sf-with-ul">Category name 1<span class="sf-sub-indicator"> »</span></a>
-                                                    <ul style="visibility: hidden; display: none;">
-                                                        <li><a href="#">Sub category 1</a></li>
-                                                        <li><a href="#">Sub category 2</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Category name 1</a></li>
-                                                <li><a href="#">Category name 2</a></li>
-                                                <li><a href="#">Category name 3</a></li>
-                                                <li><a href="#">Category name 4</a></li>
+                                                <c:forEach var="item" items="#{category.categoryParentList}">
+                                                    <li><a href="#">#{item.name}</a></li>
+                                                </c:forEach>
                                             </ul>
                                         </div>
                                     </div></div>
