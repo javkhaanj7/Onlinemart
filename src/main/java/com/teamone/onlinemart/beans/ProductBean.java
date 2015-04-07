@@ -108,7 +108,7 @@ public class ProductBean implements Serializable {
     }
 
     public String create() throws IOException {
-        System.out.println(product.getCategory_id());
+        product.setVendor_id(1);
         int generated_id = ProductDAO.save(product);
         if (generated_id != -1) {
             product.setId(generated_id);
@@ -171,8 +171,8 @@ public class ProductBean implements Serializable {
         String relativePath = "resources/img/";
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
-        File outputFilePath = new File(facesContext.getExternalContext().getRealPath(relativePath) + "\\" + product.getId() + "_image_" + fileName);
-        System.out.println(facesContext.getExternalContext().getRealPath(relativePath) + "\\" + product.getId() + "_image_" + fileName);
+        File outputFilePath = new File(facesContext.getExternalContext().getRealPath(relativePath) + "\\"+product.getVendor_id() + "\\" + product.getId() + "_image_" + fileName);
+        System.out.println(facesContext.getExternalContext().getRealPath(relativePath) + "\\"+product.getVendor_id() + "\\"+ product.getId() + "_image_" + fileName);
 
         // Copy uploaded file to destination path
         InputStream inputStream = null;
@@ -191,6 +191,7 @@ public class ProductBean implements Serializable {
         } catch (IOException e) {
             e.printStackTrace();
             statusMessage = "File upload failed !!";
+            statusMsg = "Not success";
             ///Anhaar
             ProductDAO.delete(product.getId());
         } finally {

@@ -33,7 +33,7 @@ public class ProductDAO {
             ps.setString(2, product.getDescription());
             ps.setDouble(3, product.getPrice());
             ps.setInt(4, product.getCategory_id());
-            ps.setInt(5, 1); //vendor_id
+            ps.setInt(5, product.getVendor_id());
   
 
             ps.executeUpdate();
@@ -76,7 +76,7 @@ public class ProductDAO {
             ps.setString(2, product.getDescription());
             ps.setDouble(3, product.getPrice());
             ps.setInt(4, product.getCategory_id());
-            ps.setInt(5, 1); //Vendor Id
+            ps.setInt(5, product.getVendor_id()); //Vendor Id
             ps.setInt(6, product.getId());
   
             ps.executeUpdate();            
