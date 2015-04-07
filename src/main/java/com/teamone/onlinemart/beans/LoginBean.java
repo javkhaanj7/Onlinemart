@@ -52,24 +52,24 @@ public class LoginBean implements Serializable {
  
     public String loginProject() {
         boolean result = UserDAO.login(uname, password);
-        if (result) {
+        if(result) {
             // get Http Session and store username
             HttpSession session = Util.getSession();
             session.setAttribute("username", uname);
  
             return "/index?faces-redirect=true";
         } else {
- 
-            FacesContext.getCurrentInstance().addMessage(
-                    null,
-                    new FacesMessage(FacesMessage.SEVERITY_WARN,
-                    "Invalid Login!",
-                    "Please Try Again!"));
- 
+            FacesContext fc = FacesContext.getCurrentInstance();
+            FacesMessage msg = new FacesMessage("E-mail or password you entered is incorrect.");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            fc.addMessage(password, msg);
+            fc.renderResponse();
+            
             // invalidate session, and redirect to other pages
  
             //message = "Invalid Login. Please Try Again!";
-            return "login";
+            
+            return "";
         }
     }
  
