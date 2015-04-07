@@ -38,8 +38,15 @@ public class CategoryBean implements Serializable {
     
     private DataModel<Category> categoryModel = new ArrayDataModel<Category>(CategoryDAO.getAllCategory());
     
+    private DataModel<Category> editCategoryModel = null;
+    
     public DataModel<Category> getCategoryList(){
         return categoryModel;
+    }
+    
+    public DataModel<Category> getEditCategoryList(){
+        editCategoryModel = new ArrayDataModel<Category>(CategoryDAO.getAllCustomCategory(category.getCategoryId()));
+        return editCategoryModel;
     }
     
     public String create(){
