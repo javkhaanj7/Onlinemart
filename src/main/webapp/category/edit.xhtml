@@ -34,8 +34,8 @@
                                 <dt>&nbsp;&nbsp; Parent category</dt>
                                 <dd>
                                     <h:selectOneMenu value="#{category.category.parentId}">
-                                        <f:selectItem itemLabel="---" itemValue="#{null}" />
-                                        <f:selectItems value="#{category.categoryList}" var="cat"
+                                        <f:selectItem itemLabel="---" itemValue="-1" />
+                                        <f:selectItems value="#{category.editCategoryList}" var="cat"
                                                        itemLabel="#{cat.name}" itemValue="#{cat.categoryId}" />
                                     </h:selectOneMenu>
                                 </dd>
