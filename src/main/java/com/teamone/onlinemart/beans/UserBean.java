@@ -73,19 +73,6 @@ public class UserBean implements Serializable {
         }
     }
     
-    public String login() {
-        if(UserDAO.login(email, password)) {
-            return "/index?faces-redirect=true";
-        } else {
-            return "invalid";
-        }
-    }
-    
-    public void logout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/account/login.xhtml");
-    }
-    
     /**
      * @return the firstname
      */

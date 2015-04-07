@@ -44,6 +44,11 @@ public class LoginBean implements Serializable {
     public void setUname(String uname) {
         this.uname = uname;
     }
+    
+    public void logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/account/login.xhtml");
+    }
  
     public String loginProject() {
         boolean result = UserDAO.login(uname, password);
@@ -52,7 +57,7 @@ public class LoginBean implements Serializable {
             HttpSession session = Util.getSession();
             session.setAttribute("username", uname);
  
-            return "home";
+            return "/index?faces-redirect=true";
         } else {
  
             FacesContext.getCurrentInstance().addMessage(
@@ -68,10 +73,10 @@ public class LoginBean implements Serializable {
         }
     }
  
-    public String logout() {
-      HttpSession session = Util.getSession();
-      session.invalidate();
-      return "login";
-   }
+//    public String logout() {
+//      HttpSession session = Util.getSession();
+//      session.invalidate();
+//      return "login";
+//   }
 }
 
