@@ -11,8 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
 
 /**
  *

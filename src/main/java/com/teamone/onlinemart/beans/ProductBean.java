@@ -5,7 +5,6 @@
  */
 package com.teamone.onlinemart.beans;
 
-import com.sun.xml.internal.ws.api.PropertySet;
 import com.teamone.onlinemart.dao.ProductDAO;
 import com.teamone.onlinemart.models.Product;
 import java.io.File;
@@ -19,11 +18,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
-import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 
 /**
