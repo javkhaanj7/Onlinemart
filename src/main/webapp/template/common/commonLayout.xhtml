@@ -24,6 +24,27 @@
         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         
+        <script>
+            $(document).ready(function() {
+              $('.nav-toggle').click(function(){
+                    //get collapse content selector
+                    var collapse_content_selector = $(this).attr('href');					
+
+                    //make the collapse content to be shown or hide
+                    var toggle_switch = $(this);
+                    $(collapse_content_selector).toggle(function(){
+                      if($(this).css('display')=='none'){
+                          toggle_switch.empty();
+                          toggle_switch.append('<i class="fa fa-chevron-up"></i>');
+                      }else{
+                          toggle_switch.empty();
+                          toggle_switch.append('<i class="fa fa-chevron-down"></i>');
+                      }
+                    });
+              });
+            });	
+        </script>
+        
     </h:head>
 
     <h:body>
