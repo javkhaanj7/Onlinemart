@@ -6,7 +6,7 @@
 package com.teamone.onlinemart.beans;
 
 import com.teamone.onlinemart.dao.CategoryDAO;
-import com.teamone.onlinemart.model.Category;
+import com.teamone.onlinemart.models.Category;
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -22,20 +22,44 @@ import javax.faces.model.DataModel;
 @RequestScoped
 public class CategoryBean implements Serializable {
     
-    private String selectedCategory;
+    private Category category;
 
-    public String getSelectedCategory() {
-        return selectedCategory;
-    }
-
-    public void setSelectedCategory(String selectedCategory) {
-        this.selectedCategory = selectedCategory;
+    public CategoryBean(){
+        category = new Category();
     }
     
-    private DataModel<Category> category = new ArrayDataModel<Category>(CategoryDAO.getAllCategory());
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+    
+    private DataModel<Category> categoryModel = new ArrayDataModel<Category>(CategoryDAO.getAllCategory());
     
     public DataModel<Category> getCategoryList(){
-        return category;
+        return categoryModel;
+    }
+    
+    public String create(){
+        CategoryDAO.create(category);
+        return "/category/list?faces-redirect=true";
+    }
+    
+    public String edit(Category category){
+        this.category = category;
+        return "/category/edit";
+    }
+    
+    public String update(){
+        CategoryDAO.update(category);
+        return "/category/list?faces-redirect=true";
+    }
+    
+    public String delete(Category category){
+        CategoryDAO.delete(category);
+        return "/category/list?faces-redirect=true";
     }
     
 }

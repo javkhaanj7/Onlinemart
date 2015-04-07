@@ -14,34 +14,34 @@
                 <div style="margin-left: 70px">
                     <h4>Category control</h4>
                     <p style="margin-left: 30px"><a href="#{request.contextPath}/category/new.xhtml">New category</a></p>
-                    <h:dataTable style="margin-left: 30px" value="#{category.categoryList}" var="cat">
-                        <h:column>
-                            <f:facet name="header">No</f:facet>
-                            #{category.categoryList.rowIndex + 1}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Name</f:facet>
-                            #{cat.name}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Parent</f:facet>
-                            #{cat.parentName}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Description</f:facet>
-                            #{cat.description}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header"></f:facet>
-                            <h:link value="Edit" outcome="edit" >
-                                <f:param name="id" value="#{cat.id}" />
-                            </h:link>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header"></f:facet>
-                            Delete
-                        </h:column>
-                    </h:dataTable>
+                    <h:form>
+                        <h:dataTable style="margin-left: 30px" value="#{category.categoryList}" var="cat">
+                            <h:column>
+                                <f:facet name="header">No</f:facet>
+                                #{category.categoryList.rowIndex + 1}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Name</f:facet>
+                                #{cat.name}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Parent</f:facet>
+                                #{cat.parentName}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Description</f:facet>
+                                #{cat.description}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"></f:facet>
+                                <h:commandLink value="Edit" action="#{category.edit(cat)}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"></f:facet>
+                                <h:commandLink value="Delete" action="#{category.delete(cat)}" onclick="if (! confirm('Are you sure want to delete?') ) { return false;}; return true; "/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
                 </div>
             </ui:define>
 

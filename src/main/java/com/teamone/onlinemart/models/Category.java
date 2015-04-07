@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.teamone.onlinemart.model;
+package com.teamone.onlinemart.models;
 
 /**
  *
@@ -11,14 +11,16 @@ package com.teamone.onlinemart.model;
  */
 public class Category {
     
-    private int id;
+    private int categoryId;
     private int parentId;
     private String parentName;
     private String name;
     private String description;
 
-    public Category(int id, int parentId, String parentName, String name, String description) {
-        this.id = id;
+    public Category(){}
+    
+    public Category(int categoryId, int parentId, String parentName, String name, String description) {
+        this.categoryId = categoryId;
         this.parentId = parentId;
         this.parentName = parentName;
         this.name = name;
@@ -26,17 +28,17 @@ public class Category {
     }
 
     /**
-     * @return the id
+     * @return the categoryId
      */
-    public int getId() {
-        return id;
+    public int getCategoryId() {
+        return categoryId;
     }
 
     /**
-     * @param id the id to set
+     * @param categoryId the categoryId to set
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     /**
