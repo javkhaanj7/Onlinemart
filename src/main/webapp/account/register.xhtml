@@ -20,8 +20,8 @@
                                 <dt><span class="Required">*</span>&nbsp; E-mail</dt>
                                 <dd>
                                     <h:inputText id="email" value="#{userBean.email}" label="email" p:placeholder="Your e-mail address" size="40" required="true" 
-                                                 requiredMessage="Please enter your email address." validatorMessage="Invalid email format.">
-                                        <f:validateRegex pattern="(^.+@\w+[.]\w+$)" class="Textbox Field200"/>
+                                                 requiredMessage="Please enter your email address." validatorMessage="Invalid email format." class="Textbox Field200">
+                                        <f:validateRegex pattern="(^.+@\w+[.]\w+$)"/>
                                     </h:inputText>
                                     <h:message for="email" class="error"/>
                                 </dd>
@@ -56,8 +56,8 @@
                                 </dd>
                                 <dt></dt>
                                 <dd>
-                                    <h:commandButton value="Register" action="#{userBean.register}" class="btn Small"/>
-                                    <h:commandButton value="Cancel" action="/index?faces-redirect=true" immediate="true" class="btn Small" style="margin: 0 10px;"/>
+                                    <h:commandButton value="Save" action="#{userBean.register}" class="btn Small"/>
+                                    <h:commandButton value="Cancel" action="/account/login?faces-redirect=true" immediate="true" class="btn Small" style="margin: 0 10px;"/>
                                 </dd>
                             </dl>
                         </div>

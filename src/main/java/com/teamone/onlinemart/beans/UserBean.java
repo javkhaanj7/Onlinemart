@@ -9,6 +9,7 @@ import com.teamone.onlinemart.dao.UserDAO;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -20,15 +21,18 @@ import javax.faces.event.ComponentSystemEvent;
  * @author JChimidregzen
  */
 @ManagedBean(name = "userBean")
-@SessionScoped
+//@SessionScoped
+@RequestScoped
 public class UserBean implements Serializable {
     
     private static final long serialVersionUID = 1L;
+    private long id;
     private String firstname;
     private String lastname;
     private String email;
     private String password;
     private String userType;
+    private boolean edit;
 
     public UserBean() {
     }
@@ -37,7 +41,7 @@ public class UserBean implements Serializable {
         setUserType("customer");
         int count = UserDAO.create(this);
         if(count > 0) {
-            return "profile?faces-redirect=true";
+            return "/index?faces-redirect=true";
         } else {
             return "unsuccess?faces-redirect=true";
         }
@@ -67,6 +71,19 @@ public class UserBean implements Serializable {
             fc.addMessage(passwordId, msg);
             fc.renderResponse();
         }
+    }
+    
+    public String login() {
+        if(UserDAO.login(email, password)) {
+            return "/index?faces-redirect=true";
+        } else {
+            return "invalid";
+        }
+    }
+    
+    public void logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/account/login.xhtml");
     }
     
     /**
@@ -137,5 +154,33 @@ public class UserBean implements Serializable {
      */
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    /**
+     * @return the id
+     */
+    public long getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the edit
+     */
+    public boolean isEdit() {
+        return edit;
+    }
+
+    /**
+     * @param edit the edit to set
+     */
+    public void setEdit(boolean edit) {
+        this.edit = edit;
     }
 }
