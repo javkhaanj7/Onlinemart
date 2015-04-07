@@ -22,7 +22,7 @@ public class UserDAO {
         try {
             con = Database.getConnection();
             if(con != null) {
-                ps = con.prepareStatement("INSERT INTO user (user_type, first_name, last_name, email, password) VALUES (?,?,?,?,?)");
+                ps = con.prepareStatement("insert into user (user_type, first_name, last_name, email, password) values (?,?,?,?,?)");
                 ps.setString(1, user.getUserType());
                 ps.setString(2, user.getFirstname());
                 ps.setString(3, user.getLastname());
@@ -96,4 +96,26 @@ public class UserDAO {
         }
         return user;
      }
+     
+     
+     public static boolean exists(String email) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        UserBean user = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement("select * from user where email= ?");
+            ps.setString(1, email);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in get() -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }
+        return false;
+    }
 }
