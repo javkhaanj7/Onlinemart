@@ -5,7 +5,7 @@
  */
 package com.teamone.onlinemart.dao;
 
-import com.teamone.onlinemart.model.Category;
+import com.teamone.onlinemart.models.Category;
 import java.sql.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +43,65 @@ public class CategoryDAO {
             Database.close(con);
         }
         return categoryList;
+    }
+    
+    public static void create(Category category){
+        Category categoryList[] = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            
+            ps = con.prepareStatement("insert into category (name, description, parent_id) values (?,?,?)");
+            ps.setString(1, category.getName());
+            ps.setString(2, category.getDescription());
+            ps.setInt(3, category.getParentId());
+            ps.executeUpdate();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            Database.close(con);
+        }
+    }
+    
+    public static void update(Category category){
+        Category categoryList[] = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            
+            ps = con.prepareStatement("update category set name = ?, description = ?, parent_id = ? where id = ?");
+            ps.setString(1, category.getName());
+            ps.setString(2, category.getDescription());
+            ps.setInt(3, category.getParentId());
+            ps.setInt(4, category.getCategoryId());
+            ps.executeUpdate();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            Database.close(con);
+        }
+    }
+    
+    public static void delete(Category category){
+        Category categoryList[] = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            
+            ps = con.prepareStatement("delete from category where id = ?");
+            ps.setInt(1, category.getCategoryId());
+            ps.executeUpdate();
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            Database.close(con);
+        }
     }
     
 }
