@@ -4,6 +4,7 @@ import com.teamone.onlinemart.dao.UserDAO;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -14,7 +15,8 @@ import javax.servlet.http.HttpSession;
  * @author javkhaa_j7
  */
 @ManagedBean(name = "loginBean")
-@SessionScoped
+//@SessionScoped
+@RequestScoped
 public class LoginBean implements Serializable {
  
     private static final long serialVersionUID = 1L;
