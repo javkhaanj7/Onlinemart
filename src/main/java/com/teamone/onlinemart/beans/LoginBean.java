@@ -5,8 +5,6 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +20,13 @@ public class LoginBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private String password;
     private String message, uname;
+    private UserBean user;
+    private boolean loggedIn;
+    
+    
+    public UserBean getUser() {
+        return Util.getUser();
+    }
  
     public String getMessage() {
         return message;
@@ -55,10 +60,12 @@ public class LoginBean implements Serializable {
     public String loginProject() {
         boolean result = UserDAO.login(uname, password);
         if(result) {
+            user = UserDAO.get(uname, password);
             // get Http Session and store username
             HttpSession session = Util.getSession();
             session.setAttribute("username", uname);
- 
+            session.setAttribute("user", user);
+            loggedIn = true;
             return "/index?faces-redirect=true";
         } else {
             FacesContext fc = FacesContext.getCurrentInstance();
@@ -75,5 +82,12 @@ public class LoginBean implements Serializable {
 //      session.invalidate();
 //      return "login";
 //   }
+
+    /**
+     * @return the loggedIn
+     */
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
 }
 

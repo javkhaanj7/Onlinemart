@@ -69,4 +69,31 @@ public class UserDAO {
             Database.close(con);
         }
     }
+     
+     public static UserBean get(String email, String password) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        UserBean user = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement("select * from user where email= ? and password= ?");
+            ps.setString(1, email);
+            ps.setString(2, password);
+  
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                user = new UserBean();
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setFirstname(rs.getString("first_name"));
+                user.setLastname(rs.getString("last_name"));
+                user.setUserType(rs.getString("user_type"));
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in get() -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }
+        return user;
+     }
 }

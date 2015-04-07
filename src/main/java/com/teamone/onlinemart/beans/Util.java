@@ -41,4 +41,13 @@ public class Util {
             return null;
         }
     }
+    
+    public static UserBean getUser() {
+        HttpSession session = getSession();
+        if (session != null) {
+            return (UserBean) session.getAttribute("user");
+        } else {
+            return null;
+        }
+    }
 }
