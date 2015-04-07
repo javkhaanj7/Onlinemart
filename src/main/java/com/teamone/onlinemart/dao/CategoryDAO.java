@@ -75,6 +75,65 @@ public class CategoryDAO {
         return categoryList;
     }
     
+    public static Category[] getAllParentCategory(){
+        Category categoryList[] = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            
+            HashMap<Integer, Category> hList = new HashMap<Integer, Category>();
+            ps = con.prepareStatement("select * from category where parent_id = -1 order by id");
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                hList.put(rs.getInt("id"), 
+                        new Category(rs.getInt("id"), rs.getInt("parent_id"), null,
+                            rs.getString("name"), rs.getString("description")));
+            }
+            categoryList = new Category[hList.size()];
+            int index = 0;
+            for(Map.Entry<Integer, Category> mapEntry : hList.entrySet()){
+                categoryList[index] = mapEntry.getValue();
+                index++;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            Database.close(con);
+        }
+        return categoryList;
+    }
+    
+    public static Category[] getAllChildCategory(int parentId){
+        Category categoryList[] = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            
+            HashMap<Integer, Category> hList = new HashMap<Integer, Category>();
+            ps = con.prepareStatement("select * from category where parent_id = ? order by id");
+            ps.setInt(1, parentId);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                hList.put(rs.getInt("id"), 
+                        new Category(rs.getInt("id"), rs.getInt("parent_id"), null,
+                            rs.getString("name"), rs.getString("description")));
+            }
+            categoryList = new Category[hList.size()];
+            int index = 0;
+            for(Map.Entry<Integer, Category> mapEntry : hList.entrySet()){
+                categoryList[index] = mapEntry.getValue();
+                index++;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            Database.close(con);
+        }
+        return categoryList;
+    }
+    
     public static void create(Category category){
         Category categoryList[] = null;
         Connection con = null;
