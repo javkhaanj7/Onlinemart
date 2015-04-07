@@ -41,7 +41,7 @@ public class UserBean implements Serializable {
         setUserType("customer");
         int count = UserDAO.create(this);
         if(count > 0) {
-            return "/index?faces-redirect=true";
+            return "/account/login?faces-redirect=true";
         } else {
             return "unsuccess?faces-redirect=true";
         }
