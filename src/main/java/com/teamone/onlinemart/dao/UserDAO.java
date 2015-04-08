@@ -51,8 +51,6 @@ public class UserDAO {
             con = Database.getConnection();
             if(con != null) {
                 ps = con.prepareStatement("update user set first_name = ?, last_name = ?, email = ?, password = ? where id = ?");
-                System.out.println("------------------------" + user.getEmail());
-                System.out.println("------------------------" + user.getId());
                 ps.setString(1, user.getFirstname());
                 ps.setString(2, user.getLastname());
                 ps.setString(3, user.getEmail());
