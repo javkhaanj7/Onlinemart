@@ -43,6 +43,36 @@ public class UserDAO {
         return count;
     }
     
+    public static int update(UserBean user) {
+        int count = 0;
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            if(con != null) {
+                ps = con.prepareStatement("update user set first_name = ?, last_name = ?, email = ?, password = ? where id = ?");
+                System.out.println("------------------------" + user.getEmail());
+                System.out.println("------------------------" + user.getId());
+                ps.setString(1, user.getFirstname());
+                ps.setString(2, user.getLastname());
+                ps.setString(3, user.getEmail());
+                ps.setString(4, user.getPassword());
+                ps.setLong(5, user.getId());
+                count = ps.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error in create() -->" + ex.getMessage());
+        } finally {
+            if(ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ex) {}
+            }
+            Database.close(con);
+        }
+        return count;
+    }
+    
      public static boolean login(String user, String password) {
         Connection con = null;
         PreparedStatement ps = null;
@@ -97,15 +127,36 @@ public class UserDAO {
         return user;
      }
      
-     
      public static boolean exists(String email) {
         Connection con = null;
         PreparedStatement ps = null;
         UserBean user = null;
         try {
             con = Database.getConnection();
-            ps = con.prepareStatement("select * from user where email= ?");
+            ps = con.prepareStatement("select * from user where email = ?");
             ps.setString(1, email);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in get() -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }
+        return false;
+    }
+     
+     public static boolean exists(String email, long id) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        UserBean user = null;
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement("select * from user where email = ? and id <> ?");
+            ps.setString(1, email);
+            ps.setLong(2, id);
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <title>My Account</title>
     </h:head>
@@ -26,7 +26,13 @@
                             <h:outputText value="E-mail :"></h:outputText>
                             <h:outputText value="#{loginBean.user.email}"></h:outputText>
                         </h:panelGrid>
-                        <h:commandButton value="Update" action="register.xhtml" class="btn Small"/>
+                        
+                        <h:commandButton value="Update" action="#{loginBean.edit}" class="btn Small">
+                            <f:setPropertyActionListener target="#{userBean.firstname}" value="#{loginBean.user.firstname}" />
+                            <f:setPropertyActionListener target="#{userBean.lastname}" value="#{loginBean.user.lastname}" />
+                            <f:setPropertyActionListener target="#{userBean.email}" value="#{loginBean.user.email}" />
+                            <f:setPropertyActionListener target="#{userBean.id}" value="#{loginBean.user.id}" />
+                        </h:commandButton>
                     </h:form>
                 </div>
             </ui:define>

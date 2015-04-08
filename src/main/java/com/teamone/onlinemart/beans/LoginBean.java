@@ -4,6 +4,7 @@ import com.teamone.onlinemart.dao.UserDAO;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -78,7 +79,7 @@ public class LoginBean implements Serializable {
       loggedIn = false;
       HttpSession session = Util.getSession();
       session.invalidate();
-      return "index.xhtml";
+      return "/index?faces-redirect=true";
    }
 
     /**
@@ -86,6 +87,10 @@ public class LoginBean implements Serializable {
      */
     public boolean isLoggedIn() {
         return loggedIn;
+    }
+    
+    public String edit() {
+        return "/account/edit";
     }
 }
 

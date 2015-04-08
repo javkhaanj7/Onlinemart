@@ -15,6 +15,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -50,6 +51,27 @@ public class UserBean implements Serializable {
             int count = UserDAO.create(this);
             if(count > 0) {
                 return "/account/login?faces-redirect=true";
+            } else {
+                return "unsuccess?faces-redirect=true";
+            }
+        }
+    }
+    
+    public String update() {
+        if(UserDAO.exists(email, id)) {
+            FacesContext fc = FacesContext.getCurrentInstance();
+            FacesMessage msg = new FacesMessage("This email is already in use.");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            fc.addMessage(null, msg);
+            fc.renderResponse();
+            return "";
+        } else {
+            int count = UserDAO.update(this);
+            if(count > 0) {
+                HttpSession session = Util.getSession();
+                session.setAttribute("username", email);
+                session.setAttribute("user", this);
+                return "/account/profile?faces-redirect=true";
             } else {
                 return "unsuccess?faces-redirect=true";
             }
