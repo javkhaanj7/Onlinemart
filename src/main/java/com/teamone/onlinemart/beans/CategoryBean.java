@@ -48,6 +48,14 @@ public class CategoryBean implements Serializable {
         return CategoryDAO.getAllParentCategory();
     }
     
+    public boolean isParentHasChild(int parentId){
+        if(CategoryDAO.getAllChildCategory(parentId).length > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
     public Category[] getChildCategoryList(int parentId){
         return CategoryDAO.getAllChildCategory(parentId);
     }
