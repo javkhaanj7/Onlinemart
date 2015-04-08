@@ -6,6 +6,7 @@
 package com.teamone.onlinemart.dao;
 
 import com.teamone.onlinemart.beans.UserBean;
+import com.teamone.onlinemart.beans.Util;
 import java.sql.*;
 
 /**
@@ -27,7 +28,7 @@ public class UserDAO {
                 ps.setString(2, user.getFirstname());
                 ps.setString(3, user.getLastname());
                 ps.setString(4, user.getEmail());
-                ps.setString(5, user.getPassword());
+                ps.setString(5, Util.MD5(user.getPassword()));
                 count = ps.executeUpdate();
             }
         } catch (SQLException ex) {
@@ -54,7 +55,7 @@ public class UserDAO {
                 ps.setString(1, user.getFirstname());
                 ps.setString(2, user.getLastname());
                 ps.setString(3, user.getEmail());
-                ps.setString(4, user.getPassword());
+                ps.setString(4, Util.MD5(user.getPassword()));
                 ps.setLong(5, user.getId());
                 count = ps.executeUpdate();
             }
@@ -79,7 +80,7 @@ public class UserDAO {
             ps = con.prepareStatement(
                     "select email, password from user where email= ? and password= ? ");
             ps.setString(1, user);
-            ps.setString(2, password);
+            ps.setString(2, Util.MD5(password));
   
             ResultSet rs = ps.executeQuery();
             if (rs.next()) // found
@@ -106,7 +107,7 @@ public class UserDAO {
             con = Database.getConnection();
             ps = con.prepareStatement("select * from user where email= ? and password= ?");
             ps.setString(1, email);
-            ps.setString(2, password);
+            ps.setString(2, Util.MD5(password));
   
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
