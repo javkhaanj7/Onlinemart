@@ -5,6 +5,7 @@
  */
 package com.teamone.onlinemart.beans;
 
+import com.teamone.onlinemart.models.User;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -47,10 +48,10 @@ public class Util {
         }
     }
     
-    public static UserBean getUser() {
+    public static User getUser() {
         HttpSession session = getSession();
         if (session != null) {
-            return (UserBean) session.getAttribute("user");
+            return (User) session.getAttribute("user");
         } else {
             return null;
         }

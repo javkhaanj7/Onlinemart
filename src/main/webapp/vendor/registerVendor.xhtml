@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <div style="margin-left: 70px">
+                    <h4>Vendor Registration</h4>
+
+                    <h:form>
+                        <div class="FormContainer HorizontalFormContainer">
+                            <dl>
+                                <span class="error_list"></span>
+                                <dt><span class="Required">*</span>  First Name</dt> 
+                                <dd><h:inputText id="firstname" label="firstname" value="#{vendorBean.vendor.firstname}" size="25" p:placeholder="First Name" required="true"
+                                                 requiredMessage="Please enter your first name." class="Textbox Field200" >
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="firstname" class="error"/>
+                                </dd>
+
+                                <dt><span class="Required">*</span>  Last Name</dt> 
+
+                                <dd> <h:inputText id="lastname" label="lastname" value="#{vendorBean.vendor.lastname}" size="25" p:placeholder="Last Name" required="true"
+                                                  requiredMessage="Please enter your last name." class="Textbox Field200">
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="lastname" class="error"/>
+                                </dd>
+                                <dt><span class="Required">*</span>  Business Name</dt>
+
+                                <dd><h:inputText id="vendorName" label="vendorName" value="#{vendorBean.vendor.vendorName}" size="25" p:placeholder="Vendor Name" required="true"
+                                                 requiredMessage="Please enter your business name." class="Textbox Field200">
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="vendorName" class="error"/>
+                                </dd>
+                                <dt><span class="Required">*</span>  Email</dt>
+
+                                <dd><h:inputText id="email" label="email" value="#{vendorBean.vendor.email}" size="25" p:placeholder="Email" required="true"
+                                                 requiredMessage="Please enter your email." class="Textbox Field200">
+                                        <f:validateRequired/>
+
+                                    </h:inputText>
+                                    <h:message for="email" class="error"/>
+                                </dd>
+                                <dt><span class="Required">*</span> Password</dt>
+                                <dd>
+                                    <h:inputSecret id="password" label="password" value="#{vendorBean.vendor.password}" p:placeholder="New password" size="40" required="true" 
+                                                   requiredMessage="Please enter your password." class="Textbox Field200">
+                                        <f:validator validatorId="passwordValidator"/>
+                                        <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
+                                    </h:inputSecret>
+                                    <h:message for="password" class="error"/>
+                                </dd>
+                                <dt><span class="Required">*</span> Confirm password</dt>
+                                <dd>
+                                    <h:inputSecret id="confirmPassword" binding="#{confirmPassword}" p:placeholder="Confirm password" size="40" required="true" 
+                                                   requiredMessage="Please enter confirm password." class="Textbox Field200">
+                                        <f:validateRequired/>
+                                    </h:inputSecret>
+                                    <h:message for="confirmPassword" class="error"/>
+                                </dd>
+
+
+                                <dt><span class="Required">*</span> Address</dt>
+                                <dd> <h:inputText id="address" label="address" value="#{vendorBean.vendor.ad.address}" p:placeholder="Address" size="40" required="true" 
+                                                  requiredMessage="Please enter your address." class="Textbox Field200">
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="address" class="error"/>
+                                </dd>
+                                <dt><span class="Required">*</span> City</dt>
+                                <dd> <h:inputText id="city" label="city" value="#{vendorBean.vendor.ad.city}" p:placeholder="City" size="40" required="true" 
+                                                  requiredMessage="Please enter your city." class="Textbox Field200" >
+
+                                    </h:inputText>
+                                    <h:message for="address" class="error"/>                                
+                                </dd>
+                                <dt><span class="Required">*</span> State</dt>
+                                <dd><h:inputText id="state" label="state" value="#{vendorBean.vendor.ad.state}" p:placeholder="State" size="40" required="true" 
+                                                 requiredMessage="Please enter your state." class="Textbox Field200">
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="state" class="error"/>   
+                                </dd>
+
+
+                                <dt><span class="Required">*</span> Zipcode</dt>
+                                <dd><h:inputText id="zipcode" label="zipcode" value="#{vendorBean.vendor.ad.zipcode}" p:placeholder="Zipcode" size="40" required="true" 
+                                                 requiredMessage="Please enter your zipcode." class="Textbox Field200">
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="zipcode" class="error"/>  
+                                </dd>
+
+                                <dt><span class="Required">*</span> Country</dt>
+                                <dd><h:inputText id="country" label="country" value="#{vendorBean.vendor.ad.country}" p:placeholder="Country" size="40" required="true" 
+                                                 requiredMessage="Please enter country." class="Textbox Field200" >
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="country" class="error"/>  
+                                </dd>
+                                <dt></dt>
+                                <dd>
+                                    <h:commandButton action="#{vendorBean.registerVendor}" value="Register" class="btn Small"></h:commandButton>
+                                    <h:commandButton value="Cancel" action="index" immediate="true" class="btn Small" style="margin: 0 10px;"/>
+                                </dd>
+                            </dl>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="clear"></div>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

@@ -1,6 +1,7 @@
 package com.teamone.onlinemart.beans;
 
 import com.teamone.onlinemart.dao.UserDAO;
+import com.teamone.onlinemart.models.User;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -23,11 +24,11 @@ public class LoginBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private String password;
     private String message, uname;
-    private UserBean user;
+    private User user;
     private boolean loggedIn;
     
     
-    public UserBean getUser() {
+    public User getUser() {
         return Util.getUser();
     }
  
