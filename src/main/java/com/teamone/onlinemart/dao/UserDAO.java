@@ -7,6 +7,7 @@ package com.teamone.onlinemart.dao;
 
 import com.teamone.onlinemart.beans.UserBean;
 import com.teamone.onlinemart.beans.Util;
+import com.teamone.onlinemart.models.User;
 import java.sql.*;
 
 /**
@@ -16,7 +17,7 @@ import java.sql.*;
   
 public class UserDAO {
     
-    public static int create(UserBean user) {
+    public static int create(User user) {
         int count = 0;
         Connection con = null;
         PreparedStatement ps = null;
@@ -44,7 +45,7 @@ public class UserDAO {
         return count;
     }
     
-    public static int update(UserBean user) {
+    public static int update(User user) {
         int count = 0;
         Connection con = null;
         PreparedStatement ps = null;
@@ -99,10 +100,10 @@ public class UserDAO {
         }
     }
      
-     public static UserBean get(String email, String password) {
+     public static User get(String email, String password) {
         Connection con = null;
         PreparedStatement ps = null;
-        UserBean user = null;
+        User user = null;
         try {
             con = Database.getConnection();
             ps = con.prepareStatement("select * from user where email= ? and password= ?");
@@ -111,7 +112,7 @@ public class UserDAO {
   
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                user = new UserBean();
+                user = new User();
                 user.setId(rs.getInt("id"));
                 user.setEmail(rs.getString("email"));
                 user.setFirstname(rs.getString("first_name"));

@@ -20,7 +20,7 @@
                                 <h:messages class="error"></h:messages>
                                 <dt><span class="Required">*</span>&nbsp; E-mail</dt>
                                 <dd>
-                                    <h:inputText id="email" value="#{userBean.email}" label="email" p:placeholder="Your e-mail address" size="40" required="true" 
+                                    <h:inputText id="email" value="#{userBean.user.email}" label="email" p:placeholder="Your e-mail address" size="40" required="true" 
                                                  requiredMessage="Please enter your email address." validatorMessage="Invalid email format." class="Textbox Field200">
                                         <f:validateRegex pattern="(^.+@\w+[.]\w+$)"/>
                                     </h:inputText>
@@ -28,7 +28,7 @@
                                 </dd>
                                 <dt><span class="Required">*</span>&nbsp; Password</dt>
                                 <dd>
-                                    <h:inputSecret id="password" value="#{userBean.password}" p:placeholder="New password" size="40" required="true" 
+                                    <h:inputSecret id="password" value="#{userBean.user.password}" p:placeholder="New password" size="40" required="true" 
                                                  requiredMessage="Please enter your password." class="Textbox Field200">
                                         <f:validator validatorId="passwordValidator"/>
                                         <f:attribute name="confirmPassword" value="#{confirmPassword}"/>
@@ -45,13 +45,13 @@
                                 </dd>
                                 <dt>First name</dt>
                                 <dd>
-                                    <h:inputText id="firstname" value="#{userBean.firstname}" label="firstname" p:placeholder="Your first name" size="75" class="Textbox Field200">
+                                    <h:inputText id="firstname" value="#{userBean.user.firstname}" label="firstname" p:placeholder="Your first name" size="75" class="Textbox Field200">
                                     </h:inputText>
                                     <h:message for="firstname" class="error"/>
                                 </dd>
                                 <dt>Last name</dt>
                                 <dd>
-                                    <h:inputText id="lastname" value="#{userBean.lastname}" label="lastname" p:placeholder="Your last name" size="75" class="Textbox Field200">
+                                    <h:inputText id="lastname" value="#{userBean.user.lastname}" label="lastname" p:placeholder="Your last name" size="75" class="Textbox Field200">
                                     </h:inputText>
                                     <h:message for="lastname" class="error"/>
                                 </dd>

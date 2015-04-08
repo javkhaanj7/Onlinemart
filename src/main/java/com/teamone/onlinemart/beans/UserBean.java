@@ -6,6 +6,7 @@
 package com.teamone.onlinemart.beans;
 
 import com.teamone.onlinemart.dao.UserDAO;
+import com.teamone.onlinemart.models.User;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -27,19 +28,16 @@ import javax.servlet.http.HttpSession;
 public class UserBean implements Serializable {
     
     private static final long serialVersionUID = 1L;
-    private long id;
-    private String firstname;
-    private String lastname;
-    private String email;
-    private String password;
-    private String userType;
+    
+    private User user;
     private boolean edit;
 
     public UserBean() {
+        user = new User();
     }
     
     public String register(){
-        if(UserDAO.exists(email)) {
+        if(UserDAO.exists(user.getEmail())) {
             FacesContext fc = FacesContext.getCurrentInstance();
             FacesMessage msg = new FacesMessage("This email is already in use.");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -47,8 +45,8 @@ public class UserBean implements Serializable {
             fc.renderResponse();
             return "";
         } else {
-            setUserType("customer");
-            int count = UserDAO.create(this);
+            user.setUserType("customer");
+            int count = UserDAO.create(user);
             if(count > 0) {
                 return "/account/login?faces-redirect=true";
             } else {
@@ -58,7 +56,7 @@ public class UserBean implements Serializable {
     }
     
     public String update() {
-        if(UserDAO.exists(email, id)) {
+        if(UserDAO.exists(user.getEmail(), user.getId())) {
             FacesContext fc = FacesContext.getCurrentInstance();
             FacesMessage msg = new FacesMessage("This email is already in use.");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -66,11 +64,11 @@ public class UserBean implements Serializable {
             fc.renderResponse();
             return "";
         } else {
-            int count = UserDAO.update(this);
+            int count = UserDAO.update(user);
             if(count > 0) {
                 HttpSession session = Util.getSession();
-                session.setAttribute("username", email);
-                session.setAttribute("user", this);
+                session.setAttribute("username", user.getEmail());
+                session.setAttribute("user", user);
                 return "/account/profile?faces-redirect=true";
             } else {
                 return "unsuccess?faces-redirect=true";
@@ -103,90 +101,6 @@ public class UserBean implements Serializable {
             fc.renderResponse();
         }
     }
-    
-    /**
-     * @return the firstname
-     */
-    public String getFirstname() {
-        return firstname;
-    }
-
-    /**
-     * @param firstname the firstname to set
-     */
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    /**
-     * @return the lastname
-     */
-    public String getLastname() {
-        return lastname;
-    }
-
-    /**
-     * @param lastname the lastname to set
-     */
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    /**
-     * @return the email
-     */
-    public String getEmail() {
-        return email;
-    }
-
-    /**
-     * @param email the email to set
-     */
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    /**
-     * @return the password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * @param password the password to set
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * @return the userType
-     */
-    public String getUserType() {
-        return userType;
-    }
-
-    /**
-     * @param userType the userType to set
-     */
-    public void setUserType(String userType) {
-        this.userType = userType;
-    }
-
-    /**
-     * @return the id
-     */
-    public long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(long id) {
-        this.id = id;
-    }
 
     /**
      * @return the edit
@@ -200,5 +114,19 @@ public class UserBean implements Serializable {
      */
     public void setEdit(boolean edit) {
         this.edit = edit;
+    }
+
+    /**
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(User user) {
+        this.user = user;
     }
 }
