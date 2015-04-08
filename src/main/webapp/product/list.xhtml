@@ -21,7 +21,7 @@
                         <h:panelGroup id="messagePanel" layout="block">
                             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                         </h:panelGroup>
-                        <h:panelGroup> <!--rendered="# {productBean.products.size() > 0}">-->                            
+                        <h:panelGroup> <!-- rendered="#{productBean.products.size() > 0}">                            -->
                             <h:dataTable style="margin-left: 30px" value="#{productBean.products}" var="product">
                                 <h:column>
                                     <f:facet name="header">
