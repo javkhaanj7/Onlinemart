@@ -7,6 +7,7 @@ package com.teamone.onlinemart.beans;
 
 import com.teamone.onlinemart.dao.ProductDAO;
 import com.teamone.onlinemart.models.Product;
+import com.teamone.onlinemart.utils.PaginationHelper;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,6 +20,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
+import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 
 /**
@@ -166,13 +170,21 @@ public class ProductBean implements Serializable {
         String fileName = getFileName(part);
         System.out.println("***** fileName: " + fileName);
 
-//		String basePath = "D:" + File.separator + "temp" + File.separator;
+//		String basePath =  "D:" + File.separator + "temp" + File.separator;
 //		File outputFilePath = new File(basePath + fileName);
         String relativePath = "resources/img/";
+        String path;
         FacesContext facesContext = FacesContext.getCurrentInstance();
-
-        File outputFilePath = new File(facesContext.getExternalContext().getRealPath(relativePath) + "\\"+product.getVendor_id() + "\\" + product.getId() + "_image_" + fileName);
-        System.out.println(facesContext.getExternalContext().getRealPath(relativePath) + "\\"+product.getVendor_id() + "\\"+ product.getId() + "_image_" + fileName);
+        
+        path = ((ServletContext)facesContext.getExternalContext().getContext()).getRealPath(relativePath);
+//        path = facesContext.getExternalContext().getRealPath("/");
+        
+//        path = (String)facesContext.getExternalContext().getResource(relativePath);
+//        path = facesContext.getExternalContext().getRealPath(relativePath);
+        System.out.println("Path: " +path);
+                
+        File outputFilePath = new File(path + "\\"+product.getVendor_id() + "\\" + product.getId() + "_image");
+        System.out.println(path + "\\"+product.getVendor_id() + "\\"+ product.getId() + "_image_" + fileName);
 
         // Copy uploaded file to destination path
         InputStream inputStream = null;
@@ -188,6 +200,7 @@ public class ProductBean implements Serializable {
             }
 
             statusMessage = "File upload successfull !!";
+            product.setImagePath("/resources/img/" +product.getVendor_id()+"/"+product.getId()+"_image");
         } catch (IOException e) {
             e.printStackTrace();
             statusMessage = "File upload failed !!";
@@ -233,4 +246,29 @@ public class ProductBean implements Serializable {
         }
         return null;
     }
+    
+    /*
+    Pagination
+    */
+    private PaginationHelper pagination;
+    
+    public PaginationHelper getPagination() {
+        if (pagination == null) {
+            pagination = new PaginationHelper(10) {
+
+                @Override
+                public int getItemsCount() {
+                    return ProductDAO.getAll().size();
+                }
+
+                @Override
+                public DataModel createPageDataModel() {
+                    List list = ProductDAO.getAll();                                        
+                    return new ListDataModel(ProductDAO.findRange(getPageFirstItem(), getPageFirstItem() + getPageSize()));
+                }
+            };
+        }
+        return pagination;
+    }
+    private DataModel items = null;
 }

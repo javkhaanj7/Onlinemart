@@ -39,7 +39,7 @@ public class VendorDAO {
                 insertId = rs.getInt(1);
                 // customerId = String.valueOf(newCustomerId);
             }
-            System.out.println("id" + insertId);
+            
             vendor.setUserType("VENDOR");
             ps = con.prepareStatement("INSERT INTO user (id , user_type, first_name, last_name, vendor_name, email, password, address_id) VALUES (NULL , ?, ?, ?, ?, ?, ?, ?)");
             ps.setString(1, vendor.getUserType());
@@ -85,11 +85,10 @@ public class VendorDAO {
             con = Database.getConnection();
 
             HashMap<Integer, Vendor> hList = new HashMap<Integer, Vendor>();
-            ps = con.prepareStatement("select us.id, us.user_type, us.first_name, us.last_name, us.vendor_name, us.email, us.password, us.address_id, us.paymentStatus, ad.address, ad.city, ad.state, ad.zipcode, ad.country  from user us, address ad where us.address_id=ad.id user_type=?");
+            ps = con.prepareStatement("select us.id, us.user_type, us.first_name, us.last_name, us.vendor_name, us.email, us.password, us.address_id, us.paymentStatus, ad.address, ad.city, ad.state, ad.zipcode, ad.country from user us, address ad where us.address_id=ad.id and user_type=?");
             ps.setString(1, "VENDOR");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
                 hList.put(rs.getInt("id"),
                         new Vendor(rs.getInt("id"), rs.getString("user_type"), rs.getString("first_name"), rs.getString("last_name"),
                                 rs.getString("email"), rs.getString("vendor_name"), rs.getString("password"), rs.getInt("paymentStatus"), rs.getInt("address_id"),

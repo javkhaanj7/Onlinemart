@@ -9,7 +9,7 @@ package com.teamone.onlinemart.beans;
  *
  * @author Rabi
  */
-import com.teamone.onlinemart.models.Address;
+
 import com.teamone.onlinemart.dao.VendorDAO;
 import com.teamone.onlinemart.models.Vendor;
 import java.io.Serializable;
@@ -32,6 +32,10 @@ public class VendorBean implements Serializable {
 
     public void setVendor(Vendor vendor) {
         this.vendor = vendor;
+    }
+    
+    public Vendor[] getVendorList(){
+        return VendorDAO.getAllVendor();
     }
 
     public String registerVendor() {

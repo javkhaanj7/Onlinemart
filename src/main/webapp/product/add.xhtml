@@ -52,7 +52,9 @@
                                              label="file"
                                              value="#{productBean.part}" 
                                              required="true" 
-                                             requiredMessage="File not selected !!">
+                                             requiredMessage="File not selected !!"
+                                            rendered="#{!productBean.statusMessage.equalsIgnoreCase('File upload successfull !! ')}"
+                                            >
                                     <!-- FileUploadValidator for file validation -->
                                     <f:validator validatorId="FileUploadValidator" />
                                 </h:inputFile>
@@ -60,14 +62,11 @@
                                 <dd>
                                     <div class="mg"></div>                                    
                                     <!--<img id="img" src="#"/>-->
+                                    <h:graphicImage url="/resources/img/#{productBean.product.vendor_id}/#{productBean.product.id}_image"
+                                                    rendered="${not empty productBean.product.imagePath}"/>
                                 </dd>
                                 <h:message style="color: red" for="file" /><br />
 
-                                <!--                                <h:commandButton id="submit" 
-                                                                                 action="# {inputBean.uploadFile}"
-                                                                                 value="upload file" /><br />-->
-
-                                <!-- status message of file upload; rendered if message is set -->
                                 <h:outputText value="#{productBean.statusMessage}"
                                               rendered="#{not empty productBean.statusMessage}" />
                                 <dt></dt>
