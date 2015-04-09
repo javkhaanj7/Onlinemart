@@ -64,7 +64,7 @@ public class LoginBean implements Serializable {
             session.setAttribute("user", user);
             loggedIn = true;
             if(user.getUserType().equalsIgnoreCase("admin") || user.getUserType().equalsIgnoreCase("vendor")) {
-                return "/admin/controlPanel?faces-redirect=true";
+                return "/admin/control?faces-redirect=true";
             } else {
                 return "/index?faces-redirect=true";
             }

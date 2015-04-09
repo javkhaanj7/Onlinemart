@@ -39,7 +39,7 @@ public class VendorDAO {
                 insertId = rs.getInt(1);
                 // customerId = String.valueOf(newCustomerId);
             }
-            
+
             vendor.setUserType("VENDOR");
             ps = con.prepareStatement("INSERT INTO user (id , user_type, first_name, last_name, vendor_name, email, password, address_id) VALUES (NULL , ?, ?, ?, ?, ?, ?, ?)");
             ps.setString(1, vendor.getUserType());
@@ -106,5 +106,29 @@ public class VendorDAO {
             Database.close(con);
         }
         return vendorList;
+    }
+
+    public static Vendor getByVendor(int vendorId) {
+        Vendor vendor = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+
+            ps = con.prepareStatement("select us.id, us.user_type, us.first_name, us.last_name, us.vendor_name, us.email, us.password, us.address_id, us.paymentStatus, ad.address, ad.city, ad.state, ad.zipcode, ad.country from user us, address ad where us.address_id=ad.id and user_type=? and us.id = ?");
+            ps.setString(1, "vendor");
+            ps.setInt(2, vendorId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                vendor = new Vendor(rs.getInt("id"), rs.getString("user_type"), rs.getString("first_name"), rs.getString("last_name"),
+                        rs.getString("email"), rs.getString("vendor_name"), rs.getString("password"), rs.getInt("paymentStatus"), rs.getInt("address_id"),
+                        new Address(rs.getInt("address_id"), rs.getString("address"), rs.getString("city"), rs.getString("state"), rs.getInt("zipcode"), rs.getString("country")));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            Database.close(con);
+        }
+        return vendor;
     }
 }

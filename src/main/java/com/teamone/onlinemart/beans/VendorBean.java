@@ -37,6 +37,10 @@ public class VendorBean implements Serializable {
     public Vendor[] getVendorList(){
         return VendorDAO.getAllVendor();
     }
+    
+    public Vendor getByVendor(int vendorId){
+        return VendorDAO.getByVendor(vendorId);
+    }
 
     public String registerVendor() {
         VendorDAO dao = new VendorDAO();
