@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
         
     	<ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
                  <div style="margin:10px 70px">
                      <h4>Vendor List</h4>
+                     <h:form>
+                        <h:dataTable style="margin-left: 30px" value="#{vendor.vendorList}" var="cat">
+                            <h:column>
+                                <f:facet name="header">No</f:facet>
+                                #{vendor.categoryList.rowIndex + 1}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">First Name</f:facet>
+                                #{vendor.first_name}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">Last Name</f:facet>
+                                #{vendort.last_name}
+                            </h:column>
+                            <h:column>
+                                
+                                <f:facet name="header">Vendor Name</f:facet>
+                                #{vendor.vendor_name}
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"></f:facet>
+                                <h:commandLink value="Edit" action="#{vendor.edit(cat)}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header"></f:facet>
+                                <h:commandLink value="Delete" action="#{vendor.delete(cat)}" onclick="if (! confirm('Are you sure want to delete?') ) { return false;}; return true; "/>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
                  </div>
             </ui:define>
     	</ui:composition>

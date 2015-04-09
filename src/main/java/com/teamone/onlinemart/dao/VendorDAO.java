@@ -5,6 +5,7 @@
  */
 package com.teamone.onlinemart.dao;
 
+import com.teamone.onlinemart.beans.Util;
 import com.teamone.onlinemart.models.Address;
 import com.teamone.onlinemart.models.MyFinance;
 import com.teamone.onlinemart.models.Vendor;
@@ -46,7 +47,7 @@ public class VendorDAO {
             ps.setString(3, vendor.getLastname());
             ps.setString(4, vendor.getVendorName());
             ps.setString(5, vendor.getEmail());
-            ps.setString(6, vendor.getPassword());
+            ps.setString(6, Util.MD5(vendor.getPassword()));
             ps.setInt(7, insertId);
             ps.executeUpdate();
 
@@ -91,7 +92,7 @@ public class VendorDAO {
 
                 hList.put(rs.getInt("id"),
                         new Vendor(rs.getInt("id"), rs.getString("user_type"), rs.getString("first_name"), rs.getString("last_name"),
-                                 rs.getString("email"),rs.getString("vendor_name"), rs.getString("password"), rs.getInt("paymentStatus"),rs.getInt("address_id"),
+                                rs.getString("email"), rs.getString("vendor_name"), rs.getString("password"), rs.getInt("paymentStatus"), rs.getInt("address_id"),
                                 new Address(rs.getInt("address_id"), rs.getString("address"), rs.getString("city"), rs.getString("state"), rs.getInt("zipcode"), rs.getString("country"))));
             }
             vendorList = new Vendor[hList.size()];
