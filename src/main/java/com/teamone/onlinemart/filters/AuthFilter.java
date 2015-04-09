@@ -45,7 +45,8 @@ public class AuthFilter implements Filter {
             if (reqURI.indexOf("/login.xhtml") >= 0 || (ses != null && ses.getAttribute("username") != null)
                     || reqURI.indexOf("/public/") >= 0 || reqURI.contains("javax.faces.resource")) {
                 chain.doFilter(request, response);
-            } else {
+            } else 
+            {
                 res.sendRedirect(req.getContextPath()); 
             }
         } catch (Throwable t) {
