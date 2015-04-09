@@ -4,10 +4,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
         <ui:composition template="/template/common/commonLayout.xhtml">
 
+            <ui:define name="metadata">
+                <f:metadata>
+                    <f:viewParam name="pro" value="#{productBean.pro}" />
+                </f:metadata>
+            </ui:define>
+            
             <ui:define name="content">
                 <div class="main">
                     <div class="inner">
@@ -49,13 +56,13 @@
                                             <li><a href="#{request.contextPath}/category/content.xhtml?ven=#{item.id}">#{item.vendorName}</a></li>
                                         </c:forEach>
                                     </ul>
-                                    <strong class="afterSideShopByBrand"><a href="#{request.contextPath}/category/content.xhtml?ven=all">View all brands</a></strong>
+                                    <strong class="afterSideShopByBrand"><a href="#{request.contextPath}/category/content.xhtml?ven=-1">View all brands</a></strong>
                                 </div>
                             </div>
                             <div class="Block Moveable Panel" id="SideCategoryShopByPrice" style="display:none;"></div>
                         </div>
                         <div class="Content Widest" id="LayoutColumn1">
-                            details
+                            #{productBean.pro}
                         </div>
                         <div class="clear"></div>
                     </div>
