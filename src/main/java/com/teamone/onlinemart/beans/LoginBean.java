@@ -5,9 +5,7 @@ import com.teamone.onlinemart.models.User;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -65,7 +63,11 @@ public class LoginBean implements Serializable {
             session.setAttribute("username", uname);
             session.setAttribute("user", user);
             loggedIn = true;
-            return "/index?faces-redirect=true";
+            if(user.getUserType().equalsIgnoreCase("admin") || user.getUserType().equalsIgnoreCase("vendor")) {
+                return "/admin/controlPanel?faces-redirect=true";
+            } else {
+                return "/index?faces-redirect=true";
+            }
         } else {
             FacesContext fc = FacesContext.getCurrentInstance();
             FacesMessage msg = new FacesMessage("E-mail or password you entered is incorrect.");
