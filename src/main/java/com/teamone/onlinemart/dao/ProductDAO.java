@@ -6,12 +6,15 @@
 package com.teamone.onlinemart.dao;
 
 import com.mysql.jdbc.Statement;
+import com.teamone.onlinemart.models.Category;
 import com.teamone.onlinemart.models.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 
 /**
  *
@@ -184,7 +187,7 @@ public class ProductDAO {
         return products;
     }
 
-    public static List<Product> findTop(int limit) {
+    public static Product[] findTop(int limit) {
         Connection con = null;
         PreparedStatement ps = null;
         List<Product> products = new ArrayList<>();
@@ -204,10 +207,12 @@ public class ProductDAO {
         } finally {
             Database.close(con);
         }
-        return products;
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
     }
 
-    public static List<Product> findTop() {
+    public static Product[] findTop() {
         Connection con = null;
         PreparedStatement ps = null;
         List<Product> products = new ArrayList<>();
@@ -228,10 +233,12 @@ public class ProductDAO {
         } finally {
             Database.close(con);
         }
-        return products;
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
     }
 
-    public static List<Product> findNew(int limit) {
+    public static Product[] findNew(int limit) {
         Connection con = null;
         PreparedStatement ps = null;
         List<Product> products = new ArrayList<>();
@@ -249,12 +256,15 @@ public class ProductDAO {
         } catch (Exception ex) {
             System.out.println("Error in findNew(int limit) products -->" + ex.getMessage());
         } finally {
-            Database.close(con);
+            Database.close(con);        
         }
-        return products;
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
+        
     }
 
-    public static List<Product> findNew() {
+    public static Product[] findNew() {
         Connection con = null;
         PreparedStatement ps = null;
         List<Product> products = new ArrayList<>();
@@ -274,8 +284,10 @@ public class ProductDAO {
             System.out.println("Error in findNew(int limit) products -->" + ex.getMessage());
         } finally {
             Database.close(con);
-        }
-        return products;
+        }          
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
     }
 
     public static void purchaseProduct(int id) {
@@ -298,7 +310,6 @@ public class ProductDAO {
             Database.close(con);
         }
     }
-
     public static void purchaseProduct(Product product) {
         Connection con = null;
         ResultSet rs = null;
@@ -319,7 +330,6 @@ public class ProductDAO {
             Database.close(con);
         }
     }
-
     public static void purchaseProducts(List<Product> products) {
         Connection con = null;
         ResultSet rs = null;
@@ -375,5 +385,54 @@ public class ProductDAO {
         } finally {
             Database.close(con);
         }
+    }
+    
+    public static Product[] findByCategory(int cat_id){
+        Connection con = null;
+        PreparedStatement ps = null;
+        List<Product> products = new ArrayList<>();        
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from product where category_id = ? or category_id in (select id from category where parent_id = ?);");
+            ps.setInt(1, cat_id);
+            ps.setInt(2, cat_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) // found
+            {
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in findByCategory(cat) products -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }            
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
+    }
+    public static Product[] findByCategory(Category cat){
+        Connection con = null;
+        PreparedStatement ps = null;
+        List<Product> products = new ArrayList<>();        
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from product where category_id = ? or category_id in (select id from category where parent_id = ?);");
+            ps.setInt(1, cat.getCategoryId());
+            ps.setInt(2, cat.getCategoryId());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) // found
+            {
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in findByCategory(int id) products -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }            
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
     }
 }
