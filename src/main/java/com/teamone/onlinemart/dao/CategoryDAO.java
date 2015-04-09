@@ -134,6 +134,28 @@ public class CategoryDAO {
         return categoryList;
     }
     
+    public static Category getByCategory(int id){
+        Category category = null;
+        Connection con = null;
+        PreparedStatement ps = null;
+        try {
+            con = Database.getConnection();
+            
+            ps = con.prepareStatement("select * from category where id = ? order by id");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                category = new Category(rs.getInt("id"), rs.getInt("parent_id"), null,
+                            rs.getString("name"), rs.getString("description"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            Database.close(con);
+        }
+        return category;
+    }
+    
     public static void create(Category category){
         Category categoryList[] = null;
         Connection con = null;

@@ -27,7 +27,7 @@
                                         <div class="">
                                             <ul class="sf-horizontal category-list treeview">
                                                 <c:forEach var="item" items="#{category.categoryParentList}" varStatus="loop">
-                                                    <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{item.categoryId}">#{item.name}</a>
+                                                    <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{item.categoryId}&amp;ven=0">#{item.name}</a>
                                                         <c:if test="#{category.isParentHasChild(item.categoryId)}">
                                                             <div class="hitarea expandable-hitarea">
                                                                 <span href="#collapse#{loop.index}" class="nav-toggle"><i class="fa fa-chevron-down"></i></span>
@@ -36,7 +36,7 @@
                                                         <div id="collapse#{loop.index}">
                                                             <c:forEach var="itemChild" items="#{category.getChildCategoryList(item.categoryId)}">
                                                                 <ul>
-                                                                    <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{itemChild.categoryId}">#{itemChild.name}</a></li>
+                                                                    <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{itemChild.categoryId}&amp;ven=0">#{itemChild.name}</a></li>
                                                                 </ul>
                                                             </c:forEach>
                                                         </div>
@@ -53,16 +53,47 @@
                                 <div class="BlockContent">
                                     <ul class="treeview">
                                         <c:forEach var="item" items="#{vendorBean.vendorList}">
-                                            <li><a href="#{request.contextPath}/category/content.xhtml?ven=#{item.id}">#{item.vendorName}</a></li>
+                                            <li><a href="#{request.contextPath}/category/content.xhtml?cat=0&amp;ven=#{item.id}">#{item.vendorName}</a></li>
                                         </c:forEach>
                                     </ul>
-                                    <strong class="afterSideShopByBrand"><a href="#{request.contextPath}/category/content.xhtml?ven=-1">View all brands</a></strong>
+                                    <strong class="afterSideShopByBrand"><a href="#{request.contextPath}/category/content.xhtml?cat=0&amp;ven=-1">View all brands</a></strong>
                                 </div>
                             </div>
                             <div class="Block Moveable Panel" id="SideCategoryShopByPrice" style="display:none;"></div>
                         </div>
                         <div class="Content Widest" id="LayoutColumn1">
-                            #{productBean.pro}
+                            <div class="Block Moveable Panel Breadcrumb desktop" id="ProductBreadcrumb">
+                                <ul>
+                                    <li><a href="#{request.contextPath}">Home</a></li>
+                                    <c:if test="#{category.getByCategory(productBean.getByProduct(productBean.pro).category_id) != null and category.getByCategory(category.getByCategory(productBean.getByProduct(productBean.pro).category_id).parentId) != null}">
+                                        <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{category.getByCategory(productBean.getByProduct(productBean.pro).category_id).parentId}&amp;ven=0">#{category.getByCategory(category.getByCategory(productBean.getByProduct(productBean.pro).category_id).parentId).name}</a></li>
+                                    </c:if>
+                                    <c:if test="#{category.getByCategory(productBean.getByProduct(productBean.pro).category_id) != null}">
+                                        <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{productBean.getByProduct(productBean.pro).category_id}&amp;ven=0">#{category.getByCategory(productBean.getByProduct(productBean.pro).category_id).name}</a></li>
+                                    </c:if>
+                                    <li>#{productBean.getByProduct(productBean.pro).name}</li>
+                                </ul>
+                            </div>
+                            <div class="Block Moveable Panel PrimaryProductDetails no-ptop" id="ProductDetails">
+                                <div class="BlockContent">
+                                    <!-- left-content -->
+                                    <div class="left-content">
+                                        <div class="ProductThumb" style="width: 520px; height: 682px;">
+                                            <div class="ProductThumbImage">
+                                                <div class="zoomie">
+                                                    <img src="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="clear"></div>
+                                    <div class="Block Moveable Panel ProductDescription current" id="ProductDescription">
+                                        <h3 class="subtitle">Product Description</h3>
+                                        <div class="ProductDescriptionContainer prodAccordionContent" style="display: block;">#{productBean.getByProduct(productBean.pro).description}</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="clear"></div>
                     </div>

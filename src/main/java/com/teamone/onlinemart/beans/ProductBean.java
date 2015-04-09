@@ -292,4 +292,8 @@ public class ProductBean implements Serializable {
         return ProductDAO.findNew(8);
     }
     
+    public Product getByProduct(int id){
+        return ProductDAO.getById(id);
+    }
+    
 }

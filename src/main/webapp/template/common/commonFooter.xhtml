@@ -27,7 +27,7 @@
                                         <div class="BlockContent">
                                             <ul class="sf-menu sf-horizontal sf-js-enabled">
                                                 <c:forEach var="item" items="#{category.categoryParentList}">
-                                                    <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{item.categoryId}">#{item.name}</a></li>
+                                                    <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{item.categoryId}&amp;ven=0">#{item.name}</a></li>
                                                 </c:forEach>
                                             </ul>
                                         </div>
@@ -38,10 +38,10 @@
                                         <div class="BlockContent">
                                             <ul class="treeview">
                                                 <c:forEach var="item" items="#{vendorBean.vendorList}">
-                                                    <li><a href="#{request.contextPath}/category/content.xhtml?ven=#{item.id}">#{item.vendorName}</a></li>
+                                                    <li><a href="#{request.contextPath}/category/content.xhtml?cat=0&amp;ven=#{item.id}">#{item.vendorName}</a></li>
                                                 </c:forEach>
                                             </ul>
-                                            <strong class="afterSideShopByBrand"><a href="#{request.contextPath}/category/content.xhtml?ven=-1">View all brands</a></strong>
+                                            <strong class="afterSideShopByBrand"><a href="#{request.contextPath}/category/content.xhtml?cat=0&amp;ven=-1">View all brands</a></strong>
                                         </div>
                                     </div></div>
                                 <div class="grid__item one-quarter"><div id="socnet" class="Block SocialConnect Moveable Panel">

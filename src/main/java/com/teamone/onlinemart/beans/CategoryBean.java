@@ -60,6 +60,10 @@ public class CategoryBean implements Serializable {
         return CategoryDAO.getAllChildCategory(parentId);
     }
     
+    public Category getByCategory(int id){
+        return CategoryDAO.getByCategory(id);
+    }
+    
     public DataModel<Category> getEditCategoryList(){
         editCategoryModel = new ArrayDataModel<Category>(CategoryDAO.getAllCustomCategory(category.getCategoryId()));
         return editCategoryModel;
