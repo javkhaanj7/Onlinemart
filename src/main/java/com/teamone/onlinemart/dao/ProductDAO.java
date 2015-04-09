@@ -71,9 +71,9 @@ public class ProductDAO {
             ps.setString(2, product.getDescription());
             ps.setDouble(3, product.getPrice());
             ps.setInt(4, product.getCategory_id());
-            ps.setInt(5, product.getVendor_id()); //Vendor Id
-            ps.setInt(6, product.getId());
-            ps.setString(7, product.getImagePath());
+            ps.setInt(5, product.getVendor_id());
+            ps.setString(6, product.getImagePath());
+            ps.setInt(7, product.getId());
 
             ps.executeUpdate();
 
@@ -121,7 +121,32 @@ public class ProductDAO {
             while (rs.next()) // found
             {
 //                products.setWrappedData((Object)new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price")));
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in getAll() products -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }
+        return products;
+    }
+    
+    public static ArrayList<Product> getAllVendorProducts(int vendor_id) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ArrayList<Product> products = new ArrayList<>();
+//        DataModel<Product> products = new ArrayDataModel<Product>();        
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from product where vendor_id = ?");
+            ps.setInt(1, vendor_id);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) // found
+            {
+//                products.setWrappedData((Object)new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in getAll() products -->" + ex.getMessage());
@@ -143,7 +168,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) // found
             {
-                product = new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"));
+                product = new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path"));
             }
         } catch (Exception ex) {
             System.out.println("Error in getAll() products -->" + ex.getMessage());
@@ -169,7 +194,7 @@ public class ProductDAO {
             while (rs.next()) // found
             {
 //                products.setWrappedData((Object)new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price")));
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in findRange() products -->" + ex.getMessage());
@@ -192,7 +217,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) // found
             {
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in findTop(int limit) products -->" + ex.getMessage());
@@ -218,7 +243,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) // found
             {
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in findTop() products -->" + ex.getMessage());
@@ -243,7 +268,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) // found
             {
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in findNew(int limit) products -->" + ex.getMessage());
@@ -270,7 +295,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) // found
             {
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in findNew(int limit) products -->" + ex.getMessage());
@@ -395,7 +420,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) // found
             {
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in findByCategory(cat) products -->" + ex.getMessage());
@@ -420,7 +445,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) // found
             {
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in findByCategory(int id) products -->" + ex.getMessage());
@@ -450,7 +475,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) // found
             {
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in getVendorProducts(int limit) products -->" + ex.getMessage());
@@ -482,7 +507,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) // found
             {
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in getProductByPrice() products -->" + ex.getMessage());
@@ -514,7 +539,7 @@ public class ProductDAO {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) // found
             {
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
             }
         } catch (Exception ex) {
             System.out.println("Error in getProductByName() products -->" + ex.getMessage());

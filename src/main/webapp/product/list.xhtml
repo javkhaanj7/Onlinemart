@@ -47,6 +47,12 @@
                                     <h:outputText value="#{product.price}"/>
                                 </h:column>
                                 <!-- Update and Delete-->
+<!--                                <h:column>
+                                    <h:commandLink value="# {productBean.view()}">
+                                        <f:param name="pid" value="# {product.id}" />
+                                        <h:outputText value="View" />
+                                    </h:commandLink>>
+                                </h:column>-->
                                 <h:column>                                    
                                     <h:commandLink value="Edit" action="#{productBean.edit(product)}"/>
                                     <!--<h:link value="Edit" outcome="# {productBean.edit(product)}" />-->

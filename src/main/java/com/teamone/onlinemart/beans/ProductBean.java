@@ -69,8 +69,7 @@ public class ProductBean implements Serializable {
     }
 
     private List<Product> products;// = new ArrayList<Product>();
-    
-    
+
     public List<Product> getProducts() {
         return products;
     }
@@ -103,7 +102,7 @@ public class ProductBean implements Serializable {
     public int getItemIndex() {
         return itemIndex;
     }
-    
+
     @ManagedProperty("#{categoryBean}")
     private CategoryBean categoryBean;
 
@@ -116,8 +115,12 @@ public class ProductBean implements Serializable {
     }
 
     private void getList() {
-        setProducts(ProductDAO.getAll());
-
+        User u = (User) Util.getUser();
+        if (u == null) {
+            setProducts(ProductDAO.getAll());
+        }else{
+            setProducts(ProductDAO.getAllVendorProducts((int)u.getId()));
+        }
     }
 
     //-------------------------------
@@ -133,18 +136,18 @@ public class ProductBean implements Serializable {
         return "Create";
     }
 
-    public String create() throws IOException {  
-        User u = (User)Util.getUser();
-        if(u == null){
+    public String create() throws IOException {
+        User u = (User) Util.getUser();
+        if (u == null) {
             return "/index?faces-redirect=true";
         }
-        
+
+        uploadFile();
         product.setVendor_id((int) u.getId());
         int generated_id = ProductDAO.save(product);
         if (generated_id != -1) {
             product.setId(generated_id);
-            uploadFile();
-            getList();            
+            getList();
             statusMsg = "Saved Successfully";
             return "/product/list?faces-redirect=true";
         } else {
@@ -184,21 +187,27 @@ public class ProductBean implements Serializable {
     /*
      File upload
      */
-
     private Part part;
     private String statusMessage;
 
     public String uploadFile() throws IOException {
 
-        String fileName = getFileName(part);        
-        
+        String fileName = getFileName(part);
+
         String relativePath = "resources/img/";
         String path;
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        
-        path = ((ServletContext)facesContext.getExternalContext().getContext()).getRealPath(relativePath);
-                
-        File outputFilePath = new File(path + "\\"+product.getVendor_id() + "\\" + product.getId() + "_image");
+
+        path = ((ServletContext) facesContext.getExternalContext().getContext()).getRealPath(relativePath);
+
+        File directory = new File(path);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
+
+        long l = System.currentTimeMillis();
+        File outputFilePath = new File(path + "\\" + l);
 
         // Copy uploaded file to destination path
         InputStream inputStream = null;
@@ -213,13 +222,12 @@ public class ProductBean implements Serializable {
                 outputStream.write(bytes, 0, read);
             }
 
-            statusMessage = "File upload successfull !!";
-            product.setImagePath("/resources/img/" +product.getVendor_id()+"/"+product.getId()+"_image");
+            statusMessage = "File upload successfull !!";            
+            product.setImagePath(Long.toString(l));            
         } catch (IOException e) {
             statusMessage = "File upload failed !!";
             statusMsg = "Not success";
-            ///Anhaar
-            ProductDAO.delete(product.getId());
+            return null;
         } finally {
             if (outputStream != null) {
                 outputStream.close();
@@ -258,10 +266,10 @@ public class ProductBean implements Serializable {
         }
         return null;
     }
-    
+
     /*
-    Pagination
-    */
+     Pagination
+     */
 //    private PaginationHelper pagination;
 //    
 //    public PaginationHelper getPagination() {
@@ -283,13 +291,12 @@ public class ProductBean implements Serializable {
 //        return pagination;
 //    }
 //    private DataModel items = null;
-    
-    public Product[] getTopSelledList(){
+    public Product[] getTopSelledList() {
         return ProductDAO.findTop(8);
     }
-    
-    public Product[] getNewProductList(){
+
+    public Product[] getNewProductList() {
         return ProductDAO.findNew(8);
     }
-    
+
 }
