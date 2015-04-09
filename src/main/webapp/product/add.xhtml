@@ -47,67 +47,99 @@
                                 </dd>
                                 <dt>Image</dt>
                                 <!-- inputFile tag to upload file -->
-
+                                <!--<h:form enctype="multipart/form-data">-->                                   
                                 <h:inputFile class="imgInp" id="file" 
                                              label="file"
                                              value="#{productBean.part}" 
                                              required="true" 
                                              requiredMessage="File not selected !!"
-                                            rendered="#{!productBean.statusMessage.equalsIgnoreCase('File upload successfull !! ')}"
-                                            >
-                                    <!-- FileUploadValidator for file validation -->
+                                             rendered="#{!productBean.statusMessage.equalsIgnoreCase('File upload successfull !! ')}"
+                                             >
+                                    <!--FileUploadValidator for file validation--> 
                                     <f:validator validatorId="FileUploadValidator" />
                                 </h:inputFile>
+                                <h:message style="color: red" for="file" />
                                 <dt></dt>
                                 <dd>
-                                    <div class="mg"></div>                                    
+                                    <div class="mg"></div>         
+                                    #{productBean.product.imagePath}
                                     <!--<img id="img" src="#"/>-->
-                                    <h:graphicImage url="/resources/img/#{productBean.product.vendor_id}/#{productBean.product.id}_image"
-                                                    rendered="${not empty productBean.product.imagePath}"/>
+                                    <h:graphicImage url="/resources/img/#{productBean.product.imagePath}"
+                                                    rendered="${not empty productBean.product.imagePath}"/>                      
                                 </dd>
                                 <h:message style="color: red" for="file" /><br />
 
-                                <h:outputText value="#{productBean.statusMessage}"
-                                              rendered="#{not empty productBean.statusMessage}" />
+                                <h:outputText value="#{productBean.statusMsg}"
+                                              rendered="#{not empty productBean.statusMsg}" />
                                 <dt></dt>
                                 <dd>                                    
                                     <p class="Submit"><h:commandButton action="#{productBean.create}" type="submit" class="btn Small" value="Create"/></p>
-                                </dd>
-                                <dt></dt>
-                                <dd><h:outputText id="status" value="#{productBean.statusMsg}"
-                                                  rendered="#{not empty productBean.statusMsg}" /></dd>
+
+
+                                </dd>    
                             </dl>
                         </div>
-                    </h:form>                    
+                    </h:form>  
+                    <!--                    <div>
+                                        <dl>                      
+                                                    <dt></dt>
+                                                    <dd>
+                    
+                                                        <h:form  enctype="multipart/form-data">
+                                                             inputFile tag to upload file 
+                                                            <h:inputFile id="file" 
+                                                                         label="file"
+                                                                         value="# {productBean.uploadBean.part}" 
+                                                                         required="true" 
+                                                                         requiredMessage="File not selected !!">
+                                                                 FileUploadValidator for file validation 
+                                                                <f:validator validatorId="FileUploadValidator" />
+                                                            </h:inputFile>
+                                                            <h:message style="color: red" for="file" /><br />
+                    
+                                                            <h:commandButton id="submit" 
+                                                                             value="upload file"
+                                                                action="# {productBean.uploadBean.uploadFile()}"    />                        
+                                                            </h:commandButton>
+                    
+                                                             status message of file upload; rendered if message is set 
+                                                            <h:outputText id="outputMessage" value="# {productBean.uploadBean.statusMessage}"
+                                                                          rendered="# {not empty productBean.uploadBean.statusMessage}" />
+                                                        </h:form>
+                    
+                                                    </dd>
+                                                    <dt></dt>
+                                                    <dd><h:outputText id="status" value="# {productBean.statusMsg}"
+                                                                      rendered="# {not empty productBean.statusMsg}" />
+                                                    </dd>
+                                                </dl>
+                                            </div>-->
+                    <!--                    </h:form>        -->
+
                 </div>          
                 <div class="clear"></div>
             </ui:define>
         </ui:composition>
         <script type="text/javascript">
             //<![CDATA[
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-
-                    reader.onload = function (e) {
-//                        $('#img').attr('src', e.target.result);
-                        var old = $('#uploaded_img')
-                        if (old !== null) {
-                            delete(old);
-                        }
-                        $('.mg').append('<img id="uploaded_img" src="' + e.target.result + '" />');
-                    };
-//                    $('#uploaded_img').css({'display': 'block', 'position': 'relative', 'left': '-50%'});
-//                    $('#uploaded_img').css('position','relative');
-//                    $('#uploaded_img').css('left','-50%');
-//                    $("p").css("background-color", "yellow");
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-
-            $(".imgInp").change(function () {
-                readURL(this);
-            });
+//            function readURL(input) {
+//                if (input.files && input.files[0]) {
+//                    var reader = new FileReader();
+//
+//                    reader.onload = function (e) {
+//                        var old = $('#uploaded_img');
+//                        if (old !== null) {
+//                            delete(old);
+//                        }
+//                        $('.mg').append('<img id="uploaded_img" src="' + e.target.result + '" />');
+//                    };
+//                    reader.readAsDataURL(input.files[0]);
+//                }
+//            }
+//
+//            $(".imgInp").change(function () {
+//                readURL(this);
+//            });
             //]]>
         </script>
     </h:body>    

@@ -30,10 +30,7 @@ public class FileUploadValidator implements Validator {
 		String fileName = getFileName(part);
 		System.out.println("----- validator fileName: " + fileName);
 		if(fileName.length() == 0 ) {
-			FacesMessage message = new FacesMessage("Error: File name is invalid !!");
-			throw new ValidatorException(message);
-		} else if (fileName.length() > 50) {
-			FacesMessage message = new FacesMessage("Error: File name is too long !!");
+			FacesMessage message = new FacesMessage("Error: File is required !!");
 			throw new ValidatorException(message);
 		}
  
