@@ -7,7 +7,7 @@ package com.teamone.onlinemart.beans;
 
 import com.teamone.onlinemart.dao.ProductDAO;
 import com.teamone.onlinemart.models.Product;
-import com.teamone.onlinemart.utils.PaginationHelper;
+import com.teamone.onlinemart.models.User;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,8 +20,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 
@@ -43,6 +41,9 @@ public class ProductBean implements Serializable {
         this.product = product;
     }
 
+    private List<Product> products;// = new ArrayList<Product>();
+    
+    
     public List<Product> getProducts() {
         return products;
     }
@@ -50,7 +51,6 @@ public class ProductBean implements Serializable {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
-    private List<Product> products;// = new ArrayList<Product>();
 
 //    public DataModel<Product> getProducts() {
 //        return products;
@@ -62,8 +62,7 @@ public class ProductBean implements Serializable {
 //    private DataModel<Product> products;// = new ArrayDataModel<>();
     public ProductBean() {
         product = new Product();
-        products = new ArrayList<Product>();
-//        products = new ArrayDataModel<>();
+        products = new ArrayList<>();
         itemIndex = 0;
         categoryBean = new CategoryBean();
     }
@@ -78,12 +77,6 @@ public class ProductBean implements Serializable {
         return itemIndex;
     }
     
-//    @ManagedProperty("#{add_new}")
-//    public String add_new(){
-//        
-//    }
-    
-//    @ManagedProperty(name = "categoryBean", value = new CategoryBean())
     @ManagedProperty("#{categoryBean}")
     private CategoryBean categoryBean;
 
@@ -108,23 +101,29 @@ public class ProductBean implements Serializable {
 
     public String prepareCreate() {
         setProduct(new Product());
+        statusMessage = "";
+        statusMsg = "";
         return "Create";
     }
 
-    public String create() throws IOException {
-        product.setVendor_id(1);
+    public String create() throws IOException {  
+        User u = (User)Util.getUser();
+        if(u == null){
+            return "/index?faces-redirect=true";
+        }
+        
+        product.setVendor_id((int) u.getId());
         int generated_id = ProductDAO.save(product);
         if (generated_id != -1) {
             product.setId(generated_id);
             uploadFile();
             getList();            
             statusMsg = "Saved Successfully";
-//            return "/product/list";
+            return "/product/list?faces-redirect=true";
         } else {
             statusMsg = "Not success";
         }
         return null;
-
     }
 
     public String add() {
@@ -146,7 +145,6 @@ public class ProductBean implements Serializable {
     public String editUpdate() {
         ProductDAO.update(product);
         getList();
-//        return "/product/list";
         return "list?faces-redirect=true";
     }
 
@@ -159,32 +157,21 @@ public class ProductBean implements Serializable {
     /*
      File upload
      */
-    private static final long serialVersionUID = 9040359120893077422L;
 
     private Part part;
     private String statusMessage;
 
     public String uploadFile() throws IOException {
 
-        // Extract file name from content-disposition header of file part
-        String fileName = getFileName(part);
-        System.out.println("***** fileName: " + fileName);
-
-//		String basePath =  "D:" + File.separator + "temp" + File.separator;
-//		File outputFilePath = new File(basePath + fileName);
+        String fileName = getFileName(part);        
+        
         String relativePath = "resources/img/";
         String path;
         FacesContext facesContext = FacesContext.getCurrentInstance();
         
         path = ((ServletContext)facesContext.getExternalContext().getContext()).getRealPath(relativePath);
-//        path = facesContext.getExternalContext().getRealPath("/");
-        
-//        path = (String)facesContext.getExternalContext().getResource(relativePath);
-//        path = facesContext.getExternalContext().getRealPath(relativePath);
-        System.out.println("Path: " +path);
                 
         File outputFilePath = new File(path + "\\"+product.getVendor_id() + "\\" + product.getId() + "_image");
-        System.out.println(path + "\\"+product.getVendor_id() + "\\"+ product.getId() + "_image_" + fileName);
 
         // Copy uploaded file to destination path
         InputStream inputStream = null;
@@ -202,7 +189,6 @@ public class ProductBean implements Serializable {
             statusMessage = "File upload successfull !!";
             product.setImagePath("/resources/img/" +product.getVendor_id()+"/"+product.getId()+"_image");
         } catch (IOException e) {
-            e.printStackTrace();
             statusMessage = "File upload failed !!";
             statusMsg = "Not success";
             ///Anhaar
@@ -237,7 +223,6 @@ public class ProductBean implements Serializable {
     // Extract file name from content-disposition header of file part
     private String getFileName(Part part) {
         final String partHeader = part.getHeader("content-disposition");
-        System.out.println("***** partHeader: " + partHeader);
         for (String content : part.getHeader("content-disposition").split(";")) {
             if (content.trim().startsWith("filename")) {
                 return content.substring(content.indexOf('=') + 1).trim()
@@ -250,25 +235,25 @@ public class ProductBean implements Serializable {
     /*
     Pagination
     */
-    private PaginationHelper pagination;
-    
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-
-                @Override
-                public int getItemsCount() {
-                    return ProductDAO.getAll().size();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    List list = ProductDAO.getAll();                                        
-                    return new ListDataModel(ProductDAO.findRange(getPageFirstItem(), getPageFirstItem() + getPageSize()));
-                }
-            };
-        }
-        return pagination;
-    }
-    private DataModel items = null;
+//    private PaginationHelper pagination;
+//    
+//    public PaginationHelper getPagination() {
+//        if (pagination == null) {
+//            pagination = new PaginationHelper(10) {
+//
+//                @Override
+//                public int getItemsCount() {
+//                    return ProductDAO.getAll().size();
+//                }
+//
+//                @Override
+//                public DataModel createPageDataModel() {
+//                    List list = ProductDAO.getAll();                                        
+//                    return new ListDataModel(ProductDAO.findRange(getPageFirstItem(), getPageFirstItem() + getPageSize()));
+//                }
+//            };
+//        }
+//        return pagination;
+//    }
+//    private DataModel items = null;
 }

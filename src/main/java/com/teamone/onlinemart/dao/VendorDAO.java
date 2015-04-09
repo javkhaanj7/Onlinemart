@@ -5,6 +5,7 @@
  */
 package com.teamone.onlinemart.dao;
 
+import com.teamone.onlinemart.beans.Util;
 import com.teamone.onlinemart.models.Address;
 import com.teamone.onlinemart.models.MyFinance;
 import com.teamone.onlinemart.models.Vendor;
@@ -38,7 +39,7 @@ public class VendorDAO {
                 insertId = rs.getInt(1);
                 // customerId = String.valueOf(newCustomerId);
             }
-            System.out.println("id" + insertId);
+            
             vendor.setUserType("VENDOR");
             ps = con.prepareStatement("INSERT INTO user (id , user_type, first_name, last_name, vendor_name, email, password, address_id) VALUES (NULL , ?, ?, ?, ?, ?, ?, ?)");
             ps.setString(1, vendor.getUserType());
@@ -46,7 +47,7 @@ public class VendorDAO {
             ps.setString(3, vendor.getLastname());
             ps.setString(4, vendor.getVendorName());
             ps.setString(5, vendor.getEmail());
-            ps.setString(6, vendor.getPassword());
+            ps.setString(6, Util.MD5(vendor.getPassword()));
             ps.setInt(7, insertId);
             ps.executeUpdate();
 
@@ -84,14 +85,13 @@ public class VendorDAO {
             con = Database.getConnection();
 
             HashMap<Integer, Vendor> hList = new HashMap<Integer, Vendor>();
-            ps = con.prepareStatement("select us.id, us.user_type, us.first_name, us.last_name, us.vendor_name, us.email, us.password, us.address_id, us.paymentStatus, ad.address, ad.city, ad.state, ad.zipcode, ad.country  from user us, address ad where us.address_id=ad.id user_type=?");
+            ps = con.prepareStatement("select us.id, us.user_type, us.first_name, us.last_name, us.vendor_name, us.email, us.password, us.address_id, us.paymentStatus, ad.address, ad.city, ad.state, ad.zipcode, ad.country from user us, address ad where us.address_id=ad.id and user_type=?");
             ps.setString(1, "VENDOR");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-
                 hList.put(rs.getInt("id"),
                         new Vendor(rs.getInt("id"), rs.getString("user_type"), rs.getString("first_name"), rs.getString("last_name"),
-                                 rs.getString("email"),rs.getString("vendor_name"), rs.getString("password"), rs.getInt("paymentStatus"),rs.getInt("address_id"),
+                                rs.getString("email"), rs.getString("vendor_name"), rs.getString("password"), rs.getInt("paymentStatus"), rs.getInt("address_id"),
                                 new Address(rs.getInt("address_id"), rs.getString("address"), rs.getString("city"), rs.getString("state"), rs.getInt("zipcode"), rs.getString("country"))));
             }
             vendorList = new Vendor[hList.size()];
