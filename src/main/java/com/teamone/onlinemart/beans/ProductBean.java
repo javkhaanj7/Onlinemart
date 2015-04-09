@@ -32,6 +32,33 @@ import javax.servlet.http.Part;
 public class ProductBean implements Serializable {
 
     private Product product;
+    private int pro;
+    private int ven;
+    private int cat;
+
+    public int getPro() {
+        return pro;
+    }
+
+    public void setPro(int pro) {
+        this.pro = pro;
+    }
+
+    public int getVen() {
+        return ven;
+    }
+
+    public void setVen(int ven) {
+        this.ven = ven;
+    }
+
+    public int getCat() {
+        return cat;
+    }
+
+    public void setCat(int cat) {
+        this.cat = cat;
+    }
 
     public Product getProduct() {
         return product;
@@ -256,4 +283,13 @@ public class ProductBean implements Serializable {
 //        return pagination;
 //    }
 //    private DataModel items = null;
+    
+    public Product[] getTopSelledList(){
+        return ProductDAO.findTop(8);
+    }
+    
+    public Product[] getNewProductList(){
+        return ProductDAO.findNew(8);
+    }
+    
 }
