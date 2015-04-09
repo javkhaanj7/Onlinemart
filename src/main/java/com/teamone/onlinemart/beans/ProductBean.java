@@ -303,5 +303,4 @@ public class ProductBean implements Serializable {
         return ProductDAO.getById(id);
     }
     
-
 }

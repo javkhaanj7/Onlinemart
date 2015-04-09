@@ -14,7 +14,7 @@
                     <f:viewParam name="pro" value="#{productBean.pro}" />
                 </f:metadata>
             </ui:define>
-            
+
             <ui:define name="content">
                 <div class="main">
                     <div class="inner">
@@ -81,12 +81,84 @@
                                         <div class="ProductThumb" style="width: 520px; height: 682px;">
                                             <div class="ProductThumbImage">
                                                 <div class="zoomie">
-                                                    <img src="" />
+                                                    <h:graphicImage url="/resources/img/#{productBean.getByProduct(productBean.pro).imagePath}"/>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                    <div class="ProductMain">
+                                        <div class="ProductDetailsGrid desktop PriceBorderBottom">
+                                            <div class="DetailRow">
+                                                <div class="Value" style="display: ">
+                                                    <h4 class="BrandName"><a href="#{request.contextPath}/category/content.xhtml?cat=0&amp;ven=#{productBean.getByProduct(productBean.pro).vendor_id}">#{vendorBean.getByVendor(productBean.getByProduct(productBean.pro).vendor_id).vendorName}</a></h4>
+                                                </div>
+                                                <h1>#{productBean.getByProduct(productBean.pro).name}</h1>
+                                            </div>
+
+                                            <div class="DetailRow PriceRow p-price" style="">
+                                                <div class="Value">
+                                                    <span class="ProductPrice VariationProductPrice">$#{productBean.getByProduct(productBean.pro).price}</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div> 
+
+                                        <div class="productAddToCartRight">
+                                            <form method="post" action="" id="productDetailsAddToCartForm">
+
+                                                <div class="ProductDetailsGrid ProductAddToCart">
+
+                                                    <div class="DetailRow qty" style="display: ">
+                                                        <div class="Label QuantityInput">Quantity:</div>
+                                                        <div class="Value AddCartButton">
+                                                            <select id="qty_" name="qty[]" class="Field45 quantityInput" style="">
+                                                                <option selected="selected" value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+
+                                                            </select>
+                                                            <div class="clear"></div>
+                                                        </div>
+                                                        <!-- addto -->
+                                                        <div class="addto">
+                                                            <div class="BulkDiscount" style="display: ">
+                                                                <input type="submit" class="btn add-to-cart cta" value="Add To Cart" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
                                     <div class="clear"></div>
                                     <div class="Block Moveable Panel ProductDescription current" id="ProductDescription">
                                         <h3 class="subtitle">Product Description</h3>
