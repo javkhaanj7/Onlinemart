@@ -23,7 +23,7 @@
                                     </c:if>
                                     <c:if test="#{loginBean.user != null}">
                                         <h:form>
-                                            <div><h:commandLink action="#{loginBean.logout}">Sign out</h:commandLink></div>
+                                            <div><span style="color:#ffff00;">Hello, #{empty loginBean.user.firstname ? loginBean.user.firstname : loginBean.user.email}</span> <h:commandLink action="#{loginBean.logout}">Sign out</h:commandLink></div>
                                         </h:form>
                                     </c:if>
                                 </li>
