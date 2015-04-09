@@ -83,6 +83,16 @@ public class Product implements Serializable{
     public void setVendor_id(int vendor_id) {
         this.vendor_id = vendor_id;
     }
+    
+    private String imagePath;
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
     @Override
     public String toString() {
