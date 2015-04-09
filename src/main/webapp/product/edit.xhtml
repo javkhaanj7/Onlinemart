@@ -13,11 +13,10 @@
                     <h4>New Product</h4>
                     <p style="margin-left: 30px">
                         <h:form>
-                             <!--<h:commandLink value="Show All Products" action="# {productBean.list}"/>-->
                              <h:link value="Product List" outcome="#{productBean.list()}" />
                         </h:form>
                     </p>
-                    <h:form>
+                    <h:form enctype="multipart/form-data">
                         <div class="FormContainer HorizontalFormContainer">
                             <dl>
                                 <dt>&nbsp;&nbsp; Category</dt>
@@ -45,6 +44,14 @@
                                 <dd>                                    
                                     <h:inputTextarea id="description" rows="5" value="#{productBean.product.description}" cols="50"/>
                                 </dd>
+                                <dt>Image</dt>
+                                <h:inputFile class="imgInp" id="file" 
+                                             label="file"
+                                             value="#{productBean.part}"                                              
+                                             >s
+                                    <f:validator validatorId="FileEditValidator" />
+                                </h:inputFile>
+                                <h:message style="color: red" for="file" />
                                 <dt></dt>
                                 <dd>
                                     <h:graphicImage url="/resources/img/#{productBean.product.imagePath}"/>                                    

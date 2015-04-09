@@ -25,7 +25,7 @@ import javax.servlet.http.Part;
 
 /**
  *
- * @author Ichko
+ * @author Enkhbayar
  */
 @ManagedBean
 @SessionScoped
@@ -172,7 +172,8 @@ public class ProductBean implements Serializable {
         return "/product/edit";
     }
 
-    public String editUpdate() {
+    public String editUpdate() throws IOException {
+        uploadFile();
         ProductDAO.update(product);
         getList();
         return "list?faces-redirect=true";
