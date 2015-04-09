@@ -58,7 +58,7 @@
                             <div class="BlockContent">
                                 <ul class="ProductList" style="position: relative; height: 801px;">
                                     <c:forEach var="item" items="#{productBean.topSelledList}" varStatus="loop">
-                                        <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{loop.index % 4 == 0 ? (((loop.index) / 4) * 390) : 0}px;">
+                                        <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{loop.index / 4 >= 1 ? 390 : 0}px;">
                                             <div class="ProductImage">
                                                 <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" style="height: 250px;">
                                                     <h:graphicImage url="/resources/img/#{item.imagePath}"/>
@@ -82,7 +82,7 @@
                             <div class="BlockContent">
                                 <ul class="ProductList" style="position: relative; height: 801px;">
                                     <c:forEach var="item" items="#{productBean.newProductList}" varStatus="loop">
-                                        <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{loop.index % 4 == 0 ? (((loop.index) / 4) * 390) : 0}px;">
+                                        <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{loop.index / 4 >= 1 ? 390 : 0}px;">
                                             <div class="ProductImage">
                                                 <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" style="height: 250px;">
                                                     <h:graphicImage url="/resources/img/#{item.imagePath}"/>
