@@ -41,7 +41,7 @@ public class ProductFilter implements Filter {
             res.sendRedirect(req.getContextPath() + "/account/login.xhtml");
         } else {
             User user = (User) session.getAttribute("user");
-            if(user != null && user.getUserType().equalsIgnoreCase("admin") || user.getUserType().equalsIgnoreCase("vendor")) {
+            if(user != null && (user.getUserType().equalsIgnoreCase("admin") || user.getUserType().equalsIgnoreCase("vendor"))) {
                 chain.doFilter(req, res);
             } else {
                 res.sendRedirect(req.getContextPath() + "/account/login.xhtml");
