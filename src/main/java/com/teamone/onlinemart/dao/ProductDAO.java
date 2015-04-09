@@ -432,7 +432,7 @@ public class ProductDAO {
         return p;
     }
 
-    public static Product[] getVendorProducts(int limit, int vendor_id) {
+    public static Product[] getVendorProducts(int limit, int vendor_id) { 
         Connection con = null;
         PreparedStatement ps = null;
         List<Product> products = new ArrayList<>();
