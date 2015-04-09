@@ -256,4 +256,13 @@ public class ProductBean implements Serializable {
 //        return pagination;
 //    }
 //    private DataModel items = null;
+    
+    public Product[] getTopSelledList(){
+        return ProductDAO.findTop(8);
+    }
+    
+    public Product[] getNewProductList(){
+        return ProductDAO.findNew(8);
+    }
+    
 }

@@ -57,18 +57,22 @@
                             <h3>Current Top Sellers</h3>
                             <div class="BlockContent">
                                 <ul class="ProductList" style="position: relative; height: 801px;">
-                                    <li class="Odd" style="min-height: 370px; position: absolute; left: 0px; top: 0px;">
-                                        <div class="ProductImage QuickView">
-                                            <a href="#" style="height: 250px;"><img src="http://cdn2.bigcommerce.com/n-nr1m3w/xvoro4z/products/79/images/303/wireless_1_20070813new_42329__56637.1396498992.190.250.jpg?c=2"/></a>
-                                        </div>
-                                        <div class="ProductDetails" style="min-height: 26px;">
-                                            <a href="#" class="pname">Apple Wireless Keyboard</a>
-                                        </div>
-                                        <em class="p-price">$61.40</em>
-                                        <div class="ProductActionAdd" style="">
-                                            <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
-                                        </div>
-                                    </li>
+                                    <c:forEach var="item" items="#{productBean.topSelledList}" varStatus="loop">
+                                        <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{loop.index % 4 == 0 ? (((loop.index) / 4) * 390) : 0}px;">
+                                            <div class="ProductImage">
+                                                <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" style="height: 250px;">
+                                                    <h:graphicImage url="/resources/img/#{item.imagePath}"/>
+                                                </a>
+                                            </div>
+                                            <div class="ProductDetails" style="min-height: 26px;">
+                                                <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" class="pname">#{item.name}</a>
+                                            </div>
+                                            <em class="p-price">$#{item.price}</em>
+                                            <div class="ProductActionAdd" style="">
+                                                <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
+                                            </div>
+                                        </li>
+                                    </c:forEach>
                                 </ul>
                             </div>
                         </div>
@@ -77,7 +81,22 @@
                             <h3>New Products</h3>
                             <div class="BlockContent">
                                 <ul class="ProductList" style="position: relative; height: 801px;">
-                                    
+                                    <c:forEach var="item" items="#{productBean.newProductList}" varStatus="loop">
+                                        <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{loop.index % 4 == 0 ? (((loop.index) / 4) * 390) : 0}px;">
+                                            <div class="ProductImage">
+                                                <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" style="height: 250px;">
+                                                    <h:graphicImage url="/resources/img/#{item.imagePath}"/>
+                                                </a>
+                                            </div>
+                                            <div class="ProductDetails" style="min-height: 26px;">
+                                                <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" class="pname">#{item.name}</a>
+                                            </div>
+                                            <em class="p-price">$#{item.price}</em>
+                                            <div class="ProductActionAdd" style="">
+                                                <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
+                                            </div>
+                                        </li>
+                                    </c:forEach>
                                 </ul>
                                 <div class="clear"></div>
                             </div>
