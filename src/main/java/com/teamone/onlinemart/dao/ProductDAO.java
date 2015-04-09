@@ -6,19 +6,19 @@
 package com.teamone.onlinemart.dao;
 
 import com.mysql.jdbc.Statement;
+import com.teamone.onlinemart.beans.Util;
 import com.teamone.onlinemart.models.Category;
 import com.teamone.onlinemart.models.Product;
+import com.teamone.onlinemart.models.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 
 /**
  *
- * @author Ichko
+ * @author Enkhbayar
  */
 public class ProductDAO {
 
@@ -27,18 +27,18 @@ public class ProductDAO {
         PreparedStatement ps = null;
         Statement stmt = null;
         ResultSet rs = null;
-        boolean success = false;
         int id = -1;
         try {
             con = Database.getConnection();
 //            stmt = (Statement) con.createStatement();
             ps = con.prepareStatement(
-                    "insert into Product(name, description, price, category_id, vendor_id) values(?,?,?,?,?)");
+                    "insert into Product(name, description, price, category_id, vendor_id, image_path) values(?,?,?,?,?,?)");
             ps.setString(1, product.getName());
             ps.setString(2, product.getDescription());
             ps.setDouble(3, product.getPrice());
             ps.setInt(4, product.getCategory_id());
             ps.setInt(5, product.getVendor_id());
+            ps.setString(6, product.getImagePath());
 
             ps.executeUpdate();
 
@@ -48,15 +48,6 @@ public class ProductDAO {
             }
             System.out.println("Last generated ID:" + id);
 
-//              stmt.executeUpdate(
-//            "INSERT INTO autoIncTutorial (dataField) "
-//            + "values ('Can I Get the Auto Increment Field?')",
-//            Statement.RETURN_GENERATED_KEYS);
-//            
-//            rs = ps.getGeneratedKeys();
-//            if(rs.next()){
-//                id = rs.getInt(1);
-//            }                        
         } catch (Exception ex) {
             System.out.println("Error to create new product() -->" + ex.getMessage());
             return id;
@@ -75,13 +66,14 @@ public class ProductDAO {
             con = Database.getConnection();
 
             ps = con.prepareStatement(
-                    "update product set name = ?, description = ?, price = ?, category_id = ?, vendor_id = ? where id = ?  ");
+                    "update product set name = ?, description = ?, price = ?, category_id = ?, vendor_id = ?, image_path = ? where id = ?  ");
             ps.setString(1, product.getName());
             ps.setString(2, product.getDescription());
             ps.setDouble(3, product.getPrice());
             ps.setInt(4, product.getCategory_id());
             ps.setInt(5, product.getVendor_id()); //Vendor Id
             ps.setInt(6, product.getId());
+            ps.setString(7, product.getImagePath());
 
             ps.executeUpdate();
 
@@ -256,12 +248,12 @@ public class ProductDAO {
         } catch (Exception ex) {
             System.out.println("Error in findNew(int limit) products -->" + ex.getMessage());
         } finally {
-            Database.close(con);        
+            Database.close(con);
         }
         Product[] p = new Product[products.size()];
         p = products.toArray(p);
         return p;
-        
+
     }
 
     public static Product[] findNew() {
@@ -284,7 +276,7 @@ public class ProductDAO {
             System.out.println("Error in findNew(int limit) products -->" + ex.getMessage());
         } finally {
             Database.close(con);
-        }          
+        }
         Product[] p = new Product[products.size()];
         p = products.toArray(p);
         return p;
@@ -310,6 +302,7 @@ public class ProductDAO {
             Database.close(con);
         }
     }
+
     public static void purchaseProduct(Product product) {
         Connection con = null;
         ResultSet rs = null;
@@ -330,6 +323,7 @@ public class ProductDAO {
             Database.close(con);
         }
     }
+
     public static void purchaseProducts(List<Product> products) {
         Connection con = null;
         ResultSet rs = null;
@@ -340,24 +334,25 @@ public class ProductDAO {
         sb.append("(0");
         for (Product p : products) {
             sb.append(",");
-            sb.append(p.getId());                    
+            sb.append(p.getId());
         }
-        sb.append(")");        
+        sb.append(")");
         String sql = "update product set sold_count = sold_count+1 WHERE id IN " + sb.toString();
         System.out.println(sql);
         try {
             con = Database.getConnection();
 
-            ps = con.prepareStatement(sql);            
+            ps = con.prepareStatement(sql);
 
             ps.executeUpdate();
 
         } catch (Exception ex) {
-            System.out.println("Error purchaseProducts(List<>) -->" + ex.getMessage());            
+            System.out.println("Error purchaseProducts(List<>) -->" + ex.getMessage());
         } finally {
             Database.close(con);
         }
     }
+
     public static void purchaseProducts(int[] product_ids) {
         Connection con = null;
         ResultSet rs = null;
@@ -368,29 +363,29 @@ public class ProductDAO {
         sb.append("(0");
         for (int id : product_ids) {
             sb.append(",");
-            sb.append(id);                    
+            sb.append(id);
         }
-        sb.append(")");        
+        sb.append(")");
         String sql = "update product set sold_count = sold_count+1 WHERE id IN " + sb.toString();
 //        System.out.println(sql);
         try {
             con = Database.getConnection();
 
-            ps = con.prepareStatement(sql);            
+            ps = con.prepareStatement(sql);
 
             ps.executeUpdate();
 
         } catch (Exception ex) {
-            System.out.println("Error purchaseProducts() -->" + ex.getMessage());            
+            System.out.println("Error purchaseProducts() -->" + ex.getMessage());
         } finally {
             Database.close(con);
         }
     }
-    
-    public static Product[] findByCategory(int cat_id){
+
+    public static Product[] findByCategory(int cat_id) {
         Connection con = null;
         PreparedStatement ps = null;
-        List<Product> products = new ArrayList<>();        
+        List<Product> products = new ArrayList<>();
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
@@ -406,15 +401,16 @@ public class ProductDAO {
             System.out.println("Error in findByCategory(cat) products -->" + ex.getMessage());
         } finally {
             Database.close(con);
-        }            
+        }
         Product[] p = new Product[products.size()];
         p = products.toArray(p);
         return p;
     }
-    public static Product[] findByCategory(Category cat){
+
+    public static Product[] findByCategory(Category cat) {
         Connection con = null;
         PreparedStatement ps = null;
-        List<Product> products = new ArrayList<>();        
+        List<Product> products = new ArrayList<>();
         try {
             con = Database.getConnection();
             ps = con.prepareStatement(
@@ -430,7 +426,101 @@ public class ProductDAO {
             System.out.println("Error in findByCategory(int id) products -->" + ex.getMessage());
         } finally {
             Database.close(con);
-        }            
+        }
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
+    }
+
+    public static Product[] getVendorProducts(int limit, int vendor_id) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        List<Product> products = new ArrayList<>();
+
+        try {
+            con = Database.getConnection();
+            if (limit == -1) {
+                ps = con.prepareStatement("select * from product where vendor_id = ?");
+                ps.setInt(1, vendor_id);
+            } else {
+                ps = con.prepareStatement("select * from product where vendor_id = ? limit ?");
+                ps.setInt(1, vendor_id);
+                ps.setInt(2, limit);
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) // found
+            {
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in getVendorProducts(int limit) products -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
+    }
+    
+      public static Product[] getProductByPrice(int limit, boolean asc) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        List<Product> products = new ArrayList<>();
+        String orderby;
+        if(asc)
+            orderby = "";
+        else
+            orderby = "desc";
+        try {
+            con = Database.getConnection();
+            if (limit == -1) {
+                ps = con.prepareStatement("select * from product order by price " + orderby);
+            } else {
+                ps = con.prepareStatement("select * from product order by price " + orderby + " limit ?");
+                ps.setInt(1, limit);
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) // found
+            {
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in getProductByPrice() products -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
+    }
+      
+      public static Product[] getProductByName(int limit, boolean asc) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        List<Product> products = new ArrayList<>();
+        String orderby;
+        if(asc)
+            orderby = "";
+        else
+            orderby = "desc";
+        try {
+            con = Database.getConnection();
+            if (limit == -1) {
+                ps = con.prepareStatement("select * from product order by name " + orderby);
+            } else {
+                ps = con.prepareStatement("select * from product order by name " + orderby + " limit ?");
+                ps.setInt(1, limit);
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) // found
+            {
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id")));
+            }
+        } catch (Exception ex) {
+            System.out.println("Error in getProductByName() products -->" + ex.getMessage());
+        } finally {
+            Database.close(con);
+        }
         Product[] p = new Product[products.size()];
         p = products.toArray(p);
         return p;
