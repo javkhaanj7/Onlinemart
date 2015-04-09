@@ -5,11 +5,13 @@
  */
 package com.teamone.onlinemart.models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Rabi
  */
-public class Vendor {
+public class Vendor implements Serializable{
 
     private int id;
     private String userType;

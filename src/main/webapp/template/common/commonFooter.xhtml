@@ -27,7 +27,7 @@
                                         <div class="BlockContent">
                                             <ul class="sf-menu sf-horizontal sf-js-enabled">
                                                 <c:forEach var="item" items="#{category.categoryParentList}">
-                                                    <li><a href="#">#{item.name}</a></li>
+                                                    <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{item.categoryId}">#{item.name}</a></li>
                                                 </c:forEach>
                                             </ul>
                                         </div>
@@ -37,12 +37,11 @@
                                         <h4>Brands</h4>
                                         <div class="BlockContent">
                                             <ul class="treeview">
-                                                <li><a href="#">Brand name 1</a></li>
-                                                <li><a href="#">Brand name 2</a></li>
-                                                <li><a href="#">Brand name 3</a></li>
-                                                <li class="last"><a href="#">Brand name 4</a></li>
+                                                <c:forEach var="item" items="#{vendorBean.vendorList}">
+                                                    <li><a href="#{request.contextPath}/category/content.xhtml?ven=#{item.id}">#{item.vendorName}</a></li>
+                                                </c:forEach>
                                             </ul>
-                                            <strong class="afterSideShopByBrand"><a href="#">View all brands</a></strong>
+                                            <strong class="afterSideShopByBrand"><a href="#{request.contextPath}/category/content.xhtml?ven=all">View all brands</a></strong>
                                         </div>
                                     </div></div>
                                 <div class="grid__item one-quarter"><div id="socnet" class="Block SocialConnect Moveable Panel">

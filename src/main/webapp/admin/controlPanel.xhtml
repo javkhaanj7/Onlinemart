@@ -8,17 +8,12 @@
             <ui:define name="content">
                 <div style="margin-left: 70px">
                     <h4>Administration control panel</h4>
-                    <h:form>
-                        <p style="margin-left: 30px">
-                            <h:commandLink value="Category control" action="#{cateogyBean.list()}"/>
-                        </p>
-                        <p style="margin-left: 30px">
-                            <h:commandLink value="Product control" action="#{productBean.list()}"/>
-                        </p>
-                        <p style="margin-left: 30px">
-                            <h:commandLink value="Vendor control" action="#{vendorBean.list()}"/>
-                        </p>
-                    </h:form>
+                    <p style="margin-left: 30px">
+                        <h:link value="Category control" outcome="/category/list.xhtml"/>
+                    </p>
+                    <p style="margin-left: 30px">
+                        <h:link value="Product control" outcome="/product/list.xhtml"/>
+                    </p>
                 </div>
             </ui:define>
         </ui:composition>
