@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:insert name="metadata">
+    </ui:insert>
+
+    <h:head>
+        <title>About Us - Onlinemart</title>
+        <meta charset="UTF-8"/>
+        <meta name="description" content=""/>
+        <meta name="keywords" content=""/>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:300,400" rel="stylesheet" type="text/css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <h:outputStylesheet name="flexslider.css" library="css" />
+        <h:outputStylesheet name="grid.css" library="css" />
+        <h:outputStylesheet name="responsive.css" library="css" />
+        <h:outputStylesheet name="slide-show.css" library="css" />
+        <h:outputStylesheet name="social.css" library="css" />
+        <h:outputStylesheet name="styles.css" library="css" />
+        <h:outputStylesheet name="theme.css" library="css" />
+        <h:outputStylesheet name="menu.css" library="css" />
+        <h:outputStylesheet name="custom.css" library="css" />
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                $('.nav-toggle').click(function () {
+                    //get collapse content selector
+                    var collapse_content_selector = $(this).attr('href');
+
+                    //make the collapse content to be shown or hide
+                    var toggle_switch = $(this);
+                    $(collapse_content_selector).toggle(function () {
+                        if ($(this).css('display') == 'none') {
+                            toggle_switch.empty();
+                            toggle_switch.append('<i class="fa fa-chevron-up"></i>');
+                        } else {
+                            toggle_switch.empty();
+                            toggle_switch.append('<i class="fa fa-chevron-down"></i>');
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </h:head>
+
+    <h:body>
+        <div class="page">
+
+            <ui:insert name="header" >
+                <ui:include src="/template/common/commonHeader.xhtml" />
+            </ui:insert>
+
+            <ui:insert name="content" >
+                <div class="main">
+                    <div class="inner">
+                        <ui:include src="/template/common/commonSidebar.xhtml" />
+                        <div class="Content Widest" id="LayoutColumn2">
+                            <div id="PageBreadcrumb" class="Block Breadcrumb Moveable Panel desktop">
+                                <ul class="last">
+                                    <li><a href="#">Home</a></li><li>About Us</li>
+                                </ul>
+                            </div>
+                            <h1 class="TitleHeading">About Us</h1>
+                            <div class="BlockContent PageContent">
+
+                                <p>Online Mart operates over 450 variety of Goods stores in 41 U.S. states. The Company's website, located at onlinemart.com is operated by Tema On in Project Management Seminar, Inc. Sports Authority has a rich history, dating back almost a century, of being an industry leader in providing a wide assortment of quality, brand-name sporting goods.</p>
+
+                                <p>Our customers are passionate about the sports they pursue—they want to run faster, jump higher, hit the ball harder, carry their team to victory, and more. We understand the passion that comes with being dedicated to a goal.</p>
+
+                                <p>We are dedicated to providing our customers with the best shopping experience possible by consistently providing great brands at great values. We are dedicated to increasing that value by providing industry-leading customer service and product knowledge. We are dedicated to you, and helping you take your game to the next level. If this is what you have been looking for in a sporting goods retailer, then you've come to the right store!</p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </ui:insert>
+
+            <ui:insert name="footer" >
+                <ui:include src="/template/common/commonFooter.xhtml" />
+            </ui:insert>
+
+        </div>
+
+    </h:body>
+</html>
