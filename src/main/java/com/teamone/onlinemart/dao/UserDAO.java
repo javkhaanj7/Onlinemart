@@ -86,7 +86,6 @@ public class UserDAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) // found
             {
-                System.out.println(rs.getString("email"));
                 return true;
             }
             else {
