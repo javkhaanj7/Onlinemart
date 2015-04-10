@@ -62,6 +62,11 @@
                             <div class="Block Moveable Panel" id="SideCategoryShopByPrice" style="display:none;"></div>
                         </div>
                         <div class="Content Widest" id="LayoutColumn1">
+                            <script>
+                                $(function () {
+                                    $('#proimg').zoomie();
+                                });
+                            </script>
                             <div class="Block Moveable Panel Breadcrumb desktop" id="ProductBreadcrumb">
                                 <ul>
                                     <li><a href="#{request.contextPath}">Home</a></li>
@@ -81,7 +86,7 @@
                                         <div class="ProductThumb" style="width: 520px; height: 682px;">
                                             <div class="ProductThumbImage">
                                                 <div class="zoomie">
-                                                    <h:graphicImage url="/resources/img/#{productBean.getByProduct(productBean.pro).imagePath}"/>
+                                                    <h:graphicImage id="proimg" url="/resources/img/#{productBean.getByProduct(productBean.pro).imagePath}"/>
                                                 </div>
                                             </div>
                                         </div>
