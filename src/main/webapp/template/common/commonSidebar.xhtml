@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <body>
+        <ui:composition>
+                                 <div class="Left fleft">
+                        <div class="CategoryList" id="SideCategoryList">
+                            <h4>Categories</h4>
+                            <h5>Categories</h5>
+                            <div class="BlockContent">
+                                <div class="" >
+                                    <div class="">
+                                        <ul class="sf-horizontal category-list treeview">
+                                            <c:forEach var="item" items="#{category.categoryParentList}" varStatus="loop">
+                                                <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{item.categoryId}&amp;ven=0;">#{item.name}</a>
+                                                    <c:if test="#{category.isParentHasChild(item.categoryId)}">
+                                                        <div class="hitarea expandable-hitarea">
+                                                            <span href="#collapse#{loop.index}" class="nav-toggle"><i class="fa fa-chevron-down"></i></span>
+                                                        </div>
+                                                    </c:if>
+                                                    <div id="collapse#{loop.index}">
+                                                        <c:forEach var="itemChild" items="#{category.getChildCategoryList(item.categoryId)}">
+                                                            <ul>
+                                                                <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{itemChild.categoryId}&amp;ven=0">#{itemChild.name}</a></li>
+                                                            </ul>
+                                                        </c:forEach>
+                                                    </div>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="BrandList Moveable Panel slist" id="SideShopByBrand" style="display: ">
+                            <h4>Brands</h4>
+                            <h5>Brands</h5>
+                            <div class="BlockContent">
+                                <ul class="treeview">
+                                    <c:forEach var="item" items="#{vendorBean.vendorList}">
+                                        <li><a href="#{request.contextPath}/category/content.xhtml?cat=0&amp;ven=#{item.id}">#{item.vendorName}</a></li>
+                                    </c:forEach>
+                                </ul>
+                                <strong class="afterSideShopByBrand"><a href="#{request.contextPath}/category/content.xhtml?cat=0&amp;ven=-1">View all brands</a></strong>
+                            </div>
+                        </div>
+                        <div class="Block Moveable Panel" id="SideCategoryShopByPrice" style="display:none;"></div>
+                    </div>
+
+        </ui:composition>
+    </body>
+</html>
+
+
