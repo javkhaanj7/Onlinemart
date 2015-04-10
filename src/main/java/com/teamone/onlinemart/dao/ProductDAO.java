@@ -107,7 +107,8 @@ public class ProductDAO {
         return true;
     }
 
-    public static ArrayList<Product> getAll() {
+//    public static ArrayList<Product> getAll() {
+    public static Product[] getAll() {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Product> products = new ArrayList<>();
@@ -128,7 +129,9 @@ public class ProductDAO {
         } finally {
             Database.close(con);
         }
-        return products;
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
     }
     
     public static ArrayList<Product> getAllVendorProducts(int vendor_id) {
