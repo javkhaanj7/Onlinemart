@@ -54,8 +54,8 @@
                                 </h:inputFile>
                                 <h:message style="color: red" for="file" />
                                 <dt></dt>
-                                <dd>
-                                    <h:graphicImage url="/resources/img/#{productBean.product.imagePath}"/>                                    
+                                <dd>                                    
+                                    <h:graphicImage library="images" name="#{productBean.product.imagePath}" rendered="${not empty productBean.product.imagePath}"/>
                                 </dd>
                                     
                                 <dt></dt>
