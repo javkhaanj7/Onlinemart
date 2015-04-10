@@ -14,79 +14,43 @@ import java.io.Serializable;
  */
 public class CartItem implements Serializable {
     
-    private Integer id;
-    private Integer quantityToOrder;
-    private String name;
+    private Product product;
+    private int quantity;
     
-    public CartItem(Integer id, String name) {
-        this.id = id;
-        this.name = name;
-        quantityToOrder = 0;
+    public CartItem(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
     }
     
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + (this.getId() != null ? this.getId().hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final CartItem other = (CartItem) obj;
-        
-        if(this.getId() != other.getId() && (this.getId() == null || !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    public void incementQuantity(int quantity) {
+        this.quantity = this.quantity + quantity;
     }
 
     /**
-     * @return the id
+     * @return the product
      */
-    public Integer getId() {
-        return id;
+    public Product getProduct() {
+        return product;
     }
 
     /**
-     * @param id the id to set
+     * @param product the product to set
      */
-    public void setId(Integer id) {
-        this.id = id;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     /**
-     * @return the quantityToOrder
+     * @return the quantity
      */
-    public Integer getQuantityToOrder() {
-        return quantityToOrder;
+    public int getQuantity() {
+        return quantity;
     }
 
     /**
-     * @param quantityToOrder the quantityToOrder to set
+     * @param quantity the quantity to set
      */
-    public void setQuantityToOrder(Integer quantityToOrder) {
-        this.quantityToOrder = quantityToOrder;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
-
-    /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
 }
