@@ -14,12 +14,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.ArrayDataModel;
+import javax.faces.model.DataModel;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
 
@@ -78,30 +79,18 @@ public class ProductBean implements Serializable {
         this.products = products;
     }
 
-//    public DataModel<Product> getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(DataModel<Product> products) {
-//        this.products = products;
-//    }
-//    private DataModel<Product> products;// = new ArrayDataModel<>();
     public ProductBean() {
         product = new Product();
-        products = new ArrayList<>();
-        itemIndex = 0;
-        categoryBean = new CategoryBean();
+//        products = new ArrayList<>();
+//        itemIndex = 0;
+//        categoryBean = new CategoryBean();
+    }
+    
+     private DataModel<Product> productModel = new ArrayDataModel<Product>(ProductDAO.getAll());
+       public DataModel<Product> getProductList(){
+        return productModel;
     }
 
-    private int itemIndex;
-
-    public void setItemIndex(int itemIndex) {
-        this.itemIndex = itemIndex;
-    }
-
-    public int getItemIndex() {
-        return itemIndex;
-    }
 
     @ManagedProperty("#{categoryBean}")
     private CategoryBean categoryBean;
@@ -114,18 +103,18 @@ public class ProductBean implements Serializable {
         this.categoryBean = categoryBean;
     }
 
-    private void getList() {
-        User u = (User) Util.getUser();
-        if (u == null) {
-            setProducts(ProductDAO.getAll());
-        }else{
-            setProducts(ProductDAO.getAllVendorProducts((int)u.getId()));
-        }
-    }
+//    private void getList() {
+//        User u = (User) Util.getUser();
+//        if (u == null) {
+//            setProducts(ProductDAO.getAll());
+//        }else{
+//            setProducts(ProductDAO.getAllVendorProducts((int)u.getId()));
+//        }
+//    }
 
     //-------------------------------
     public String list() {
-        getList();
+//        getList();
         return "/product/list";
     }
 
@@ -147,9 +136,11 @@ public class ProductBean implements Serializable {
         int generated_id = ProductDAO.save(product);
         if (generated_id != -1) {
             product.setId(generated_id);
-            getList();
+//            getList();
             statusMsg = "Saved Successfully";
-            return "/product/list?faces-redirect=true";
+            productModel = new ArrayDataModel<Product>(ProductDAO.getAll());
+//            return "/product/list?faces-redirect=true";
+            return "list?faces-redirect=true";
         } else {
             statusMsg = "Not success";
         }
@@ -163,7 +154,8 @@ public class ProductBean implements Serializable {
 
     public String delete(Product p) {
         ProductDAO.delete(p.getId());
-        getList();
+//        getList();
+        productModel = new ArrayDataModel<Product>(ProductDAO.getAll());
         return "/product/list?faces-redirect=true";
     }
 
@@ -175,7 +167,7 @@ public class ProductBean implements Serializable {
     public String editUpdate() throws IOException {
         uploadFile();
         ProductDAO.update(product);
-        getList();
+//        getList();
         return "list?faces-redirect=true";
     }
 
@@ -195,7 +187,7 @@ public class ProductBean implements Serializable {
 
         String fileName = getFileName(part);
 
-        String relativePath = "resources/img/";
+        String relativePath = "resources"+ File.separator +"img"+File.separator;
         String path;
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
@@ -208,7 +200,7 @@ public class ProductBean implements Serializable {
 
 
         long l = System.currentTimeMillis();
-        File outputFilePath = new File(path + "\\" + l);
+        File outputFilePath = new File(path + File.separator + l);
 
         // Copy uploaded file to destination path
         InputStream inputStream = null;
