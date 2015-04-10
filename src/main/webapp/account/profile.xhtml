@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>My Account</title>
     </h:head>
@@ -26,13 +27,15 @@
                             <h:outputText value="E-mail :"></h:outputText>
                             <h:outputText value="#{loginBean.user.email}"></h:outputText>
                         </h:panelGrid>
-                        
                         <h:commandButton value="Update" action="#{loginBean.edit}" class="btn Small">
                             <f:setPropertyActionListener target="#{userBean.user.firstname}" value="#{loginBean.user.firstname}" />
                             <f:setPropertyActionListener target="#{userBean.user.lastname}" value="#{loginBean.user.lastname}" />
                             <f:setPropertyActionListener target="#{userBean.user.email}" value="#{loginBean.user.email}" />
                             <f:setPropertyActionListener target="#{userBean.user.id}" value="#{loginBean.user.id}" />
                         </h:commandButton>
+                        <c:if test="#{loginBean.user.userType.equalsIgnoreCase('vendor')}">
+                            <h:link value="Go to control panel" outcome="/admin/control" style="margin-left:10px;"/>
+                        </c:if>
                     </h:form>
                 </div>
             </ui:define>
