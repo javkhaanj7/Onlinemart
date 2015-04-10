@@ -93,11 +93,7 @@
                                             </div>
                                             <em class="p-price">$#{item.price}</em>
                                             <div class="ProductActionAdd" style="">
-                                                <h:form>
-                                                    <!--<a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>-->
-                                                    <h:commandButton value="Add To Cart" action="#{cartBean.saveItemToOrder(item)}" class="btn Small icon-Add To Cart" title="Add To Cart"/>
-                                                    Total: <h:outputText id="total" value="#{cartBean.quantityToOrder}" />
-                                                </h:form>
+                                                <!--<a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>-->
                                             </div>
                                         </li>
                                     </c:forEach>
