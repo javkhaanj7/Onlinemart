@@ -21,12 +21,12 @@
                             <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                         </h:panelGroup>
                         <h:panelGroup> <!-- rendered="#{productBean.products.size() > 0}">                            -->
-                            <h:dataTable style="margin-left: 30px" value="#{productBean.products}" var="product">
+                            <h:dataTable style="margin-left: 30px" value="#{productBean.productList}" var="product">
                                 <h:column>
                                     <f:facet name="header">
                                         <h:outputText value="#ID"/>
                                     </f:facet>
-                                    <h:outputText value="#{productBean.itemIndex}"/>
+                                    <h:outputText value="#{productBean.productList.rowIndex + 1}"/>
                                 </h:column>
                                 <h:column>
                                     <f:facet name="header">
@@ -47,12 +47,12 @@
                                     <h:outputText value="#{product.price}"/>
                                 </h:column>
                                 <!-- Update and Delete-->
-<!--                                <h:column>
-                                    <h:commandLink value="# {productBean.view()}">
-                                        <f:param name="pid" value="# {product.id}" />
-                                        <h:outputText value="View" />
-                                    </h:commandLink>>
-                                </h:column>-->
+                                <!--                                <h:column>
+                                                                    <h:commandLink value="# {productBean.view()}">
+                                                                        <f:param name="pid" value="# {product.id}" />
+                                                                        <h:outputText value="View" />
+                                                                    </h:commandLink>>
+                                                                </h:column>-->
                                 <h:column>                                    
                                     <h:commandLink value="Edit" action="#{productBean.edit(product)}"/>
                                     <!--<h:link value="Edit" outcome="# {productBean.edit(product)}" />-->

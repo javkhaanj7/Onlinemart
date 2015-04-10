@@ -11,12 +11,13 @@
             <ui:define name="content">
                 <div style="margin-left: 70px">
                     <h4>New Product</h4>
-                    <p style="margin-left: 30px">                        
+                    <p style="margin-left: 30px"><a href="#{request.contextPath}/product/list.xhtml">Show all products</a></p>
+<!--                    <p style="margin-left: 30px">                        
                         <h:form>
-                            <!--<h:commandLink value="Product List" action="# {productBean.list}"/>-->
-                            <h:link value="Product List" outcome="#{productBean.list()}" />
+                            <h:commandLink value="Product List" action="# {productBean.list}"/>
+                            <h:link value="Product List" outcome="# {productBean.list()}" />
                         </h:form>
-                    </p>
+                    </p>-->
                     <h:form enctype="multipart/form-data">
                         <div class="FormContainer HorizontalFormContainer">
                             <dl>

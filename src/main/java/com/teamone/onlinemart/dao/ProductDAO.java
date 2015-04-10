@@ -46,7 +46,6 @@ public class ProductDAO {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-            System.out.println("Last generated ID:" + id);
 
         } catch (Exception ex) {
             System.out.println("Error to create new product() -->" + ex.getMessage());
@@ -107,7 +106,8 @@ public class ProductDAO {
         return true;
     }
 
-    public static ArrayList<Product> getAll() {
+//    public static ArrayList<Product> getAll() {
+    public static Product[] getAll() {
         Connection con = null;
         PreparedStatement ps = null;
         ArrayList<Product> products = new ArrayList<>();
@@ -128,7 +128,9 @@ public class ProductDAO {
         } finally {
             Database.close(con);
         }
-        return products;
+        Product[] p = new Product[products.size()];
+        p = products.toArray(p);
+        return p;
     }
     
     public static ArrayList<Product> getAllVendorProducts(int vendor_id) {
@@ -363,7 +365,6 @@ public class ProductDAO {
         }
         sb.append(")");
         String sql = "update product set sold_count = sold_count+1 WHERE id IN " + sb.toString();
-        System.out.println(sql);
         try {
             con = Database.getConnection();
 
@@ -392,7 +393,6 @@ public class ProductDAO {
         }
         sb.append(")");
         String sql = "update product set sold_count = sold_count+1 WHERE id IN " + sb.toString();
-//        System.out.println(sql);
         try {
             con = Database.getConnection();
 
