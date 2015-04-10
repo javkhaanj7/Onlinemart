@@ -22,59 +22,58 @@ import javax.faces.bean.SessionScoped;
 @SessionScoped
 public class CartBean implements Serializable {
     
+    private int productId;
+    private int quantity;
     private List<CartItem> items;
-    private int quantityToOrder;
-    private List<Product> products;
     
     public CartBean() {
         items = new ArrayList<>();
-        products = new ArrayList<>();
     }
     
-    public void saveItemToOrder(CartItem item) {
-        quantityToOrder = 0;
-        for(CartItem cartItem : items) {
-            quantityToOrder += cartItem.getQuantityToOrder();
+    public int totalProducts() {
+        int sum = 0;
+        for(CartItem item : items) {
+            sum = sum + item.getQuantity();
         }
+        return sum;
     }
     
-    public void add(Product product) {
-        products.add(product);
+    public String addItem() {
+        if(getQuantity() > 0) {
+            //select
+        }
+        return "home";
     }
     
-    public void remove(Product product) {
-        products.remove(product);
-    }
-    
-    public List<Product> getProducts() {
-        return products;
+    public List<CartItem> getCartContent() {
+        return this.items;
     }
 
     /**
-     * @return the items
+     * @return the productId
      */
-    public List<CartItem> getItems() {
-        return items;
+    public int getProductId() {
+        return productId;
     }
 
     /**
-     * @param items the items to set
+     * @param productId the productId to set
      */
-    public void setItems(List<CartItem> items) {
-        this.items = items;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     /**
-     * @return the quantityToOrder
+     * @return the quantity
      */
-    public int getQuantityToOrder() {
-        return quantityToOrder;
+    public int getQuantity() {
+        return quantity;
     }
 
     /**
-     * @param quantityToOrder the quantityToOrder to set
+     * @param quantity the quantity to set
      */
-    public void setQuantityToOrder(int quantityToOrder) {
-        this.quantityToOrder = quantityToOrder;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
