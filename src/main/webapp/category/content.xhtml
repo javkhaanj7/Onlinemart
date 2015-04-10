@@ -28,7 +28,12 @@
                                         <div class="">
                                             <ul class="sf-horizontal category-list treeview">
                                                 <c:forEach var="item" items="#{category.categoryParentList}" varStatus="loop">
-                                                    <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{item.categoryId}&amp;ven=0">#{item.name}</a>
+                                                    <li>
+                                                        <h:outputLink value="#{request.contextPath}/category/content.xhtml">
+                                                            <h:outputText value="#{item.name}" />
+                                                            <f:param name="cat" value="#{item.categoryId}" />
+                                                            <f:param name="ven" value="0" />
+                                                        </h:outputLink>
                                                         <c:if test="#{category.isParentHasChild(item.categoryId)}">
                                                             <div class="hitarea expandable-hitarea">
                                                                 <span href="#collapse#{loop.index}" class="nav-toggle"><i class="fa fa-chevron-down"></i></span>
@@ -37,7 +42,13 @@
                                                         <div id="collapse#{loop.index}">
                                                             <c:forEach var="itemChild" items="#{category.getChildCategoryList(item.categoryId)}">
                                                                 <ul>
-                                                                    <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{itemChild.categoryId}&amp;ven=0">#{itemChild.name}</a></li>
+                                                                    <li>
+                                                                        <h:outputLink value="#{request.contextPath}/category/content.xhtml">
+                                                                            <h:outputText value="#{itemChild.name}" />
+                                                                            <f:param name="cat" value="#{itemChild.categoryId}" />
+                                                                            <f:param name="ven" value="0" />
+                                                                        </h:outputLink>
+                                                                    </li>
                                                                 </ul>
                                                             </c:forEach>
                                                         </div>
@@ -54,10 +65,22 @@
                                 <div class="BlockContent">
                                     <ul class="treeview">
                                         <c:forEach var="item" items="#{vendorBean.vendorList}">
-                                            <li><a href="#{request.contextPath}/category/content.xhtml?cat=0&amp;ven=#{item.id}">#{item.vendorName}</a></li>
+                                            <li>
+                                                <h:outputLink value="#{request.contextPath}/category/content.xhtml">
+                                                    <h:outputText value="#{item.vendorName}" />
+                                                    <f:param name="cat" value="0" />
+                                                    <f:param name="ven" value="#{item.id}" />
+                                                </h:outputLink>
+                                            </li>
                                         </c:forEach>
                                     </ul>
-                                    <strong class="afterSideShopByBrand"><a href="#{request.contextPath}/category/content.xhtml?cat=0&amp;ven=-1">View all brands</a></strong>
+                                    <strong class="afterSideShopByBrand">
+                                        <h:outputLink value="#{request.contextPath}/category/content.xhtml">
+                                            <h:outputText value="View all brands" />
+                                            <f:param name="cat" value="0" />
+                                            <f:param name="ven" value="-1" />
+                                        </h:outputLink>
+                                    </strong>
                                 </div>
                             </div>
                             <div class="Block Moveable Panel" id="SideCategoryShopByPrice" style="display:none;"></div>
