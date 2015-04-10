@@ -7,6 +7,7 @@
 package com.teamone.onlinemart.beans;
 
 import com.teamone.onlinemart.models.CartItem;
+import com.teamone.onlinemart.models.Product;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,11 @@ public class CartBean implements Serializable {
     
     private List<CartItem> items;
     private int quantityToOrder;
+    private List<Product> products;
     
     public CartBean() {
         items = new ArrayList<>();
+        products = new ArrayList<>();
     }
     
     public void saveItemToOrder(CartItem item) {
@@ -33,6 +36,18 @@ public class CartBean implements Serializable {
         for(CartItem cartItem : items) {
             quantityToOrder += cartItem.getQuantityToOrder();
         }
+    }
+    
+    public void add(Product product) {
+        products.add(product);
+    }
+    
+    public void remove(Product product) {
+        products.remove(product);
+    }
+    
+    public List<Product> getProducts() {
+        return products;
     }
 
     /**
