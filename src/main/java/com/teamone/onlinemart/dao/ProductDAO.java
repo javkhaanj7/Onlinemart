@@ -46,7 +46,6 @@ public class ProductDAO {
             if (rs.next()) {
                 id = rs.getInt(1);
             }
-            System.out.println("Last generated ID:" + id);
 
         } catch (Exception ex) {
             System.out.println("Error to create new product() -->" + ex.getMessage());
@@ -366,7 +365,6 @@ public class ProductDAO {
         }
         sb.append(")");
         String sql = "update product set sold_count = sold_count+1 WHERE id IN " + sb.toString();
-        System.out.println(sql);
         try {
             con = Database.getConnection();
 
@@ -395,7 +393,6 @@ public class ProductDAO {
         }
         sb.append(")");
         String sql = "update product set sold_count = sold_count+1 WHERE id IN " + sb.toString();
-//        System.out.println(sql);
         try {
             con = Database.getConnection();
 

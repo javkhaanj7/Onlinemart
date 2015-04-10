@@ -28,7 +28,6 @@ public class FileUploadValidator implements Validator {
  
 		// 1. validate file name length
 		String fileName = getFileName(part);
-		System.out.println("----- validator fileName: " + fileName);
 		if(fileName.length() == 0 ) {
 			FacesMessage message = new FacesMessage("Error: File is required !!");
 			throw new ValidatorException(message);
@@ -51,7 +50,6 @@ public class FileUploadValidator implements Validator {
 	// Extract file name from content-disposition header of file part
 	private String getFileName(Part part) {
 		final String partHeader = part.getHeader("content-disposition");
-		System.out.println("----- validator partHeader: " + partHeader);
 		for (String content : part.getHeader("content-disposition").split(";")) {
 			if (content.trim().startsWith("filename")) {
 				return content.substring(content.indexOf('=') + 1).trim()
