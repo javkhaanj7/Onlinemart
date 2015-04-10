@@ -21,7 +21,7 @@
                     <h:form enctype="multipart/form-data">
                         <div class="FormContainer HorizontalFormContainer">
                             <dl>
-                                <dt>&nbsp;&nbsp; Product</dt>
+                                <dt>&nbsp;&nbsp; Category</dt>
                                 <dd>                                    
                                     <h:selectOneMenu value="#{productBean.product.category_id}">
                                         <f:selectItems value="#{category.categoryList}" var="c"
@@ -61,13 +61,15 @@
                                 <h:message style="color: red" for="file" />
                                 <dt></dt>
                                 <dd>                                    
-                                    <h:graphicImage url="/resources/img/#{productBean.product.imagePath}"
-                                                    rendered="${not empty productBean.product.imagePath}"/>                      
+<!--                                    <h:graphicImage url="/resources/img/# {productBean.product.imagePath}"
+                                                    rendered="$ {not empty productBean.product.imagePath}"/>                      -->
+                                    <h:graphicImage library="images" name="#{productBean.product.imagePath}" 
+                                                    rendered="${not empty productBean.product.imagePath}"/>
                                 </dd>
                                 <h:message style="color: red" for="file" /><br />
 
-                                <h:outputText value="#{productBean.statusMsg}"
-                                              rendered="#{not empty productBean.statusMsg}" />
+<!--                                <h:outputText value="# {productBean.statusMsg}"
+                                              rendered="# {not empty productBean.statusMsg}" />-->
                                 <dt></dt>
                                 <dd>                                    
                                     <p class="Submit"><h:commandButton action="#{productBean.create}" type="submit" class="btn Small" value="Create"/></p>

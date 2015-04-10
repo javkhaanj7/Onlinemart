@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -85,12 +87,12 @@ public class ProductBean implements Serializable {
 //        itemIndex = 0;
 //        categoryBean = new CategoryBean();
     }
-    
-     private DataModel<Product> productModel = new ArrayDataModel<Product>(ProductDAO.getAll());
-       public DataModel<Product> getProductList(){
+
+    private DataModel<Product> productModel = new ArrayDataModel<Product>(ProductDAO.getAll());
+
+    public DataModel<Product> getProductList() {
         return productModel;
     }
-
 
     @ManagedProperty("#{categoryBean}")
     private CategoryBean categoryBean;
@@ -111,7 +113,6 @@ public class ProductBean implements Serializable {
 //            setProducts(ProductDAO.getAllVendorProducts((int)u.getId()));
 //        }
 //    }
-
     //-------------------------------
     public String list() {
 //        getList();
@@ -186,21 +187,24 @@ public class ProductBean implements Serializable {
     public String uploadFile() throws IOException {
 
         String fileName = getFileName(part);
-
-        String relativePath = "resources"+ File.separator +"img"+File.separator;
+        String relativePath = File.separator + "resources" + File.separator + "images" + File.separator;
         String path;
+        //find project path
         FacesContext facesContext = FacesContext.getCurrentInstance();
+        path = ((ServletContext) facesContext.getExternalContext().getContext()).getRealPath("");
 
-        path = ((ServletContext) facesContext.getExternalContext().getContext()).getRealPath(relativePath);
+        Path apath = Paths.get(path);        
+        //find resource path
+        path = apath.getParent().getParent().toString() + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + relativePath;
 
         File directory = new File(path);
+
         if (!directory.exists()) {
-            directory.mkdir();
+            directory.mkdirs();
         }
 
-
         long l = System.currentTimeMillis();
-        File outputFilePath = new File(path + File.separator + l);
+        File outputFilePath = new File(path + File.separator + l + "_" + fileName);
 
         // Copy uploaded file to destination path
         InputStream inputStream = null;
@@ -215,8 +219,8 @@ public class ProductBean implements Serializable {
                 outputStream.write(bytes, 0, read);
             }
 
-            statusMessage = "File upload successfull !!";            
-            product.setImagePath(Long.toString(l));            
+            statusMessage = "File upload successfull !!";
+            product.setImagePath(Long.toString(l) + "_" + fileName);
         } catch (IOException e) {
             statusMessage = "File upload failed !!";
             statusMsg = "Not success";
@@ -291,9 +295,9 @@ public class ProductBean implements Serializable {
     public Product[] getNewProductList() {
         return ProductDAO.findNew(8);
     }
-    
-    public Product getByProduct(int id){
+
+    public Product getByProduct(int id) {
         return ProductDAO.getById(id);
     }
-    
+
 }
