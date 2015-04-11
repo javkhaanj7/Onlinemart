@@ -1,16 +1,74 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition template="/template/common/commonLayout.xhtml">
+            <ui:define name="content">
+                <div style="margin-left: 70px">
+                    <h4>Payment</h4>
+                    <p>Please make the payment of $10,000 and 8% tax to complete your registration</p>
+
+                    <h:form id="payment_form">
+                        <div class="FormContainer HorizontalFormContainer">
+                            <dl>
+                                <span class="error_list"></span>
+                                <dt><span class="Required">*</span> Card Type</dt>
+                                <dd><h:selectOneMenu id="basic" class="selectcard" value="#{paymentBean.myfinance.cardType}">
+                                        <f:selectItem itemLabel="VISA" itemValue="VISA" />
+                                        <f:selectItem itemLabel="MASTER" itemValue="MASTER" />
+                                        <f:selectItem itemLabel="AMEX" itemValue="AMEX" />
+                                    </h:selectOneMenu></dd>
+
+                                <dt><span class="Required">*</span>  Card Holder Name</dt> 
+                                <dd><h:inputText id="holderName" label="holderName" value="#{paymentBean.myfinance.holderName}" size="25" p:placeholder="Card Holder Name" required="true"
+                                                 requiredMessage="Please enter card holder name." class="Textbox Field200" >
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="holderName" class="error"/>
+                                </dd>
+
+                                <dt><span class="Required">*</span>  Card Number</dt> 
+
+                                <dd class="dd_number"> <h:inputText id="number"  label="number" value="#{paymentBean.myfinance.number}" size="25" p:placeholder="Card Number" required="true"
+                                                  requiredMessage="Please enter valid credit card."  class="cardnumber Textbox Field200">
+                                        
+                                    </h:inputText>
+                                    <h:message for="number" class="error"/>
+                                </dd>
+
+                                <dt><span class="Required">*</span>  Card Expiry Date</dt>
+
+                                <dd><h:inputText id="expiryDate" label="expiryDate" value="#{paymentBean.myfinance.expiryDate}" size="25" p:placeholder="Expiry Date" required="true"
+                                                 requiredMessage="Please enter card expiry date." class="Textbox Field200">
+                                        <f:convertDateTime pattern="dd/mm/yyyy" />
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="expiryDate" class="error"/>
+                                </dd>
+                                <dt><span class="Required">*</span>  Card Security Code</dt>
+
+                                <dd><h:inputText id="securityCode" label="securityCode" value="#{paymentBean.myfinance.securityCode}" size="25" p:placeholder="Security Code" required="true"
+                                                 requiredMessage="Please enter card security code." validatorMessage="Please enter a valid credit card." class="Textbox Field200">
+                                        <f:validateRequired/>
+                                    </h:inputText>
+                                    <h:message for="securityCode" class="error"/>
+                                </dd>
+                                <dt></dt>
+                                <dd>
+                                    <h:commandButton action="#{paymentBean.makeVendorPayment}" value="Proceed" class="btn Small"></h:commandButton>
+                                    <h:link value="Cancel" onclick="javascript:history.go(-1)" class="btn alt Small" style="margin: 0 10px;"></h:link>
+                                </dd>
+                            </dl>
+                        </div>
+                    </h:form>
+                </div>
+                <div class="clear"></div>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
 </html>
+
