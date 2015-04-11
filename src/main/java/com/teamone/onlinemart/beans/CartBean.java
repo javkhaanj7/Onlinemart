@@ -26,17 +26,24 @@ public class CartBean implements Serializable {
     private int productId;
     private int quantity;
     private List<CartItem> items;
-    private boolean success;
+    private boolean updated;
     
     public CartBean() {
         items = new ArrayList<>();
-        success = false;
     }
     
     public int totalProducts() {
         int sum = 0;
         for(CartItem item : items) {
-            sum = sum + item.getQuantity();
+            sum += item.getQuantity();
+        }
+        return sum;
+    }
+    
+    public double totalAmount() {
+        double sum = 0;
+        for(CartItem item : items) {
+            sum += item.getProduct().getPrice();
         }
         return sum;
     }
@@ -58,7 +65,7 @@ public class CartBean implements Serializable {
             if(!exists) {
                 items.add(new CartItem(product, getQuantity()));
             }
-            setSuccess(true);
+            setUpdated(true);
         }
         // Reset params
         setProductId(0);
@@ -77,6 +84,7 @@ public class CartBean implements Serializable {
             }
         }
         items.remove(itemToBeRemoved);
+        setUpdated(true);
         return "";
     }
     
@@ -113,16 +121,16 @@ public class CartBean implements Serializable {
     }
 
     /**
-     * @return the success
+     * @return the updated
      */
-    public boolean isSuccess() {
-        return success;
+    public boolean isUpdated() {
+        return updated;
     }
 
     /**
-     * @param success the success to set
+     * @param updated the updated to set
      */
-    public void setSuccess(boolean success) {
-        this.success = success;
+    public void setUpdated(boolean updated) {
+        this.updated = updated;
     }
 }
