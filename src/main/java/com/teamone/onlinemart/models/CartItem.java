@@ -25,6 +25,10 @@ public class CartItem implements Serializable {
     public void incementQuantity(int quantity) {
         this.quantity = this.quantity + quantity;
     }
+    
+    public void decrementQuantity(int quantity) {
+        this.quantity = this.quantity - quantity;
+    }
 
     /**
      * @return the product

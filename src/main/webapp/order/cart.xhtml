@@ -212,11 +212,17 @@
                                                                             <span style="display: none"> Gift Message:
                                                                             </span> </div></td>
                                                                     <td align="center" class="CartItemQuantity Odd"> 
-                                                                            <h:selectOneMenu value="#{cartitem.quantity}" class="Field45 quantityInput" style="">
-                                                                                <c:forEach begin="1" end="30" var="i">
-                                                                                    <f:selectItem itemValue="#{i}" />
-                                                                                </c:forEach>
-                                                                            </h:selectOneMenu>
+                                                                        <c:set value="#{cartitem.quantity}" target="#{cartBean}" property="quantity" />
+                                                                        <h:selectOneMenu value="#{cartBean.quantity}" class="Field45 quantityInput" style="">
+                                                                            <c:forEach begin="1" end="30" var="i">
+                                                                                <f:selectItem itemValue="#{i}" />
+                                                                            </c:forEach>
+                                                                        </h:selectOneMenu>
+
+                                                                        <h:commandLink action="#{cartBean.updateItem()}" value="" class="CartRemoveLink alt" title="Update">
+                                                                            &nbsp;<i class="fa fa-pencil fa-fw"></i>&nbsp;<h:outputText value="Update" />
+                                                                            <f:setPropertyActionListener target="#{cartBean.productId}" value="#{cartitem.product.id}" />
+                                                                        </h:commandLink>
                                                                         <div style=""> 
                                                                             <h:commandLink action="#{cartBean.removeProduct(cartitem.product.id)}" value="" class="CartRemoveLink alt" title="Remove">
                                                                                 &nbsp;<i class="fa fa-times-circle"></i>&nbsp;<h:outputText value="Remove" />

@@ -43,7 +43,7 @@ public class CartBean implements Serializable {
     public double totalAmount() {
         double sum = 0;
         for(CartItem item : items) {
-            sum += item.getProduct().getPrice();
+            sum += item.getProduct().getPrice() * item.getQuantity();
         }
         return sum;
     }
@@ -64,6 +64,25 @@ public class CartBean implements Serializable {
             }
             if(!exists) {
                 items.add(new CartItem(product, getQuantity()));
+            }
+            setUpdated(true);
+        }
+        // Reset params
+        setProductId(0);
+        setQuantity(0);
+        return "";
+    }
+    
+    public String updateItem() {
+        if(getQuantity() > 0) {
+            // Get product equipped with the id
+            Product product = ProductDAO.getById(getProductId());
+            for(CartItem item : items) {
+                if(item.getProduct().getId() == product.getId()) {
+                    // Exists
+                    item.setQuantity(getQuantity());
+                    break;
+                }
             }
             setUpdated(true);
         }
