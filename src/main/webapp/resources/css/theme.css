@@ -302,6 +302,7 @@ a.btn.cta {
   max-width: auto;
   width: 90%;
 }
+.main{min-height:200px}
 #home .ProductList li,
 .productPage .ProductList li,
 .ProductList li {

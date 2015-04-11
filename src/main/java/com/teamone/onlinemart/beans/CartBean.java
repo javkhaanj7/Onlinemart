@@ -77,7 +77,7 @@ public class CartBean implements Serializable {
             }
         }
         items.remove(itemToBeRemoved);
-        return "order/checkout";
+        return "";
     }
     
     public List<CartItem> getCartContent() {
