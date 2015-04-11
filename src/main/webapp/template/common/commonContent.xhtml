@@ -85,7 +85,7 @@
                                         <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{loop.index / 4 >= 1 ? 390 : 0}px;">
                                             <div class="ProductImage">
                                                 <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" style="height: 250px;">
-                                                    <h:graphicImage url="/resources/img/#{item.imagePath}"/>
+                                                    <h:graphicImage library="images" name="#{item.imagePath}"/>
                                                 </a>
                                             </div>
                                             <div class="ProductDetails" style="min-height: 26px;">
@@ -113,7 +113,7 @@
                                         <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{loop.index / 4 >= 1 ? 390 : 0}px;">
                                             <div class="ProductImage">
                                                 <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" style="height: 250px;">
-                                                    <h:graphicImage url="/resources/img/#{item.imagePath}"/>
+                                                    <h:graphicImage library="images" name="#{item.imagePath}"/>
                                                 </a>
                                             </div>
                                             <div class="ProductDetails" style="min-height: 26px;">
