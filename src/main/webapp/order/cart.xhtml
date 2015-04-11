@@ -212,8 +212,7 @@
                                                                             <span style="display: none"> Gift Message:
                                                                             </span> </div></td>
                                                                     <td align="center" class="CartItemQuantity Odd"> 
-                                                                        <c:set value="#{cartitem.quantity}" target="#{cartBean}" property="quantity" />
-                                                                        <h:selectOneMenu value="#{cartBean.quantity}" class="Field45 quantityInput" style="">
+                                                                        <h:selectOneMenu value="#{cartitem.quantity}" class="Field45 quantityInput" style="">
                                                                             <c:forEach begin="1" end="30" var="i">
                                                                                 <f:selectItem itemValue="#{i}" />
                                                                             </c:forEach>
