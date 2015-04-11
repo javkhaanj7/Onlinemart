@@ -2,313 +2,272 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:body>
         <ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
                 <div class="main">
-				<div class="inner">
-                <div class="Left fleft">
-                          <div class="CategoryList" id="SideCategoryList">
-	<h4>Categories</h4>
-    <h5>Categories</h5>
-	<div class="BlockContent" style="">
-		<div class="">
-			<ul class="sf-horizontal category-list treeview">
-<li class="expandable"><div class="hitarea expandable-hitarea"><i class="fa fa-chevron-down"></i></div><a href="http://california-demo.mybigcommerce.com/computers/">Computers</a><ul style="display: none;">
-<li><a href="http://california-demo.mybigcommerce.com/desktops/">Desktops</a></li>
-<li class="last"><a href="http://california-demo.mybigcommerce.com/laptops/">Laptops</a></li>
+                    <div class="inner">
+                        <div class="Left fleft">
+                            <div class="CategoryList" id="SideCategoryList">
+                                <h4>Categories</h4>
+                                <h5>Categories</h5>
+                                <div class="BlockContent">
+                                    <div class="" >
+                                        <div class="">
+                                            <ul class="sf-horizontal category-list treeview">
+                                                <c:forEach var="item" items="#{category.categoryParentList}" varStatus="loop">
+                                                    <li>
+                                                        <h:outputLink value="#{request.contextPath}/category/content.xhtml">
+                                                            <h:outputText value="#{item.name}" />
+                                                            <f:param name="cat" value="#{item.categoryId}" />
+                                                            <f:param name="ven" value="0" />
+                                                        </h:outputLink>
+                                                        <c:if test="#{category.isParentHasChild(item.categoryId)}">
+                                                            <div class="hitarea expandable-hitarea">
+                                                                <span href="#collapse#{loop.index}" class="nav-toggle"><i class="fa fa-chevron-down"></i></span>
+                                                            </div>
+                                                        </c:if>
+                                                        <div id="collapse#{loop.index}">
+                                                            <c:forEach var="itemChild" items="#{category.getChildCategoryList(item.categoryId)}">
+                                                                <ul>
+                                                                    <li>
+                                                                        <h:outputLink value="#{request.contextPath}/category/content.xhtml">
+                                                                            <h:outputText value="#{itemChild.name}" />
+                                                                            <f:param name="cat" value="#{itemChild.categoryId}" />
+                                                                            <f:param name="ven" value="0" />
+                                                                        </h:outputLink>
+                                                                    </li>
+                                                                </ul>
+                                                            </c:forEach>
+                                                        </div>
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="BrandList Moveable Panel slist" id="SideShopByBrand" style="display: ">
+                                <h4>Brands</h4>
+                                <h5>Brands</h5>
+                                <div class="BlockContent">
+                                    <ul class="treeview">
+                                        <c:forEach var="item" items="#{vendorBean.vendorList}">
+                                            <li>
+                                                <h:outputLink value="#{request.contextPath}/category/content.xhtml">
+                                                    <h:outputText value="#{item.vendorName}" />
+                                                    <f:param name="cat" value="0" />
+                                                    <f:param name="ven" value="#{item.id}" />
+                                                </h:outputLink>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                    <strong class="afterSideShopByBrand">
+                                        <h:outputLink value="#{request.contextPath}/category/content.xhtml">
+                                            <h:outputText value="View all brands" />
+                                            <f:param name="cat" value="0" />
+                                            <f:param name="ven" value="-1" />
+                                        </h:outputLink>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="Block Moveable Panel" id="SideCategoryShopByPrice" style="display:none;"></div>
+                        </div>
+                        <div class="Content Widest" id="LayoutColumn1">
+                            <div class="Block Moveable Panel Breadcrumb desktop" id="CartBreadcrumb">
+                                <ul class="last">
+                                    <li><a href="http://california-demo.mybigcommerce.com/">Home</a></li><li><a href="javascript:history.go(-1)">... Previous Page</a></li><li>Your Shopping Cart</li>
+                                </ul>
+                            </div><div class="Block Moveable Panel Breadcrumb mobile" id="CategoryBreadcrumbMobile">
+                                <ul class="last">
+                                    <li><a href="http://california-demo.mybigcommerce.com/" class="fa fa-arrow-circle-left breadcrumbback">&nbsp;</a></li><li>Your Shopping Cart</li>
+                                </ul>
+                            </div>
 
-</ul>
-</li>
-<li><a href="http://california-demo.mybigcommerce.com/tv-video/">TV &amp; Video</a></li>
-<li><a href="http://california-demo.mybigcommerce.com/mp3-players/">Mp3 Players</a></li>
-<li><a href="http://california-demo.mybigcommerce.com/sound-systems/">Sound Systems</a></li>
-<li><a href="http://california-demo.mybigcommerce.com/software/">Software</a></li>
-<li><a href="http://california-demo.mybigcommerce.com/bags-cases/">Bags &amp; Cases</a></li>
-<li><a href="http://california-demo.mybigcommerce.com/accessories-3/">Accessories</a></li>
-<li class="last"><a href="http://california-demo.mybigcommerce.com/sale/">Sale</a></li>
 
-</ul>
+                            <div class="Block Moveable Panel" id="CartHeader">
+                                <h1 class="TitleHeading">
+                                    Your Shopping Cart
+                                </h1>
+                            </div>
+                            <div class="txtR" style="display: none;">
+                                <a class="btn cta" href="https://store-xvoro4z.mybigcommerce.com/checkout.php" onclick="" title="Click here to proceed to checkout">Proceed To Checkout</a>
 
-        </div>
-	</div>
-</div>
-                          <div class="BrandList Moveable Panel slist" id="SideShopByBrand" style="display: ">
-    <h4>Brands</h4>
-    <h5>Brands</h5>
-    <div class="BlockContent" style="">
-        <ul class="treeview">
-            <li><a href="http://california-demo.mybigcommerce.com/brands/Apple.html">Apple</a></li><li><a href="http://california-demo.mybigcommerce.com/brands/Elgato.html">Elgato</a></li><li><a href="http://california-demo.mybigcommerce.com/brands/Logitech.html">Logitech</a></li><li><a href="http://california-demo.mybigcommerce.com/brands/Microsoft.html">Microsoft</a></li><li><a href="http://california-demo.mybigcommerce.com/brands/Speck.html">Speck</a></li><li><a href="http://california-demo.mybigcommerce.com/brands/booq.html">booq</a></li><li><a href="http://california-demo.mybigcommerce.com/brands/Crumpler.html">Crumpler</a></li><li><a href="http://california-demo.mybigcommerce.com/brands/Higher-Ground.html">Higher Ground</a></li><li><a href="http://california-demo.mybigcommerce.com/brands/Incase.html">Incase</a></li>
-            <li class="last"><a href="http://california-demo.mybigcommerce.com/brands/">View all brands</a></li>
-        </ul>
-    </div>
-</div>
-                          <div class="Block Moveable Panel" id="SideCategoryShopByPrice" style="display:none;"></div>
-                  </div>
-					<div class="Content Widest" id="LayoutColumn1">
-						<div class="Block Moveable Panel Breadcrumb desktop" id="CartBreadcrumb">
-	<ul class="last">
-		<li><a href="http://california-demo.mybigcommerce.com/">Home</a></li><li><a href="javascript:history.go(-1)">... Previous Page</a></li><li>Your Shopping Cart</li>
-	</ul>
-</div><div class="Block Moveable Panel Breadcrumb mobile" id="CategoryBreadcrumbMobile">
-	<ul class="last">
-		<li><a href="http://california-demo.mybigcommerce.com/" class="fa fa-arrow-circle-left breadcrumbback">&nbsp;</a></li><li>Your Shopping Cart</li>
-	</ul>
-</div>
-
-						
+                            </div>
 
 
-<div class="Block Moveable Panel" id="CartHeader">
-    <h1 class="TitleHeading">
-		Your Shopping Cart
-	</h1>
-</div>
-<div class="txtR" style="display: none;">
-    <a class="btn cta" href="https://store-xvoro4z.mybigcommerce.com/checkout.php" onclick="" title="Click here to proceed to checkout">Proceed To Checkout</a>
-    
-</div>
+                            <div class="fullwidth">
+                                <div class="Moveable Panel mtm" id="CartStatusMessage">
+                                    <div class="SuccessMessage">
+                                        The contents of your shopping cart have been updated.
+                                    </div>
+                                </div>
+                                <script src="https://cdn3.bigcommerce.com/r-bec883481d54dac7b86a6cad08c9df29ca567d02/javascript/jquery/plugins/imodal/imodal.js?" type="text/javascript"></script>
+                                <div class="Block Moveable Panel" id="CartContent">
+                                    <div class="BlockContent">
+                                        <div style="display: ">
+                                            <h:form enctype="multipart/form-data" id="cartForm">
+                                                <input type="hidden" name="action" value="update"/>
+                                                <table class="CartContents Stylize General" cellspacing="0" cellpadding="0">
+                                                    <thead>
+                                                        <tr class="First Last Odd Even">
+                                                            <th colspan="2" class="tableTrSep"><h4>Cart Items</h4></th>
+                                                            <th class="tableTrSep txtC"><h4>Quantity</h4></th>
+                                                            <th class="tableTrSep txtR"><h4>Item Price</h4></th>
+                                                            <th class="tableTrSep txtR"><h4>Item Total</h4></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot>
+                                                        <tr class="SubTotal First" style="display: none">
+                                                            <td colspan="4" class="Even"><div><h4>Subtotal</h4></div></td>
+                                                            <td class="Odd"><div><span class="ProductPrice"><h4>$1,496.65</h4></span></div></td>
+                                                        </tr>
+
+                                                        <tr class="SubTotal Odd Even" style="display: none">
+                                                            <td colspan="4" class="Even"><div><h4>Gift Wrapping</h4></div></td>
+                                                            <td class="Odd"><div><span class="ProductPrice"><h4></h4></span></div></td>
+                                                        </tr>
 
 
-						<div class="fullwidth">
-							<div class="Block Moveable Panel" id="CartStatusMessage" style="display:none;"></div>
-							<script type="text/javascript">
-lang.InvalidQuantity = "Please enter a valid product quantity.";
-lang.Calculating = "Estimating..."
-lang.CalculateShipping = "Estimate Shipping &amp; Tax"
-lang.ChooseShippingMethod = "Please choose a shipping method."
-lang.CartRemoveConfirm = 'Are you sure you want to remove this item from your cart?';
-lang.ConfirmRemoveGiftWrapping = 'Are you sure you want to remove the gift wrapping from this item?';
-lang.SelectCountry = 'Please choose your country.';
-lang.SelectState = 'Please choose a state/province.';
-lang.EnterZip = 'Please type in your zip/postcode.';
-</script>
-<script src="https://cdn3.bigcommerce.com/r-bec883481d54dac7b86a6cad08c9df29ca567d02/javascript/jquery/plugins/imodal/imodal.js?" type="text/javascript"></script>
-<div class="Block Moveable Panel" id="CartContent">
-	<div class="BlockContent">
-		<div style="display: ">
-			<form enctype="multipart/form-data" onsubmit="return Cart.ValidateQuantityForm(this);" action="cart.php" name="cartForm" id="cartForm" method="post">
-			<input type="hidden" name="action" value="update">
-			<table class="CartContents Stylize General" cellspacing="0" cellpadding="0">
-				<thead>
-					<tr class="First Last Odd Even">
-						<th colspan="2" class="tableTrSep"><h4>Cart Items</h4></th>
-						<th class="tableTrSep txtC"><h4>Quantity</h4></th>
-						<th class="tableTrSep txtR"><h4>Item Price</h4></th>
-						<th class="tableTrSep txtR"><h4>Item Total</h4></th>
-					</tr>
-				</thead>
-				<tfoot>
-                    <tr class="SubTotal First" style="display: none">
-						<td colspan="4" class="Even"><div><h4>Subtotal</h4></div></td>
-						<td class="Odd"><div><span class="ProductPrice"><h4>$576.23</h4></span></div></td>
-					</tr>
-                    
-					<tr class="SubTotal Odd Even" style="display: none">
-						<td colspan="4" class="Even"><div><h4>Gift Wrapping</h4></div></td>
-						<td class="Odd"><div><span class="ProductPrice"><h4></h4></span></div></td>
-					</tr>
-					
-                    
-					<tr class="SubTotal" style="display: none">
-						<td colspan="4" class="Even"><div>Discount</div></td>
-						<td class="Odd"><div><span class="ProductPrice"></span></div></td>
-					</tr>
-                    
-                    
-					<tr class="SubTotal Odd Even" style="">
-						<td colspan="5" class="Even">
-							<div>
-							<a href="#" class="EstimateShippingLink btn alt Small" onclick="ToggleShippingEstimation2(); return false;">Estimate Shipping &amp; Tax</a>
-							<div class="EstimateShipping" style="display: none;">
-								
-								<dl class="form">
-									<dt><span class="Required">*</span>&nbsp;Country:</dt>
-									<dd>
-										<div class="selector fixedWidth" id="uniform-shippingZoneCountry"><span style="-webkit-user-select: none;">Australia</span><select name="shippingZoneCountry" id="shippingZoneCountry" onchange="Cart.ToggleShippingEstimateCountry();">
-											<option value="0">-- Choose a Country --</option><option value="1">Afghanistan</option><option value="2">Albania</option><option value="3">Algeria</option><option value="4">American Samoa</option><option value="5">Andorra</option><option value="6">Angola</option><option value="7">Anguilla</option><option value="8">Antarctica</option><option value="9">Antigua and Barbuda</option><option value="10">Argentina</option><option value="11">Armenia</option><option value="12">Aruba</option><option value="13" selected="selected">Australia</option><option value="14">Austria</option><option value="15">Azerbaijan</option><option value="16">Bahamas</option><option value="17">Bahrain</option><option value="18">Bangladesh</option><option value="19">Barbados</option><option value="20">Belarus</option><option value="21">Belgium</option><option value="22">Belize</option><option value="23">Benin</option><option value="24">Bermuda</option><option value="25">Bhutan</option><option value="26">Bolivia</option><option value="27">Bosnia and Herzegovina</option><option value="28">Botswana</option><option value="29">Bouvet Island</option><option value="30">Brazil</option><option value="31">British Indian Ocean Territory</option><option value="32">Brunei Darussalam</option><option value="33">Bulgaria</option><option value="34">Burkina Faso</option><option value="35">Burundi</option><option value="36">Cambodia</option><option value="37">Cameroon</option><option value="38">Canada</option><option value="39">Cape Verde</option><option value="40">Cayman Islands</option><option value="41">Central African Republic</option><option value="42">Chad</option><option value="43">Chile</option><option value="44">China</option><option value="45">Christmas Island</option><option value="46">Cocos (Keeling) Islands</option><option value="47">Colombia</option><option value="48">Comoros</option><option value="49">Congo</option><option value="50">Congo, the Democratic Republic of the</option><option value="51">Cook Islands</option><option value="52">Costa Rica</option><option value="246">Cote d'Ivoire</option><option value="54">Croatia</option><option value="55">Cuba</option><option value="56">Cyprus</option><option value="57">Czech Republic</option><option value="58">Denmark</option><option value="59">Djibouti</option><option value="60">Dominica</option><option value="61">Dominican Republic</option><option value="62">Ecuador</option><option value="63">Egypt</option><option value="64">El Salvador</option><option value="65">Equatorial Guinea</option><option value="66">Eritrea</option><option value="67">Estonia</option><option value="68">Ethiopia</option><option value="69">Falkland Islands (Malvinas)</option><option value="70">Faroe Islands</option><option value="71">Fiji</option><option value="72">Finland</option><option value="73">France</option><option value="74">French Guiana</option><option value="75">French Polynesia</option><option value="76">French Southern Territories</option><option value="77">Gabon</option><option value="78">Gambia</option><option value="79">Georgia</option><option value="80">Germany</option><option value="81">Ghana</option><option value="82">Gibraltar</option><option value="83">Greece</option><option value="84">Greenland</option><option value="85">Grenada</option><option value="86">Guadeloupe</option><option value="87">Guam</option><option value="88">Guatemala</option><option value="242">Guernsey</option><option value="89">Guinea</option><option value="90">Guinea-Bissau</option><option value="91">Guyana</option><option value="92">Haiti</option><option value="93">Heard Island and Mcdonald Islands</option><option value="94">Holy See (Vatican City State)</option><option value="95">Honduras</option><option value="96">Hong Kong</option><option value="97">Hungary</option><option value="98">Iceland</option><option value="99">India</option><option value="100">Indonesia</option><option value="101">Iran, Islamic Republic of</option><option value="102">Iraq</option><option value="103">Ireland</option><option value="240">Isle of Man</option><option value="104">Israel</option><option value="105">Italy</option><option value="106">Jamaica</option><option value="107">Japan</option><option value="241">Jersey</option><option value="108">Jordan</option><option value="109">Kazakhstan</option><option value="110">Kenya</option><option value="111">Kiribati</option><option value="244">Korea, Democratic People's Republic of</option><option value="113">Korea, Republic of</option><option value="114">Kuwait</option><option value="115">Kyrgyzstan</option><option value="243">Lao People's Democratic Republic</option><option value="117">Latvia</option><option value="118">Lebanon</option><option value="119">Lesotho</option><option value="120">Liberia</option><option value="121">Libyan Arab Jamahiriya</option><option value="122">Liechtenstein</option><option value="123">Lithuania</option><option value="124">Luxembourg</option><option value="125">Macao</option><option value="126">Macedonia, the Former Yugoslav Republic of</option><option value="127">Madagascar</option><option value="128">Malawi</option><option value="129">Malaysia</option><option value="130">Maldives</option><option value="131">Mali</option><option value="132">Malta</option><option value="133">Marshall Islands</option><option value="134">Martinique</option><option value="135">Mauritania</option><option value="136">Mauritius</option><option value="137">Mayotte</option><option value="138">Mexico</option><option value="139">Micronesia, Federated States of</option><option value="140">Moldova, Republic of</option><option value="141">Monaco</option><option value="142">Mongolia</option><option value="245">Montenegro</option><option value="143">Montserrat</option><option value="144">Morocco</option><option value="145">Mozambique</option><option value="146">Myanmar</option><option value="147">Namibia</option><option value="148">Nauru</option><option value="149">Nepal</option><option value="150">Netherlands</option><option value="151">Netherlands Antilles</option><option value="152">New Caledonia</option><option value="153">New Zealand</option><option value="154">Nicaragua</option><option value="155">Niger</option><option value="156">Nigeria</option><option value="157">Niue</option><option value="158">Norfolk Island</option><option value="159">Northern Mariana Islands</option><option value="160">Norway</option><option value="161">Oman</option><option value="162">Pakistan</option><option value="163">Palau</option><option value="164">Palestinian Territory, Occupied</option><option value="165">Panama</option><option value="166">Papua New Guinea</option><option value="167">Paraguay</option><option value="168">Peru</option><option value="169">Philippines</option><option value="170">Pitcairn</option><option value="171">Poland</option><option value="172">Portugal</option><option value="173">Puerto Rico</option><option value="174">Qatar</option><option value="175">Reunion</option><option value="176">Romania</option><option value="177">Russian Federation</option><option value="178">Rwanda</option><option value="179">Saint Helena</option><option value="180">Saint Kitts and Nevis</option><option value="181">Saint Lucia</option><option value="182">Saint Pierre and Miquelon</option><option value="183">Saint Vincent and the Grenadines</option><option value="184">Samoa</option><option value="185">San Marino</option><option value="186">Sao Tome and Principe</option><option value="187">Saudi Arabia</option><option value="188">Senegal</option><option value="189">Serbia</option><option value="190">Seychelles</option><option value="191">Sierra Leone</option><option value="192">Singapore</option><option value="193">Slovakia</option><option value="194">Slovenia</option><option value="195">Solomon Islands</option><option value="196">Somalia</option><option value="197">South Africa</option><option value="198">South Georgia and the South Sandwich Islands</option><option value="199">Spain</option><option value="200">Sri Lanka</option><option value="201">Sudan</option><option value="202">Suriname</option><option value="203">Svalbard and Jan Mayen</option><option value="204">Swaziland</option><option value="205">Sweden</option><option value="206">Switzerland</option><option value="207">Syrian Arab Republic</option><option value="208">Taiwan</option><option value="209">Tajikistan</option><option value="210">Tanzania, United Republic of</option><option value="211">Thailand</option><option value="212">Timor-Leste</option><option value="213">Togo</option><option value="214">Tokelau</option><option value="215">Tonga</option><option value="216">Trinidad and Tobago</option><option value="217">Tunisia</option><option value="218">Turkey</option><option value="219">Turkmenistan</option><option value="220">Turks and Caicos Islands</option><option value="221">Tuvalu</option><option value="222">Uganda</option><option value="223">Ukraine</option><option value="224">United Arab Emirates</option><option value="225">United Kingdom</option><option value="226">United States</option><option value="227">United States Minor Outlying Islands</option><option value="228">Uruguay</option><option value="229">Uzbekistan</option><option value="230">Vanuatu</option><option value="231">Venezuela</option><option value="232">Viet Nam</option><option value="233">Virgin Islands, British</option><option value="234">Virgin Islands, U.S.</option><option value="235">Wallis and Futuna</option><option value="236">Western Sahara</option><option value="237">Yemen</option><option value="238">Zambia</option><option value="239">Zimbabwe</option>
-										</select></div>
-									</dd>
+                                                        <tr class="SubTotal" style="display: none">
+                                                            <td colspan="4" class="Even"><div>Discount</div></td>
+                                                            <td class="Odd"><div><span class="ProductPrice"></span></div></td>
+                                                        </tr>
 
-									<dt><span class="Required" id="shippingZoneStateRequired">*</span>&nbsp;State/Province:</dt>
-									<dd>
-										<div class="selector fixedWidth" id="uniform-shippingZoneState"><span style="-webkit-user-select: none;">Choose a State</span><select style="display: " name="shippingZoneState" id="shippingZoneState">
-											<option value="0">Choose a State</option><option value="208">Australian Capital Territory</option><option value="209">New South Wales</option><option value="210">Northern Territory</option><option value="211">Queensland</option><option value="212">South Australia</option><option value="213">Tasmania</option><option value="214">Victoria</option><option value="215">Western Australia</option>
-										</select></div>
-										<input style="display: none" type="text" class="Textbox" name="shippingZoneStateName" id="shippingZoneStateName" value=""/>
-									</dd>
 
-									<dt><span class="Required">*</span>&nbsp;Zip/Postcode:</dt>
-									<dd><input type="text" class="Textbox" name="shippingZoneZip" id="shippingZoneZip" value=""></dd>
-                                    <dt>&nbsp;</dt>
-									<dd class="Submit EstimateShippingButtons">
-										<input type="button" onclick="Cart.EstimateShipping();" value="Estimate Shipping &amp; Tax" class="btn alt Small"/>&nbsp;&nbsp;&nbsp;
-										<a href="#" onclick="ToggleShippingEstimation2(); return false;" class="txt-link alt">Cancel</a>
-									</dd>
-								</dl>
+                                                        <tr class="SubTotal Odd Even" style="">
+                                                            <td colspan="5" class="Even">
+                                                                <div>
+                                                                    <a href="#" class="EstimateShippingLink btn alt Small" onclick="ToggleShippingEstimation2();
+                                                                            return false;">Estimate Shipping &amp; Tax</a>
+                                                                    <div class="EstimateShipping" style="display: none;">
 
-								<div class="EstimatedShippingMethods" style="display: none;">
-									<div class="ShippingMethodList">
-									</div>
-									
-								</div>
-							</div>
-							
-							</div>
-						</td>
-					</tr>
-					<tr style="display:none" class="SubTotal">
-						<td colspan="4" class="Odd"><div>Shipping ()</div></td>
-						<td class="Even"><div><span class="ProductPrice"></span></div></td>
-					</tr>
-					
-					<tr style="display: none" class="SubTotal Odd Even">
-						<td colspan="4" class="Odd"><div>Handling</div></td>
-						<td class="Even"><div><span class="ProductPrice"></span></div></td>
-					</tr>
-					
-					
-                    
-                    <tr class="SubTotal gtotal Last">
-						<td colspan="4" class="Odd"><div><h3>Grand Total</h3></div></td>
-						<td class="Even"><div><h3 class="ProductPrice">$576.23</h3></div></td>
-					</tr>
-                    
-                    
-					
-				</tfoot>
-				<tbody>
-					
-<tr class="First Last Odd Even">
-  <td class="CartThumb Odd" style=""> <a href="http://california-demo.mybigcommerce.com/ipod-shuffle/"><img src="https://cdn2.bigcommerce.com/n-nr1m3w/xvoro4z/products/95/images/355/shuffle_silver_52909__61210.1396569604.190.250.jpg?c=2"></a>&nbsp; </td>
-  <td class="ProductName Even" colspan="1"><a href="http://california-demo.mybigcommerce.com/ipod-shuffle/">iPod Shuffle</a> <br>
-    
-    <div class="CartExpectedReleaseDate" style="display: none;">()</div>
-    
-    <div style="" class="WrappingOptions"><i class="fa fa-tag"></i>
- Gift Wrapping: <a href="#" class="alt" onclick="Cart.ManageGiftWrapping('55285ba283f28');" style="">Add</a> <span style="display: none"> (<a href="#" class="alt" onclick="Cart.ManageGiftWrapping('55285ba283f28');">Change</a> or <a href="cart.php?action=remove_giftwrapping&amp;item_id=55285ba283f28" class="alt" onclick="return Cart.RemoveGiftWrapping();">Remove</a>) </span> <br>
-      <span style="display: none"> Gift Message:
-       </span> </div></td>
-  <td align="center" class="CartItemQuantity Odd"> <div class="selector fixedWidth" id="uniform-qty_55285ba283f28"><span style="-webkit-user-select: none;">3</span><select id="qty_55285ba283f28" name="qty[55285ba283f28]" class="Field45 quantityInput" style="">
-	<option value="1">1</option>
-	<option value="2">2</option>
-	<option selected="selected" value="3">3</option>
-	<option value="4">4</option>
-	<option value="5">5</option>
-	<option value="6">6</option>
-	<option value="7">7</option>
-	<option value="8">8</option>
-	<option value="9">9</option>
-	<option value="10">10</option>
-	<option value="11">11</option>
-	<option value="12">12</option>
-	<option value="13">13</option>
-	<option value="14">14</option>
-	<option value="15">15</option>
-	<option value="16">16</option>
-	<option value="17">17</option>
-	<option value="18">18</option>
-	<option value="19">19</option>
-	<option value="20">20</option>
-	<option value="21">21</option>
-	<option value="22">22</option>
-	<option value="23">23</option>
-	<option value="24">24</option>
-	<option value="25">25</option>
-	<option value="26">26</option>
-	<option value="27">27</option>
-	<option value="28">28</option>
-	<option value="29">29</option>
-	<option value="30">30</option>
-	
-</select></div>
-    <div style=""> <a href="cart.php?action=remove&amp;item=55285ba283f28" onclick="Cart.RemoveItem('55285ba283f28'); return false;" class="CartRemoveLink alt" title="Remove">&nbsp;<i class="fa fa-times-circle"></i> Remove</a> </div></td>
-  <td align="center" class="CartItemIndividualPrice Even"><h4>$192.08</h4></td>
-  <td align="right" class="CartItemTotalPrice Odd">
-  <h4 class="ProductPrice">
-    $576.23
-  </h4></td>
-</tr>
+                                                                        <dl class="form">
+                                                                            <dt><span class="Required">*</span>&nbsp;Country:</dt>
+                                                                            <dd>
+                                                                                <div class="selector fixedWidth" id="uniform-shippingZoneCountry"><span style="-webkit-user-select: none;">Australia</span><select name="shippingZoneCountry" id="shippingZoneCountry" onchange="Cart.ToggleShippingEstimateCountry();">
+                                                                                        <option value="0">-- Choose a Country --</option><option value="1">Afghanistan</option><option value="2">Albania</option><option value="3">Algeria</option><option value="4">American Samoa</option><option value="5">Andorra</option><option value="6">Angola</option><option value="7">Anguilla</option><option value="8">Antarctica</option><option value="9">Antigua and Barbuda</option><option value="10">Argentina</option><option value="11">Armenia</option><option value="12">Aruba</option><option value="13" selected="selected">Australia</option><option value="14">Austria</option><option value="15">Azerbaijan</option><option value="16">Bahamas</option><option value="17">Bahrain</option><option value="18">Bangladesh</option><option value="19">Barbados</option><option value="20">Belarus</option><option value="21">Belgium</option><option value="22">Belize</option><option value="23">Benin</option><option value="24">Bermuda</option><option value="25">Bhutan</option><option value="26">Bolivia</option><option value="27">Bosnia and Herzegovina</option><option value="28">Botswana</option><option value="29">Bouvet Island</option><option value="30">Brazil</option><option value="31">British Indian Ocean Territory</option><option value="32">Brunei Darussalam</option><option value="33">Bulgaria</option><option value="34">Burkina Faso</option><option value="35">Burundi</option><option value="36">Cambodia</option><option value="37">Cameroon</option><option value="38">Canada</option><option value="39">Cape Verde</option><option value="40">Cayman Islands</option><option value="41">Central African Republic</option><option value="42">Chad</option><option value="43">Chile</option><option value="44">China</option><option value="45">Christmas Island</option><option value="46">Cocos (Keeling) Islands</option><option value="47">Colombia</option><option value="48">Comoros</option><option value="49">Congo</option><option value="50">Congo, the Democratic Republic of the</option><option value="51">Cook Islands</option><option value="52">Costa Rica</option><option value="246">Cote d'Ivoire</option><option value="54">Croatia</option><option value="55">Cuba</option><option value="56">Cyprus</option><option value="57">Czech Republic</option><option value="58">Denmark</option><option value="59">Djibouti</option><option value="60">Dominica</option><option value="61">Dominican Republic</option><option value="62">Ecuador</option><option value="63">Egypt</option><option value="64">El Salvador</option><option value="65">Equatorial Guinea</option><option value="66">Eritrea</option><option value="67">Estonia</option><option value="68">Ethiopia</option><option value="69">Falkland Islands (Malvinas)</option><option value="70">Faroe Islands</option><option value="71">Fiji</option><option value="72">Finland</option><option value="73">France</option><option value="74">French Guiana</option><option value="75">French Polynesia</option><option value="76">French Southern Territories</option><option value="77">Gabon</option><option value="78">Gambia</option><option value="79">Georgia</option><option value="80">Germany</option><option value="81">Ghana</option><option value="82">Gibraltar</option><option value="83">Greece</option><option value="84">Greenland</option><option value="85">Grenada</option><option value="86">Guadeloupe</option><option value="87">Guam</option><option value="88">Guatemala</option><option value="242">Guernsey</option><option value="89">Guinea</option><option value="90">Guinea-Bissau</option><option value="91">Guyana</option><option value="92">Haiti</option><option value="93">Heard Island and Mcdonald Islands</option><option value="94">Holy See (Vatican City State)</option><option value="95">Honduras</option><option value="96">Hong Kong</option><option value="97">Hungary</option><option value="98">Iceland</option><option value="99">India</option><option value="100">Indonesia</option><option value="101">Iran, Islamic Republic of</option><option value="102">Iraq</option><option value="103">Ireland</option><option value="240">Isle of Man</option><option value="104">Israel</option><option value="105">Italy</option><option value="106">Jamaica</option><option value="107">Japan</option><option value="241">Jersey</option><option value="108">Jordan</option><option value="109">Kazakhstan</option><option value="110">Kenya</option><option value="111">Kiribati</option><option value="244">Korea, Democratic People's Republic of</option><option value="113">Korea, Republic of</option><option value="114">Kuwait</option><option value="115">Kyrgyzstan</option><option value="243">Lao People's Democratic Republic</option><option value="117">Latvia</option><option value="118">Lebanon</option><option value="119">Lesotho</option><option value="120">Liberia</option><option value="121">Libyan Arab Jamahiriya</option><option value="122">Liechtenstein</option><option value="123">Lithuania</option><option value="124">Luxembourg</option><option value="125">Macao</option><option value="126">Macedonia, the Former Yugoslav Republic of</option><option value="127">Madagascar</option><option value="128">Malawi</option><option value="129">Malaysia</option><option value="130">Maldives</option><option value="131">Mali</option><option value="132">Malta</option><option value="133">Marshall Islands</option><option value="134">Martinique</option><option value="135">Mauritania</option><option value="136">Mauritius</option><option value="137">Mayotte</option><option value="138">Mexico</option><option value="139">Micronesia, Federated States of</option><option value="140">Moldova, Republic of</option><option value="141">Monaco</option><option value="142">Mongolia</option><option value="245">Montenegro</option><option value="143">Montserrat</option><option value="144">Morocco</option><option value="145">Mozambique</option><option value="146">Myanmar</option><option value="147">Namibia</option><option value="148">Nauru</option><option value="149">Nepal</option><option value="150">Netherlands</option><option value="151">Netherlands Antilles</option><option value="152">New Caledonia</option><option value="153">New Zealand</option><option value="154">Nicaragua</option><option value="155">Niger</option><option value="156">Nigeria</option><option value="157">Niue</option><option value="158">Norfolk Island</option><option value="159">Northern Mariana Islands</option><option value="160">Norway</option><option value="161">Oman</option><option value="162">Pakistan</option><option value="163">Palau</option><option value="164">Palestinian Territory, Occupied</option><option value="165">Panama</option><option value="166">Papua New Guinea</option><option value="167">Paraguay</option><option value="168">Peru</option><option value="169">Philippines</option><option value="170">Pitcairn</option><option value="171">Poland</option><option value="172">Portugal</option><option value="173">Puerto Rico</option><option value="174">Qatar</option><option value="175">Reunion</option><option value="176">Romania</option><option value="177">Russian Federation</option><option value="178">Rwanda</option><option value="179">Saint Helena</option><option value="180">Saint Kitts and Nevis</option><option value="181">Saint Lucia</option><option value="182">Saint Pierre and Miquelon</option><option value="183">Saint Vincent and the Grenadines</option><option value="184">Samoa</option><option value="185">San Marino</option><option value="186">Sao Tome and Principe</option><option value="187">Saudi Arabia</option><option value="188">Senegal</option><option value="189">Serbia</option><option value="190">Seychelles</option><option value="191">Sierra Leone</option><option value="192">Singapore</option><option value="193">Slovakia</option><option value="194">Slovenia</option><option value="195">Solomon Islands</option><option value="196">Somalia</option><option value="197">South Africa</option><option value="198">South Georgia and the South Sandwich Islands</option><option value="199">Spain</option><option value="200">Sri Lanka</option><option value="201">Sudan</option><option value="202">Suriname</option><option value="203">Svalbard and Jan Mayen</option><option value="204">Swaziland</option><option value="205">Sweden</option><option value="206">Switzerland</option><option value="207">Syrian Arab Republic</option><option value="208">Taiwan</option><option value="209">Tajikistan</option><option value="210">Tanzania, United Republic of</option><option value="211">Thailand</option><option value="212">Timor-Leste</option><option value="213">Togo</option><option value="214">Tokelau</option><option value="215">Tonga</option><option value="216">Trinidad and Tobago</option><option value="217">Tunisia</option><option value="218">Turkey</option><option value="219">Turkmenistan</option><option value="220">Turks and Caicos Islands</option><option value="221">Tuvalu</option><option value="222">Uganda</option><option value="223">Ukraine</option><option value="224">United Arab Emirates</option><option value="225">United Kingdom</option><option value="226">United States</option><option value="227">United States Minor Outlying Islands</option><option value="228">Uruguay</option><option value="229">Uzbekistan</option><option value="230">Vanuatu</option><option value="231">Venezuela</option><option value="232">Viet Nam</option><option value="233">Virgin Islands, British</option><option value="234">Virgin Islands, U.S.</option><option value="235">Wallis and Futuna</option><option value="236">Western Sahara</option><option value="237">Yemen</option><option value="238">Zambia</option><option value="239">Zimbabwe</option>
+                                                                                    </select></div>
+                                                                            </dd>
 
-				</tbody>
-			</table>
-			<div style="display: none">
-				<input class="btn" type="submit" value="Update Cart" title="Update">
-			</div>
-			</form>
-			
-			
-			<div class="ProceedToCheckout FloatRight">
-			<div class="CheckoutButton FloatRight" style="display: none">
-				<a class="btn cta" href="https://store-xvoro4z.mybigcommerce.com/checkout.php" onclick="" title="Click here to proceed to checkout">Proceed To Checkout</a>
-			</div>
-			<div class="AlternativeCheckout" style="display: none">
-<p class="PTB20"><span style="display: none"> or </span><a href="https://store-xvoro4z.mybigcommerce.com/checkout.php?action=multiple"><strong>check out with multiple addresses</strong></a></p>
-			</div>
-			
-		</div>
+                                                                            <dt><span class="Required" id="shippingZoneStateRequired">*</span>&nbsp;State/Province:</dt>
+                                                                            <dd>
+                                                                                <div class="selector fixedWidth" id="uniform-shippingZoneState"><span style="-webkit-user-select: none;">Choose a State</span><select style="display: " name="shippingZoneState" id="shippingZoneState">
+                                                                                        <option value="0">Choose a State</option><option value="208">Australian Capital Territory</option><option value="209">New South Wales</option><option value="210">Northern Territory</option><option value="211">Queensland</option><option value="212">South Australia</option><option value="213">Tasmania</option><option value="214">Victoria</option><option value="215">Western Australia</option>
+                                                                                    </select></div>
+                                                                                <input style="display: none" type="text" class="Textbox" name="shippingZoneStateName" id="shippingZoneStateName" value=""/>
+                                                                            </dd>
 
-		<div class="KeepShopping FloatLeft">
-			<a href="https://store-xvoro4z.mybigcommerce.com" class="btn alt Small">Click here to keep shopping</a>
-		</div>
-		<div class="clear"></div>
-			
-		</div>
-		
-		
-		<div class="clear"></div>
-		<div style="display: none">
-			<p class="InfoMessage">
-				<strong>There are no products in your cart.</strong>
-			</p>
-			To add a product to your cart, first browse for it or use the search box and then click its "Add to Cart" button.
-			<br><br>
-			<a href="https://store-xvoro4z.mybigcommerce.com/">Continue Shopping</a> on the California home page.
-		</div>
-	</div>
-</div>
+                                                                            <dt><span class="Required">*</span>&nbsp;Zip/Postcode:</dt>
+                                                                            <dd><input type="text" class="Textbox" name="shippingZoneZip" id="shippingZoneZip" value=""/></dd>
+                                                                            <dt>&nbsp;</dt>
+                                                                            <dd class="Submit EstimateShippingButtons">
+                                                                                <input type="button" onclick="Cart.EstimateShipping();" value="Estimate Shipping &amp; Tax" class="btn alt Small"/>&nbsp;&nbsp;&nbsp;
+                                                                                <a href="#" onclick="ToggleShippingEstimation2();
+                                                                                        return false;" class="txt-link alt">Cancel</a>
+                                                                            </dd>
+                                                                        </dl>
 
-							<div class="CartCode cf">
-								<div class="CouponCode">
-	<h4>Coupon Code</h4>
-	<script type="text/javascript">
-		lang.EnterCouponCode = "Please enter your coupon code.";
-	</script>
-	<form onsubmit="return Cart.CheckCouponCode()" action="https://store-xvoro4z.mybigcommerce.com/cart.php" method="post">
-		<input type="hidden" name="action" value="applycoupon">
-		<div class="CouponCodeWrapper">
-			<p>If you have a coupon code, enter it in the box below and click 'Go'.</p>
-            <p class="Relative">
-                <input type="text" name="couponcode" id="couponcode" class="Textbox Field100">
-                <input type="submit" value="Go" class="btn Small">
-            </p>
-		</div>
-	</form>
-</div>
+                                                                        <div class="EstimatedShippingMethods" style="display: none;">
+                                                                            <div class="ShippingMethodList">
+                                                                            </div>
 
-								<div class="GiftCertificate">
-	<h4>Redeem Gift Certificate</h4>
-	<script type="text/javascript">
-		lang.EnterGiftCertificateCode = "Please enter your gift certificate code.";
-	</script>
-	<form onsubmit="return Cart.CheckGiftCertificateCode()" action="https://store-xvoro4z.mybigcommerce.com/cart.php" method="post">
-		<input type="hidden" name="action" value="applygiftcertificate">
-		<div class="GiftCertificateCode">
-			<p>To pay for this order using a gift certificate, enter the gift certificate code in the box below and click 'Go'.</p>
-            <p class="Relative">
-                <input type="text" name="giftcertificatecode" id="giftcertificatecode" class="Textbox">
-                <input type="submit" value="Go" class="btn Small">
-            </p>
-		</div>
-	</form>
-</div>
-							</div>
-						</div>
-					</div>
-					<div class="clear"></div>
-				</div>
-			</div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr style="display:none" class="SubTotal">
+                                                            <td colspan="4" class="Odd"><div>Shipping ()</div></td>
+                                                            <td class="Even"><div><span class="ProductPrice"></span></div></td>
+                                                        </tr>
+
+                                                        <tr style="display: none" class="SubTotal Odd Even">
+                                                            <td colspan="4" class="Odd"><div>Handling</div></td>
+                                                            <td class="Even"><div><span class="ProductPrice"></span></div></td>
+                                                        </tr>
+
+                                                        <tr class="SubTotal gtotal Last">
+                                                            <td colspan="4" class="Odd"><div><h3>Grand Total</h3></div></td>
+                                                            <td class="Even"><div><h3 class="ProductPrice">$1,496.65</h3></div></td>
+                                                        </tr>
+                                                    </tfoot>
+                                                    <tbody>
+                                                        <c:forEach items="#{cartBean.cartContent}" var="cartitem" varStatus="loop">
+                                                            <tr class="${loop.first ? 'First ' : ''}Odd Even${loop.last ? ' Last' : ''}">
+                                                                <td class="CartThumb Odd" style=""> <a href="#{request.contextPath}/product/details.xhtml?pro=#{cartitem.product.id}"><h:graphicImage library="images" name="#{cartitem.product.imagePath}"/></a>&nbsp; </td>
+                                                                <td class="ProductName Even" colspan="1"><a href="#{request.contextPath}/product/details.xhtml?pro=#{cartitem.product.id}">#{cartitem.product.name}</a> <br/>
+
+                                                                    <div class="CartExpectedReleaseDate" style="display: none;">()</div>
+
+                                                                    <div style="" class="WrappingOptions"><i class="fa fa-tag"></i>
+                                                                        Gift Wrapping: <a href="#" class="alt" onclick="" style="">Add</a> <span style="display: none"> (<a href="#" class="alt" onclick="">Change</a> or <a href="" class="alt" onclick="">Remove</a>) </span> <br/>
+                                                                        <span style="display: none"> Gift Message:
+                                                                        </span> </div></td>
+                                                                <td align="center" class="CartItemQuantity Odd"> 
+                                                                        <h:selectOneMenu value="#{cartitem.quantity}" class="Field45 quantityInput" style="">
+                                                                            <c:forEach begin="1" end="30" var="i">
+                                                                                <f:selectItem itemValue="#{i}" />
+                                                                            </c:forEach>
+                                                                        </h:selectOneMenu>
+                                                                    <div style=""> 
+                                                                        <h:commandLink action="#{cartBean.removeProduct(cartitem.product.id)}" value="" class="CartRemoveLink alt" title="Remove">
+                                                                            &nbsp;<i class="fa fa-times-circle"></i>&nbsp;<h:outputText value="Remove" />
+                                                                        </h:commandLink>
+                                                                    </div></td>
+                                                                <td align="center" class="CartItemIndividualPrice Even"><h4>$#{cartitem.product.price}</h4></td>
+                                                                <td align="right" class="CartItemTotalPrice Odd">
+                                                                    <h4 class="ProductPrice">
+                                                                        $#{cartitem.product.price * cartitem.quantity}
+                                                                    </h4></td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </tbody>
+                                                </table>
+                                                <div style="display: none">
+                                                    <input class="btn" type="submit" value="Update Cart" title="Update"/>
+                                                </div>
+                                            </h:form>
+
+
+                                            <div class="ProceedToCheckout FloatRight">
+                                                <div class="CheckoutButton FloatRight" style="display: none">
+                                                    <a class="btn cta" href="https://store-xvoro4z.mybigcommerce.com/checkout.php" onclick="" title="Click here to proceed to checkout">Proceed To Checkout</a>
+                                                </div>
+                                                <div class="AlternativeCheckout" style="display: none">
+                                                    <p class="PTB20"><span style="display: none"> or </span><a href="https://store-xvoro4z.mybigcommerce.com/checkout.php?action=multiple"><strong>check out with multiple addresses</strong></a></p>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="KeepShopping FloatLeft">
+                                                <a href="#{request.contextPath}" class="btn alt Small">Click here to keep shopping</a>
+                                            </div>
+                                            <div class="clear"></div>
+
+                                        </div>
+
+
+                                        <div class="clear"></div>
+                                        <div style="display: none">
+                                            <p class="InfoMessage">
+                                                <strong>There are no products in your cart.</strong>
+                                            </p>
+                                            To add a product to your cart, first browse for it or use the search box and then click its "Add to Cart" button.
+                                            <br/><br/>
+                                            <a href="#{request.contextPath}">Continue Shopping</a> on the Fairfield home page.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>    
