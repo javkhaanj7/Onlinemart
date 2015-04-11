@@ -13,6 +13,7 @@
                 <f:metadata>
                     <f:viewParam name="cat" value="#{productBean.cat}" />
                     <f:viewParam name="ven" value="#{productBean.ven}" />
+                    <f:viewParam name="search_query" value="#{productBean.search_query}" />
                 </f:metadata>
             </ui:define>
 
@@ -119,8 +120,11 @@
                                     <c:when test="#{productBean.ven > 0}">
                                         <h1 class="TitleHeading">#{vendorBean.getByVendor(productBean.ven).vendorName}</h1>
                                     </c:when>
+                                    <c:when test="#{productBean.search_query.length() > 0}">
+                                        <h1 class="TitleHeading">Search Results</h1>
+                                    </c:when>
                                 </c:choose>
-                                <div class="Content Wide ">
+                                <div class="Content Widest">
                                     <div class="Block CategoryContent Moveable Panel">
                                         <c:choose>
                                             <c:when test="#{productBean.cat != 0}">
@@ -188,6 +192,36 @@
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
+                                            </c:when>
+                                            <c:when test="#{productBean.search_query.length() > 0}">
+                                                <c:set var="searchpro" value="#{productBean.getSearchProductList(productBean.search_query)}" />
+                                                <p class="txt24">Search Results for "#{productBean.search_query}"</p>
+                                                <c:choose>
+                                                    <c:when test="#{searchpro.size() > 0}">
+                                                        <c:set var="cheight" value="#{(searchpro.size()/4) + (1 - ((searchpro.size()/4)%1)) % 1}" />
+                                                        <ul class="ProductList" style="position: relative; height: #{390 * cheight}px;">
+                                                            <c:forEach var="item" items="#{searchpro}" varStatus="loop">
+                                                                <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{((((loop.index + 1)/4)+(1-(((loop.index + 1)/4)%1))%1) - 1) * 390}px;">
+                                                                    <div class="ProductImage">
+                                                                        <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" style="height: 250px;">
+                                                                            <h:graphicImage library="images" name="#{item.imagePath}"/>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="ProductDetails" style="min-height: 26px;">
+                                                                        <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" class="pname">#{item.name}</a>
+                                                                    </div>
+                                                                    <em class="p-price">$#{item.price}</em>
+                                                                    <div class="ProductActionAdd" style="">
+                                                                        <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
+                                                                    </div>
+                                                                </li>
+                                                            </c:forEach>
+                                                        </ul>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <p class="ErrorMessage"> Your search for <strong>"#{productBean.search_query}"</strong> did not match any products.</p>
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </c:when>
                                         </c:choose>
                                     </div>

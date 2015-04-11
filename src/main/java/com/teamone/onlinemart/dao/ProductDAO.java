@@ -158,6 +158,30 @@ public class ProductDAO {
         return products;
     }
 
+    public static ArrayList<Product> searchProductsByName(String searchText) {
+        Connection con = null;
+        PreparedStatement ps = null;
+        ArrayList<Product> products = new ArrayList<>();
+//        DataModel<Product> products = new ArrayDataModel<Product>();        
+        try {
+            con = Database.getConnection();
+            ps = con.prepareStatement(
+                    "select * from product where name like '%" + searchText + "%'");
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) // found
+            {
+//                products.setWrappedData((Object)new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price")));
+                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getString("description"), rs.getDouble("price"), rs.getInt("category_id"), rs.getInt("vendor_id"), rs.getString("image_path")));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            Database.close(con);
+        }
+        return products;
+    }
+    
     public static Product getById(int id) {
         Connection con = null;
         PreparedStatement ps = null;
