@@ -26,9 +26,11 @@ public class CartBean implements Serializable {
     private int productId;
     private int quantity;
     private List<CartItem> items;
+    private boolean success;
     
     public CartBean() {
         items = new ArrayList<>();
+        success = false;
     }
     
     public int totalProducts() {
@@ -56,6 +58,7 @@ public class CartBean implements Serializable {
             if(!exists) {
                 items.add(new CartItem(product, getQuantity()));
             }
+            setSuccess(true);
         }
         // Reset params
         setProductId(0);
@@ -107,5 +110,19 @@ public class CartBean implements Serializable {
      */
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    /**
+     * @return the success
+     */
+    public boolean isSuccess() {
+        return success;
+    }
+
+    /**
+     * @param success the success to set
+     */
+    public void setSuccess(boolean success) {
+        this.success = success;
     }
 }

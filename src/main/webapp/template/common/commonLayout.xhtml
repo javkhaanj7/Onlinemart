@@ -3,6 +3,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     
     <ui:insert name="metadata">
@@ -29,9 +30,21 @@
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <h:outputScript library="javascript" name="jquery.zoomie.js" />
-        <h:outputScript library="javascript" name="payment.js" />
+        <h:outputScript library="javascript" name="jquery.noty.packaged.min.js" />
+         <h:outputScript library="javascript" name="payment.js" />
 
         <script>
+            // noty
+            function notify(text) {
+                var n = noty({
+                    text        : text,
+                    type        : 'success',
+                    dismissQueue: true,
+                    layout      : 'bottomRight',
+                    theme       : 'relax'
+                });
+            }
+            
             $(document).ready(function () {
                 $('.nav-toggle').click(function () {
                     //get collapse content selector
@@ -49,6 +62,11 @@
                         }
                     });
                 });
+                
+                <c:if test="${cartBean.success}">
+                    notify('You successfully added this product to shopping cart.');
+                    ${cartBean.setSuccess(false)}
+                </c:if>
             });
         </script>
 
