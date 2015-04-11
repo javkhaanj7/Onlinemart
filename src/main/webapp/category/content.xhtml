@@ -143,7 +143,11 @@
                                                             </div>
                                                             <em class="p-price">$#{item.price}</em>
                                                             <div class="ProductActionAdd" style="">
-                                                                <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
+                                                                <h:form>
+                                                                    <h:commandButton action="#{cartBean.addItem()}" value="Add To Cart" class="btn Small icon-Add To Cart" title="Add To Cart">
+                                                                        <f:setPropertyActionListener target="#{cartBean.productId}" value="#{item.id}" />
+                                                                    </h:commandButton>
+                                                                </h:form>
                                                             </div>
                                                         </li>
                                                     </c:forEach>
@@ -165,7 +169,11 @@
                                                             </div>
                                                             <em class="p-price">$#{item.price}</em>
                                                             <div class="ProductActionAdd" style="">
-                                                                <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
+                                                                <h:form>
+                                                                    <h:commandButton action="#{cartBean.addItem()}" value="Add To Cart" class="btn Small icon-Add To Cart" title="Add To Cart">
+                                                                        <f:setPropertyActionListener target="#{cartBean.productId}" value="#{item.id}" />
+                                                                    </h:commandButton>
+                                                                </h:form>
                                                             </div>
                                                         </li>
                                                     </c:forEach>
@@ -187,7 +195,11 @@
                                                             </div>
                                                             <em class="p-price">$#{item.price}</em>
                                                             <div class="ProductActionAdd" style="">
-                                                                <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
+                                                                <h:form>
+                                                                    <h:commandButton action="#{cartBean.addItem()}" value="Add To Cart" class="btn Small icon-Add To Cart" title="Add To Cart">
+                                                                        <f:setPropertyActionListener target="#{cartBean.productId}" value="#{item.id}" />
+                                                                    </h:commandButton>
+                                                                </h:form>
                                                             </div>
                                                         </li>
                                                     </c:forEach>
@@ -212,7 +224,11 @@
                                                                     </div>
                                                                     <em class="p-price">$#{item.price}</em>
                                                                     <div class="ProductActionAdd" style="">
-                                                                        <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
+                                                                        <h:form>
+                                                                            <h:commandButton action="#{cartBean.addItem()}" value="Add To Cart" class="btn Small icon-Add To Cart" title="Add To Cart">
+                                                                                <f:setPropertyActionListener target="#{cartBean.productId}" value="#{item.id}" />
+                                                                            </h:commandButton>
+                                                                        </h:form>
                                                                     </div>
                                                                 </li>
                                                             </c:forEach>
