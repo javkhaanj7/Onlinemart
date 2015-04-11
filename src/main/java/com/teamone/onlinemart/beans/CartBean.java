@@ -6,6 +6,7 @@
 
 package com.teamone.onlinemart.beans;
 
+import com.teamone.onlinemart.dao.ProductDAO;
 import com.teamone.onlinemart.models.CartItem;
 import com.teamone.onlinemart.models.Product;
 import java.io.Serializable;
@@ -39,11 +40,41 @@ public class CartBean implements Serializable {
     }
     
     public String addItem() {
-        if(getQuantity() > 0) {
-            boolean e = false;
-            
+        if(getQuantity() >= 0) {
+            if(getQuantity() == 0) setQuantity(1);
+            // Get product equipped with the id
+            Product product = ProductDAO.getById(getProductId());
+            // Does the item already exist?
+            boolean exists = false;
+            for(CartItem item : items) {
+                if(item.getProduct().getId() == product.getId()) {
+                    item.incementQuantity(getQuantity());
+                    exists = true;
+                    break;
+                }
+            }
+            if(!exists) {
+                items.add(new CartItem(product, getQuantity()));
+            }
         }
-        return "home";
+        // Reset params
+        setProductId(0);
+        setQuantity(0);
+        return "";
+    }
+    
+    public String removeProduct(int id) {
+        Product product = ProductDAO.getById(id);
+        CartItem itemToBeRemoved = null;
+        for(CartItem item : items) {
+            if(item.getProduct().getId() == product.getId()) {
+                // Exists
+                itemToBeRemoved = item;
+                break;
+            }
+        }
+        items.remove(itemToBeRemoved);
+        return "order/checkout";
     }
     
     public List<CartItem> getCartContent() {
