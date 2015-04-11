@@ -16,6 +16,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -298,6 +300,18 @@ public class ProductBean implements Serializable {
 
     public Product getByProduct(int id) {
         return ProductDAO.getById(id);
+    }
+    
+    public ArrayList<Product> getAllVendorProductList(int id){
+        return ProductDAO.getAllVendorProducts(id);
+    }
+    
+    public ArrayList<Product> getAllProductList() {
+        return new ArrayList<Product>(Arrays.asList(ProductDAO.getAll()));
+    }
+    
+    public ArrayList<Product> getCategoryProductList(int id) {
+        return new ArrayList<Product>(Arrays.asList(ProductDAO.findByCategory(id)));
     }
 
 }
