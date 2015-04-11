@@ -31,6 +31,7 @@
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <h:outputScript library="javascript" name="jquery.zoomie.js" />
         <h:outputScript library="javascript" name="jquery.noty.packaged.min.js" />
+         <h:outputScript library="javascript" name="payment.js" />
 
         <script>
             // noty
@@ -63,7 +64,7 @@
                 });
                 
                 <c:if test="${cartBean.success}">
-                    notify('You successfully added this product to your shopping cart.');
+                    notify('You successfully added this product to shopping cart.');
                     ${cartBean.setSuccess(false)}
                 </c:if>
             });

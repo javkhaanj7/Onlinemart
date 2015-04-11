@@ -15,7 +15,7 @@
                     <f:viewParam name="ven" value="#{productBean.ven}" />
                 </f:metadata>
             </ui:define>
-            
+
             <ui:define name="content">
                 <div class="main">
                     <div class="inner">
@@ -86,8 +86,114 @@
                             <div class="Block Moveable Panel" id="SideCategoryShopByPrice" style="display:none;"></div>
                         </div>
                         <div class="Content Widest" id="LayoutColumn1">
-                            #{productBean.ven}<br/>
-                            #{productBean.cat}
+                            <div class="Block Moveable Panel Breadcrumb desktop" id="CategoryBreadcrumb">
+                                <ul>
+                                    <li><a href="#{request.contextPath}">Home</a></li>
+                                    <c:choose>
+                                        <c:when test="#{productBean.cat != 0}">
+                                            <c:if test="#{category.getByCategory(productBean.cat) != null and category.getByCategory(category.getByCategory(productBean.cat).parentId) != null}">
+                                                <li><a href="#{request.contextPath}/category/content.xhtml?cat=#{category.getByCategory(category.getByCategory(productBean.cat).parentId).categoryId}&amp;ven=0">#{category.getByCategory(category.getByCategory(productBean.cat).parentId).name}</a></li>
+                                            </c:if>
+                                            <li>#{category.getByCategory(productBean.cat).name}</li>
+                                        </c:when>
+                                        <c:when test="#{productBean.ven == -1}">
+                                            <li>All Brands</li>
+                                        </c:when>
+                                        <c:when test="#{productBean.ven > 0}">
+                                            <li>#{vendorBean.getByVendor(productBean.ven).vendorName}</li>
+                                        </c:when>
+                                    </c:choose>
+                                </ul>
+                            </div>
+                            <div class="productlist-page">
+                                <c:choose>
+                                    <c:when test="#{productBean.cat != 0}">
+                                        <div id="CategoryHeading">
+                                            <div class="CategoryDescription">#{category.getByCategory(productBean.cat).description}</div>
+                                            <h1 class="TitleHeading">#{category.getByCategory(productBean.cat).name}</h1>
+                                        </div>
+                                    </c:when>
+                                    <c:when test="#{productBean.ven == -1}">
+                                        <h1 class="TitleHeading">All Brands</h1>
+                                    </c:when>
+                                    <c:when test="#{productBean.ven > 0}">
+                                        <h1 class="TitleHeading">#{vendorBean.getByVendor(productBean.ven).vendorName}</h1>
+                                    </c:when>
+                                </c:choose>
+                                <div class="Content Wide ">
+                                    <div class="Block CategoryContent Moveable Panel">
+                                        <c:choose>
+                                            <c:when test="#{productBean.cat != 0}">
+                                                <c:set var="categorypro" value="#{productBean.getCategoryProductList(productBean.cat)}" />
+                                                <c:set var="cheight" value="#{(categorypro.size()/4) + (1 - ((categorypro.size()/4)%1)) % 1}" />
+                                                <ul class="ProductList" style="position: relative; height: #{390 * cheight}px;">
+                                                    <c:forEach var="item" items="#{categorypro}" varStatus="loop">
+                                                        <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{((((loop.index + 1)/4)+(1-(((loop.index + 1)/4)%1))%1) - 1) * 390}px;">
+                                                            <div class="ProductImage">
+                                                                <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" style="height: 250px;">
+                                                                    <h:graphicImage library="images" name="#{item.imagePath}"/>
+                                                                </a>
+                                                            </div>
+                                                            <div class="ProductDetails" style="min-height: 26px;">
+                                                                <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" class="pname">#{item.name}</a>
+                                                            </div>
+                                                            <em class="p-price">$#{item.price}</em>
+                                                            <div class="ProductActionAdd" style="">
+                                                                <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
+                                                            </div>
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:when>
+                                            <c:when test="#{productBean.ven == -1}">
+                                                <c:set var="allvendorpro" value="#{productBean.allProductList}" />
+                                                <c:set var="cheight" value="#{(allvendorpro.size()/4) + (1 - ((allvendorpro.size()/4)%1)) % 1}" />
+                                                <ul class="ProductList" style="position: relative; height: #{390 * cheight}px;">
+                                                    <c:forEach var="item" items="#{allvendorpro}" varStatus="loop">
+                                                        <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{((((loop.index + 1)/4)+(1-(((loop.index + 1)/4)%1))%1) - 1) * 390}px;">
+                                                            <div class="ProductImage">
+                                                                <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" style="height: 250px;">
+                                                                    <h:graphicImage library="images" name="#{item.imagePath}"/>
+                                                                </a>
+                                                            </div>
+                                                            <div class="ProductDetails" style="min-height: 26px;">
+                                                                <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" class="pname">#{item.name}</a>
+                                                            </div>
+                                                            <em class="p-price">$#{item.price}</em>
+                                                            <div class="ProductActionAdd" style="">
+                                                                <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
+                                                            </div>
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:when>
+                                            <c:when test="#{productBean.ven > 0}">
+                                                <c:set var="allvendorpro" value="#{productBean.getAllVendorProductList(productBean.ven)}" />
+                                                <c:set var="cheight" value="#{(allvendorpro.size()/4) + (1 - ((allvendorpro.size()/4)%1)) % 1}" />
+                                                <ul class="ProductList" style="position: relative; height: #{390 * cheight}px;">
+                                                    <c:forEach var="item" items="#{allvendorpro}" varStatus="loop">
+                                                        <li style="min-height: 370px; position: absolute; left: #{loop.index % 4 == 0 ? 0 : (((loop.index) % 4) * 240)}px; top: #{((((loop.index + 1)/4)+(1-(((loop.index + 1)/4)%1))%1) - 1) * 390}px;">
+                                                            <div class="ProductImage">
+                                                                <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" style="height: 250px;">
+                                                                    <h:graphicImage library="images" name="#{item.imagePath}"/>
+                                                                </a>
+                                                            </div>
+                                                            <div class="ProductDetails" style="min-height: 26px;">
+                                                                <a href="#{request.contextPath}/product/details.xhtml?pro=#{item.id}" class="pname">#{item.name}</a>
+                                                            </div>
+                                                            <em class="p-price">$#{item.price}</em>
+                                                            <div class="ProductActionAdd" style="">
+                                                                <a href="#" class="btn Small icon-Add To Cart" title="Add To Cart">Add To Cart</a>
+                                                            </div>
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:when>
+                                        </c:choose>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
                         </div>
                         <div class="clear"></div>
                     </div>
