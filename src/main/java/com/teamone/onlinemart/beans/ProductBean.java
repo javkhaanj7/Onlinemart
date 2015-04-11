@@ -40,7 +40,16 @@ public class ProductBean implements Serializable {
     private int pro;
     private int ven;
     private int cat;
+    private String search_query;
 
+    public String getSearch_query() {
+        return search_query;
+    }
+
+    public void setSearch_query(String search_query) {
+        this.search_query = search_query;
+    }
+    
     public int getPro() {
         return pro;
     }
@@ -312,6 +321,10 @@ public class ProductBean implements Serializable {
     
     public ArrayList<Product> getCategoryProductList(int id) {
         return new ArrayList<Product>(Arrays.asList(ProductDAO.findByCategory(id)));
+    }
+    
+    public ArrayList<Product> getSearchProductList(String searchText) {
+        return ProductDAO.searchProductsByName(searchText);
     }
 
 }

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <body>
         <ui:composition>
             <div class="header">
@@ -29,12 +29,14 @@
                                 </li>
                             </ul>
                             <div id="SearchForm">
-                                <form action="#" method="get" onsubmit="">
+                                <form action="#{request.contextPath}/category/content.xhtml" method="get">
                                     <label for="search_query">Search</label>
                                     <button type="submit" class="Button" value="" name="Search" title="Search">
                                         <i class="fa fa-search"></i> 
                                     </button>
                                     <input type="text" name="search_query" id="search_query" class="Textbox autobox default" value="Search" autocomplete="off" />
+                                    <input type="hidden" name="cat" id="cat" class="Textbox autobox default" value="0" />
+                                    <input type="hidden" name="ven" id="ven" class="Textbox autobox default" value="0" />
                                 </form>
                             </div>
                         </div>
