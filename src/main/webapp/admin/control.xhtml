@@ -6,17 +6,19 @@
     <h:body>
         <ui:composition template="/template/common/commonLayout.xhtml">
             <ui:define name="content">
-                <div style="margin-left: 70px">
-                    <h4>Administration control panel</h4>
-                    <p style="margin-left: 30px">
-                        <h:link value="Category control" outcome="/category/list.xhtml"/>
-                    </p>
-                    <p style="margin-left: 30px">
-                        <h:link value="Product control" outcome="/product/list.xhtml"/>
-                    </p>
-                    <p style="margin-left: 30px">
-                        <h:link value="Report" outcome="/report/main.xhtml"/>
-                    </p>
+                <div class="main">
+                    <div style="margin-left: 70px">
+                        <h4>Administration control panel</h4>
+                        <p style="margin-left: 30px">
+                            <h:link value="Category control" outcome="/category/list.xhtml"/>
+                        </p>
+                        <p style="margin-left: 30px">
+                            <h:link value="Product control" outcome="/product/list.xhtml"/>
+                        </p>
+                        <p style="margin-left: 30px">
+                            <h:link value="Report" outcome="/report/main.xhtml"/>
+                        </p>
+                    </div>
                 </div>
             </ui:define>
         </ui:composition>
