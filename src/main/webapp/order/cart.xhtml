@@ -131,55 +131,38 @@
                                                                         <a href="#EstimateShippingId" id="EstimateShippingId2" class="EstimateShippingLink btn alt Small nav-toggle" style="display: inline-block;">Estimate Shipping &amp; Tax</a>
                                                                         <div id="EstimateShippingId" class="EstimateShipping" style="display: none;">
 
-                                                                            <h:form>
-                                                                                <div class="FormContainer HorizontalFormContainer">
-                                                                                    <dl>
-                                                                                        <span class="error_list"></span>
-                                                                                        <dt><span class="Required">*</span> Address</dt>
-                                                                                        <dd> <h:inputText id="address" label="address" value="" p:placeholder="Address" size="40" required="true" 
-                                                                                                          requiredMessage="Please enter your address." class="Textbox Field200">
-                                                                                                <f:validateRequired/>
-                                                                                            </h:inputText>
-                                                                                            <h:message for="address" class="error"/>
-                                                                                        </dd>
-                                                                                        <dt><span class="Required">*</span> City</dt>
-                                                                                        <dd> <h:inputText id="city" label="city" value="" p:placeholder="City" size="40" required="true" 
-                                                                                                          requiredMessage="Please enter your city." class="Textbox Field200" >
-
-                                                                                            </h:inputText>
-                                                                                            <h:message for="address" class="error"/>                                
-                                                                                        </dd>
-                                                                                        <dt><span class="Required">*</span> State</dt>
-                                                                                        <dd><h:inputText id="state" label="state" value="" p:placeholder="State" size="40" required="true" 
-                                                                                                         requiredMessage="Please enter your state." class="Textbox Field200">
-                                                                                                <f:validateRequired/>
-                                                                                            </h:inputText>
-                                                                                            <h:message for="state" class="error"/>   
-                                                                                        </dd>
+                                                                            
+                                                                            <div class="FormContainer HorizontalFormContainer">
+                                                                                <dl>
+                                                                                    <span class="error_list"></span>
+                                                                                    <dt><span class="Required">*</span> Address</dt>
+                                                                                    <dd> <input type="text" id="address" label="address" value="" size="40" class="Textbox Field200"/>
+                                                                                        
+                                                                                    </dd>
+                                                                                    <dt><span class="Required">*</span> City</dt>
+                                                                                    <dd> <input type="text" id="city" label="city" value="" size="40" class="Textbox Field200" />
+                                                                                    </dd>
+                                                                                    <dt><span class="Required">*</span> State</dt>
+                                                                                    <dd><input type="text" id="state" label="state" value="" size="40" class="Textbox Field200"/>
+                                                                                    </dd>
 
 
-                                                                                        <dt><span class="Required">*</span> ZIP code</dt>
-                                                                                        <dd><h:inputText id="zipcode" label="zipcode" value="" p:placeholder="Zipcode" size="40" required="true" 
-                                                                                                         requiredMessage="Please enter your zipcode." class="Textbox Field200">
-                                                                                                <f:validateRequired/>
-                                                                                            </h:inputText>
-                                                                                            <h:message for="zipcode" class="error"/>  
-                                                                                        </dd>
+                                                                                    <dt><span class="Required">*</span> ZIP code</dt>
+                                                                                    <dd><input type="text" id="zipcode" label="zipcode" value="" size="40" class="Textbox Field200"/>
+                                                                                    </dd>
 
-                                                                                        <dt><span class="Required">*</span> Country</dt>
-                                                                                        <dd><h:inputText id="country" label="country" value="" p:placeholder="Country" size="40" 
-                                                                                                         requiredMessage="Please enter country." class="Textbox Field200" >
-                                                                                            </h:inputText>
-                                                                                            <h:message for="country" class="error"/>  
-                                                                                        </dd>
-                                                                                        <dt></dt>
-                                                                                        <dd class="Submit EstimateShippingButtons">
-                                                                                            <h:link value="Estimate Shipping &amp; Tax" outcome="/vendor/payment" class="btn alt Small" ></h:link>&nbsp;&nbsp;&nbsp;
-                                                                                            <a href="#" onclick="javascript:document.getElementById('EstimateShippingId2').click();" class="txt-link alt">Cancel</a>
-                                                                                        </dd>
-                                                                                    </dl>
-                                                                                </div>
-                                                                            </h:form>
+                                                                                    <dt><span class="Required">*</span> Country</dt>
+                                                                                    <dd><input type="text" id="country" label="country" value="" size="40" class="Textbox Field200" />
+                                                                                        
+                                                                                    </dd>
+                                                                                    <dt></dt>
+                                                                                    <dd class="Submit EstimateShippingButtons">
+                                                                                        <h:link value="Estimate Shipping &amp; Tax" outcome="/vendor/payment" class="btn alt Small" ></h:link>&nbsp;&nbsp;&nbsp;
+                                                                                        <a href="#" onclick="javascript:document.getElementById('EstimateShippingId2').click();" class="txt-link alt">Cancel</a>
+                                                                                    </dd>
+                                                                                </dl>
+                                                                            </div>
+                                                                            
 
                                                                             <div class="EstimatedShippingMethods" style="display: none;">
                                                                                 <div class="ShippingMethodList">
