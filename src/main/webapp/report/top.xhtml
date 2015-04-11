@@ -11,16 +11,13 @@
 
     <script type="text/javascript">
         function rend() {
-            renderChart(#{reportBean.months}, #{reportBean.amounts},#{reportBean.quantities}, '', '');
+            renderChart(#{reportBean.names}, #{reportBean.topTen_Amounts},#{reportBean.solds}, '', '');
         }
         function renderChart(month, amounts, quantities, chartData, categories) {
-            console.log(month);
-            console.log(amounts);
-            console.log(quantities);
             var options = createOption(month, amounts, quantities, categories);
             var chart = new Highcharts.Chart(options);
         }
-        function createOption(months, amounts, quantities, categories) {
+        function createOption(names, amounts, quantities, categories) {
             var options = {
                 chart: {
                     renderTo: 'container',
@@ -35,7 +32,7 @@
                 xAxis: [{
 //                            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
 //                                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-                        categories: months
+                        categories: names
                     }],
                 yAxis: [{// Primary yAxis
                         labels: {
@@ -112,42 +109,35 @@
 
                 <div class="main">
                     <div style="margin-left: 70px">
-                        <h4>Main Report</h4>                    
+                        <h4>Top Ten Report</h4>                    
                         <h:form id="i">                            
                             <h:inputText id="startdate" class="zs" size="40" value="#{reportBean.startDate}" required="true"/>
                             <h:inputText id="enddate" class="ze" size="40" value="#{reportBean.endDate}" required="true"/>
-                            <span></span><h:commandButton value="Search" action="#{reportBean.search()}" class="btn Small" onclick="rend();"/>
+                            <span></span><h:commandButton value="Search" action="#{reportBean.searchTopTen()}" class="btn Small" onclick="rend();"/>
                         </h:form>
                         <div style="margin-top: 20px">
                             <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto; margin-right: 30px"></div>
                         </div>
                         <br/>
-                        <h:dataTable id="grid" style="margin-left: 30px" value="#{reportBean.mainList}" var="model">
+                        <h:dataTable id="grid" style="margin-left: 30px" value="#{reportBean.topTenList}" var="model">
                             <h:column>
                                 <f:facet name="header">No</f:facet>
-                                    #{reportBean.mainList.rowIndex + 1}
+                                    #{reportBean.topTenList.rowIndex + 1}
                             </h:column>
                             <h:column>
                                 <f:facet name="header">Year - Month</f:facet>
-                                    #{model.date}
+                                    #{model.product_name}
                             </h:column>
                             <h:column>
                                 <f:facet name="header">Quantities</f:facet>
-                                    #{model.total_quantity}
-                                <f:facet name="footer">
-                                    #{reportBean.sum_q}
-                                </f:facet>
+                                    #{model.sold_quantity}
                             </h:column>
                             <h:column>
                                 <f:facet name="header">Amounts</f:facet>
-                                    #{model.total_amount}
+                                    #{model.amount}
                                 <f:facet name="footer">
-                                    #{reportBean.sum_a}
+                                    #{reportBean.topTen_sum_a}
                                 </f:facet>
-                            </h:column> 
-                            <h:column>
-                                <f:facet name="header">Original Value</f:facet>
-                                    #{model.total_amount*10/8}
                             </h:column> 
                         </h:dataTable>
                     </div>
@@ -159,32 +149,27 @@
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript">
                                 $(document).ready(function () {
-                                    ByMonth();
+                                    ByDay();
                                     $('.zs').css("width", "auto");
                                     $('.ze').css("width", "auto");
-                                    if (#{reportBean.months} != []) {
+                                    if (#{reportBean.names} != []) {
                                         rend();
                                     }
                                 });
-                                function ByMonth() {
+                                function ByDay() {
                                     $(".zs, .ze").datepicker("destroy");
-                                    if ($('.zs').val.length > 7) {
-                                        $('.zs').val($('.zs').val.substring(0, 7));
+                                    if ($('.zs').val.length > 10) {
+                                        $('.zs').val($('.zs').val.substring(0, 10));
                                     }
                                     if ($('.ze').val.length > 7) {
-                                        $('.ze').val($('.ze').val.substring(0, 7));
+                                        $('.ze').val($('.ze').val.substring(0, 10));
                                     }
                                     //$("#startdate, #enddate").val('');
                                     $('.zs, .ze').datepicker({
                                         changeMonth: true,
                                         changeYear: true,
                                         showButtonPanel: false,
-                                        dateFormat: 'yy-MM',
-                                        onClose: function (dateText, inst) {
-                                            var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                                            var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                                            $(this).val($.datepicker.formatDate('yy-mm', new Date(year, month, 1)));
-                                        }
+                                        dateFormat: 'yy-mm-dd'
                                     })
                                             .keypress(function (e) {
                                                 switch (e.keyCode) {
@@ -198,12 +183,7 @@
                                                 }
                                             });
                                     $('.zs, .ze').focus(function () {
-                                        $(".ui-datepicker-calendar").hide();
-                                        $("#ui-datepicker-div").position({
-                                            my: "center top",
-                                            at: "center bottom",
-                                            of: $(this)
-                                        });
+                                        $(".ui-datepicker-calendar").show();  
                                     });
                                 }
                                 ;

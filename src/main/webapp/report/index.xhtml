@@ -10,10 +10,15 @@
                 <div class="main">
                     <div style="margin-left: 70px">
                         <h4>Reports</h4>                    
-                        <h:form >                                                                               
-                            <h:link value="Report - Main" outcome="#{reportBean.main()}" />
+                        <h:form>
+                            <p style="margin-left: 30px">
+                                <h:link value="Main" outcome="#{reportBean.main()}" /><br/>
+                            </p>
+                            <p style="margin-left: 30px">
+                                <h:link value="Top 10 Products" outcome="#{reportBean.topTen()}" />
+                            </p>
                         </h:form>
-                    </div>
+                    </div>                    
                 </div>
             </ui:define>
         </ui:composition>
