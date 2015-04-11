@@ -63,9 +63,9 @@
                     });
                 });
                 
-                <c:if test="${cartBean.success}">
-                    notify('You successfully added this product to shopping cart.');
-                    ${cartBean.setSuccess(false)}
+                <c:if test="${cartBean.updated}">
+                    notify('The contents of your shopping cart have been successfully updated.');
+                    ${cartBean.setUpdated(false)}
                 </c:if>
             });
         </script>
