@@ -125,23 +125,6 @@
                                                             </tr>
                                                         </thead>
                                                         <tfoot>
-                                                            <tr class="SubTotal First" style="display: none">
-                                                                <td colspan="4" class="Even"><div><h4>Subtotal</h4></div></td>
-                                                                <td class="Odd"><div><span class="ProductPrice"><h4>$1,496.65</h4></span></div></td>
-                                                            </tr>
-
-                                                            <tr class="SubTotal Odd Even" style="display: none">
-                                                                <td colspan="4" class="Even"><div><h4>Gift Wrapping</h4></div></td>
-                                                                <td class="Odd"><div><span class="ProductPrice"><h4></h4></span></div></td>
-                                                            </tr>
-
-
-                                                            <tr class="SubTotal" style="display: none">
-                                                                <td colspan="4" class="Even"><div>Discount</div></td>
-                                                                <td class="Odd"><div><span class="ProductPrice"></span></div></td>
-                                                            </tr>
-
-
                                                             <tr class="SubTotal Odd Even" style="">
                                                                 <td colspan="5" class="Even">
                                                                     <div>
@@ -184,15 +167,14 @@
                                                                                         </dd>
 
                                                                                         <dt><span class="Required">*</span> Country</dt>
-                                                                                        <dd><h:inputText id="country" label="country" value="" p:placeholder="Country" size="40" required="true" 
+                                                                                        <dd><h:inputText id="country" label="country" value="" p:placeholder="Country" size="40" 
                                                                                                          requiredMessage="Please enter country." class="Textbox Field200" >
-                                                                                                <f:validateRequired/>
                                                                                             </h:inputText>
                                                                                             <h:message for="country" class="error"/>  
                                                                                         </dd>
                                                                                         <dt></dt>
                                                                                         <dd class="Submit EstimateShippingButtons">
-                                                                                            <h:commandButton action="#" value="Estimate Shipping &amp; Tax" class="btn alt Small"></h:commandButton>&nbsp;&nbsp;&nbsp;
+                                                                                            <h:link value="Estimate Shipping &amp; Tax" outcome="/vendor/payment" class="btn alt Small" ></h:link>&nbsp;&nbsp;&nbsp;
                                                                                             <a href="#" onclick="javascript:document.getElementById('EstimateShippingId2').click();" class="txt-link alt">Cancel</a>
                                                                                         </dd>
                                                                                     </dl>
@@ -217,7 +199,9 @@
                                                             <tr class="SubTotal Odd Even">
                                                                 <td colspan="4" class="Odd"><div><h3>Sub Total</h3></div></td>
                                                                 <td class="Even"><div><h3 class="ProductPrice">
-                                                                    $#{cartBean.totalAmount()}
+                                                                    $<h:outputText value="#{cartBean.totalAmount()}">
+                                                                        <f:convertNumber pattern="#0.00" />
+                                                                    </h:outputText>
                                                                 </h3></div></td>
                                                             </tr>
 
@@ -225,7 +209,7 @@
                                                                 <td colspan="4" class="Odd"><div><h3>Tax (8%)</h3></div></td>
                                                                 <td class="Even"><div><h3 class="ProductPrice">
                                                                     <c:set value="#{cartBean.totalAmount() * 0.08}" var="taxAmount"/>
-                                                                    <h:outputText value="#{taxAmount}">
+                                                                    $<h:outputText value="#{taxAmount}">
                                                                         <f:convertNumber pattern="#0.00" />
                                                                     </h:outputText>
                                                                 </h3></div></td>
@@ -233,7 +217,11 @@
 
                                                             <tr class="SubTotal gtotal Last">
                                                                 <td colspan="4" class="Odd"><div><h3>Grand Total</h3></div></td>
-                                                                <td class="Even"><div><h3 class="ProductPrice">$#{cartBean.totalAmount() + taxAmount}</h3></div></td>
+                                                                <td class="Even"><div><h3 class="ProductPrice">
+                                                                    $<h:outputText value="#{cartBean.totalAmount() + taxAmount}">
+                                                                        <f:convertNumber pattern="#0.00" />
+                                                                    </h:outputText>
+                                                                            </h3></div></td>
                                                             </tr>
                                                         </tfoot>
                                                         <tbody>
@@ -245,8 +233,7 @@
                                                                         <div class="CartExpectedReleaseDate" style="display: none;">()</div>
 
                                                                         <div style="" class="WrappingOptions">#{cartitem.product.description} <span style="display: none"> (<a href="#" class="alt" onclick="">Change</a> or <a href="" class="alt" onclick="">Remove</a>) </span> <br/>
-                                                                            <span style="display: none"> Gift Message:
-                                                                            </span> </div></td>
+                                                                        </div></td>
                                                                     <td align="center" class="CartItemQuantity Odd"> 
                                                                         <h:selectOneMenu value="#{cartitem.quantity}" class="Field45 quantityInput" style="">
                                                                             <c:forEach begin="1" end="30" var="i">
