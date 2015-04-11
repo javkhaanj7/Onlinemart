@@ -10,14 +10,14 @@ import com.teamone.onlinemart.models.MyFinance;
 import com.teamone.onlinemart.utils.Mail;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 
 /**
  *
  * @author javkhaa_j7
  */
 @ManagedBean(name = "paymentBean")
-@SessionScoped
+@RequestScoped
 public class PaymentBean {
     
     public PaymentBean(){
@@ -82,8 +82,9 @@ public class PaymentBean {
             new Mail().sendEmail("onlinemart.shopping@gmail.com", "onlinemart.shopping@gmail.com", "Your Onlinemart order", template);
             new Mail().sendEmail("onlinemart.shopping@gmail.com", "onlinemart.shopping@gmail.com", "Customer order request", template1);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
-        return "/";
+        return "/index?faces-redirect=true";
     }
 }

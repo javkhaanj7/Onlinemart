@@ -22,7 +22,12 @@ import javax.mail.internet.MimeMessage;
 public class Mail {
 
     Properties props = new Properties();
-    Session session = null;
+    Session session = Session.getInstance(props,
+            new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication("onlinemart.shopping", "onlinemartpass");
+                }
+            });
 
     public Mail() {
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -31,16 +36,6 @@ public class Mail {
                 "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
-        try {
-            session = Session.getDefaultInstance(props,
-            new javax.mail.Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("onlinemart.shopping", "onlinemartpass");
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     public void sendEmail(String from, String to, String subject, String msg) {
