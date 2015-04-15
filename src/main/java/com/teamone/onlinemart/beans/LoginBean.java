@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author javkhaa_j7
+ * @author JChimidregzen
  */
 @ManagedBean(name = "loginBean")
 //@SessionScoped
@@ -80,8 +80,9 @@ public class LoginBean implements Serializable {
  
     public String logout() {
       loggedIn = false;
-      HttpSession session = Util.getSession();
-      session.invalidate();
+//      HttpSession session = Util.getSession();
+//      session.invalidate();
+      FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
       return "/index?faces-redirect=true";
    }
 
