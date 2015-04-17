@@ -115,18 +115,8 @@ public class ProductBean implements Serializable {
     public void setCategoryBean(CategoryBean categoryBean) {
         this.categoryBean = categoryBean;
     }
-
-//    private void getList() {
-//        User u = (User) Util.getUser();
-//        if (u == null) {
-//            setProducts(ProductDAO.getAll());
-//        }else{
-//            setProducts(ProductDAO.getAllVendorProducts((int)u.getId()));
-//        }
-//    }
     //-------------------------------
     public String list() {
-//        getList();
         return "/product/list";
     }
 
@@ -148,10 +138,8 @@ public class ProductBean implements Serializable {
         int generated_id = ProductDAO.save(product);
         if (generated_id != -1) {
             product.setId(generated_id);
-//            getList();
             statusMsg = "Saved Successfully";
             productModel = new ArrayDataModel<Product>(ProductDAO.getAll());
-//            return "/product/list?faces-redirect=true";
             return "list?faces-redirect=true";
         } else {
             statusMsg = "Not success";
@@ -298,7 +286,6 @@ public class ProductBean implements Serializable {
 //        }
 //        return pagination;
 //    }
-//    private DataModel items = null;
     public Product[] getTopSelledList() {
         return ProductDAO.findTop(8);
     }

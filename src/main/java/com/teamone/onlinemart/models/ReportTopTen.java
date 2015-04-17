@@ -7,7 +7,7 @@ package com.teamone.onlinemart.models;
 
 /**
  *
- * @author Ichko
+ * @author Enkhbayar
  */
 public class ReportTopTen {
     private String product_name;

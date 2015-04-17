@@ -9,7 +9,7 @@ import javax.faces.model.DataModel;
 
 /**
  *
- * @author Ichko
+ * @author Enkhbayar
  */
 public abstract class PaginationHelper {
     private int pageSize;

@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  *
- * @author Ichko
+ * @author Enkhbayar
  */
 public class ReportDAO {
 

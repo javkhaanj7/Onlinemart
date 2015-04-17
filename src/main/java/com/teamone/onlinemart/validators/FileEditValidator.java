@@ -15,7 +15,7 @@ import javax.servlet.http.Part;
 
 /**
  *
- * @author Ichko
+ * @author Enkhbayar
  */
 @FacesValidator("FileEditValidator")
 public class FileEditValidator implements Validator {

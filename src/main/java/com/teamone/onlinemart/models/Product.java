@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Ichko
+ * @author Enkhbayar
  */
 public class Product implements Serializable{
     private int id;

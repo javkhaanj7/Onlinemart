@@ -20,7 +20,7 @@ import javax.faces.model.DataModel;
 
 /**
  *
- * @author Ichko
+ * @author Enkhbayar
  */
 @ManagedBean
 @RequestScoped
